@@ -57,6 +57,8 @@ Training data is **not** shipped as a downloadable corpus and is **not** read fr
 
 ### High-level architecture
 
+<img width="1680" height="1180" alt="High-level_arch" src="https://github.com/user-attachments/assets/b901b3c9-3f1f-4a85-bd37-22974af87890" />
+
 The system turns synthetic multi-lane documents into immutable tokenized `.npy` shards bound to 14-field manifests (tokenizer hash, content hash, license, eval-overlap gates). A curriculum compiler emits per-step mixture quotas with Always-On floors; OPUS records accept / reject / defer / floor_override decisions before packing. Five packing policies produce loss masks, attention masks, and position IDs for microbatches. A tiny causal LM trains while appending dual append-only JSONL ledgers (consumption + learning) and tiered PPL traces. Checkpoints store model/optim/sched/RNG state plus `ledger_offset` and `expected_next_batch_id`. The demo deliberately crashes, resumes the exact next batch, replays an earlier interval with matching hashes/spans, forks a branch, and writes a generated (not hardcoded) evidence bundle under `submission_artifacts/`.
 
 ## Smoke-scale configuration
