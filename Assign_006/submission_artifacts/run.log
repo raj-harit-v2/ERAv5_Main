@@ -1,0 +1,64 @@
+22:59:01 === Assign_006 Training Data Execution System ===
+22:59:01 run_id=run_29f41fa697 branch_id=main
+22:59:01 corpus generated lanes=['web', 'code', 'stem', 'reasoning', 'long_context', 'indic', 'agentic', 'eval', 'test']
+22:59:01 tokenizer class=LocalHashTokenizer hash=d95f6a6ceb273334
+22:59:01 shards created n=28
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_web_0000_732403c0 hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_web_0001_924a0c3e hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_web_0002_8edc1061 hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_web_0003_e3701007 hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_code_0000_0da3ddb0 hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_code_0001_da8284a2 hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_code_0002_fa5dcf43 hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_code_0003_c9354faa hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_stem_0000_e5851078 hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_stem_0001_7a770616 hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_stem_0002_07a18799 hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_stem_0003_6c454aef hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_reasoning_0000_0fe929d0 hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_reasoning_0001_da92f817 hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_reasoning_0002_768f8cf3 hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_reasoning_0003_8f3f9083 hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_long_context_0000_1e954379 hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_long_context_0001_9f499a60 hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_long_context_0002_28e246b0 hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_long_context_0003_d1f88df3 hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_indic_0000_006f488d hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_indic_0001_ff2248ac hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_indic_0002_89a51188 hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_indic_0003_c11677c7 hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_agentic_0000_3271aa59 hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_agentic_0001_5da5ad7a hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_agentic_0002_768137b9 hash=d95f6a6ceb273334
+22:59:01 [PASS] tokenizer_hash_verified shard=shard_agentic_0003_f6a29c2d hash=d95f6a6ceb273334
+22:59:01 manifests validated n=28
+22:59:01 [PASS] eval_shard_blocked shard_id=shard_eval_0000 reason=eval_overlap
+22:59:01 evaluation data blocked
+22:59:01 mixture compiled steps=26
+22:59:05 batches packed sample_policy=best_fit_packing util=0.734
+22:59:06 [WARN] initial_loss_deviates loss=41.8915 expected_ln_v=6.2383
+22:59:06 [PASS] checkpoint_saved step=9 checkpoint_id=checkpoint_000009
+22:59:06 [PASS] checkpoint_saved step=11 checkpoint_id=checkpoint_000011
+22:59:06 [CRASH] SimulatedCrash at step=12
+22:59:06 crash simulated expected_next=run_29f41fa697:12:0
+22:59:06 [PASS] resume_next_batch_matched expected=run_29f41fa697:12:0 actual=run_29f41fa697:12:0
+22:59:06 run resumed from checkpoint_000011
+22:59:06 [WARN] initial_loss_deviates loss=14.0381 expected_ln_v=6.2383
+22:59:07 [PASS] checkpoint_saved step=19 checkpoint_id=checkpoint_000019
+22:59:07 OPUS decisions recorded statuses=['accepted', 'deferred', 'floor_override', 'rejected']
+22:59:07 [PASS] replay_hash_matched step=0 original=409cbabc529b batch=409cbabc529b
+22:59:07 historical stream replayed n=5
+22:59:07 branch forked new_branch_id=212712dd-21b6-483d-ad9a-006dd6660e64
+22:59:07 performance measured useful_tps=4043.10
+22:59:07 audit completed overall_pass=True
+22:59:08 [PASS] deep_diagnosis n_pass=21/21 ok=True
+22:59:08 --- Evidence Summary ---
+22:59:08 tokenizer_integrity: PASS (n_manifests=28; hashes_ok)
+22:59:08 eval_firewall: PASS (blocked_events=1)
+22:59:08 packing_correctness: PASS (max_utilization=1.000)
+22:59:08 mixture_compliance: PASS (actual_share={agentic:0.025, code:0.375, indic:0.084, long_context:0.088, reason)
+22:59:08 opus_audit_trail: PASS (statuses=['accepted', 'deferred', 'floor_override', 'rejected'])
+22:59:08 crash_recovery: PASS (expected=run_29f41fa697:12:0 actual=run_29f41fa697:12:0)
+22:59:08 replay: PASS (compared=5 original=409cbabc529b63113bfbc9250e5d703207a5b3dd7fb74871310935259c2a)
+22:59:08 learning_trace: PASS (n_learning_events=26)
+22:59:08 throughput: PASS (useful_tokens_per_second=4043.10)

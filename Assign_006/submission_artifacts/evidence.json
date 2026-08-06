@@ -1,0 +1,66 @@
+{
+  "run_id": "run_29f41fa697",
+  "overall_pass": true,
+  "results": {
+    "tokenizer_integrity": {
+      "status": "PASS",
+      "evidence_path": "manifests/",
+      "detail": "n_manifests=28; hashes_ok"
+    },
+    "eval_firewall": {
+      "status": "PASS",
+      "evidence_path": "ledgers/firewall.json",
+      "detail": "blocked_events=1"
+    },
+    "packing_correctness": {
+      "status": "PASS",
+      "evidence_path": "packed_batch_reports/|consumption_ledger.jsonl",
+      "detail": "max_utilization=1.000"
+    },
+    "mixture_compliance": {
+      "status": "PASS",
+      "evidence_path": "ledgers/consumption_ledger.jsonl",
+      "detail": "actual_share={agentic:0.025, code:0.375, indic:0.084, long_context:0.088, reasoning:0.025, stem:0.096, web:0.307}; max_abs_delta=0.12257344968611883"
+    },
+    "opus_audit_trail": {
+      "status": "PASS",
+      "evidence_path": "ledgers/opus_ledger.jsonl",
+      "detail": "statuses=['accepted', 'deferred', 'floor_override', 'rejected']"
+    },
+    "crash_recovery": {
+      "status": "PASS",
+      "evidence_path": "checkpoints/",
+      "detail": "expected=run_29f41fa697:12:0 actual=run_29f41fa697:12:0"
+    },
+    "replay": {
+      "status": "PASS",
+      "evidence_path": "ledgers/consumption_ledger.jsonl",
+      "detail": "compared=5 original=409cbabc529b63113bfbc9250e5d703207a5b3dd7fb74871310935259c2a543a replay=409cbabc529b63113bfbc9250e5d703207a5b3dd7fb74871310935259c2a543a"
+    },
+    "learning_trace": {
+      "status": "PASS",
+      "evidence_path": "ledgers/learning_ledger.jsonl",
+      "detail": "n_learning_events=26"
+    },
+    "throughput": {
+      "status": "PASS",
+      "evidence_path": "performance.json",
+      "detail": "useful_tokens_per_second=4043.10"
+    },
+    "fork_recorded": {
+      "status": "PASS",
+      "evidence_path": "ledgers/consumption_ledger.jsonl",
+      "detail": "{'event': 'fork', 'original_run_id': 'run_29f41fa697', 'original_checkpoint_id': 'checkpoint_000019', 'fork_step': 19, 'new_branch_id': '212712dd-21b6-483d-ad9a-006dd6660e64', 'parent_branch_id': 'main', 'ledger_offset': 37733}"
+    },
+    "initial_loss_sane": {
+      "status": "PASS",
+      "evidence_path": "ledgers/learning_ledger.jsonl",
+      "detail": "step0_loss=14.0381 ln_vocab=6.2383"
+    },
+    "ppl_trace_exists": {
+      "status": "PASS",
+      "evidence_path": "ppl_traces.json",
+      "detail": "exists=True"
+    }
+  }
+}

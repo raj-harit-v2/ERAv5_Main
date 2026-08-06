@@ -1,0 +1,24 @@
+Asgn06_cleanup.py
+My_futr_Ref/
+.venv/
+.cursor/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+dist/
+cache/
+.huggingface/
+*.pt
+.DS_Store
+r2cl_ssh*
+.env
+*.log
+!submission_artifacts/run.log
+
+# Regenerable run outputs — ignore tree, keep the three coach-linked files
+submission_artifacts/*
+!submission_artifacts/run.log
+!submission_artifacts/evidence.json
+!submission_artifacts/evidence.md
