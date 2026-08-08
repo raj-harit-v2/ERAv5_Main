@@ -22,3 +22,6 @@ submission_artifacts/*
 !submission_artifacts/run.log
 !submission_artifacts/evidence.json
 !submission_artifacts/evidence.md
+
+Assign_06_init_FULL_PROMPT.md
+
