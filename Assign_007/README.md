@@ -8,7 +8,7 @@ Our Fourier alternative maps each Unicode codepoint to a deterministic sin/cos w
 Ablation arms: Dense vs Kronecker vs Fourier, plus collision audits, per-stage corpus audits, and PNG figures. **Problem #4 only.**
 
 **How to run:** `uv run python run_demo.py`  
-**Coach:** [`demo_07/coach_demo/index.html`](demo_07/coach_demo/index.html)
+**Coach:** [`https://inspiring-frangollo-a2948b.netlify.app/`](https://inspiring-frangollo-a2948b.netlify.app/)
 
 ---
 
@@ -86,7 +86,7 @@ Primary metrics for Problem #4: collisions, discrimination, and `val_ce_hi`. Eng
 
 **Run outputs** (`submission_artifacts/`): `evidence.json`, `evidence.md`, `run.log`, `embedding_policy.json`, plus figures, stage audits, metrics, and diagnosis reports.
 
-**Coach / README figures** (`demo_07/figures/` — present on disk):
+**Coach / README figures** (`demo_07/coach_demo/figures/` — present on disk):
 
 ---
 
