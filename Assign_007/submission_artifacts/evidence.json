@@ -1,0 +1,133 @@
+{
+  "overall_pass": true,
+  "problem_id": 4,
+  "schema_version": "a07.4.2",
+  "primary_star_arm": "fourier_canine",
+  "gates": [
+    {
+      "name": "problem_id_locked",
+      "pass": true,
+      "detail": "problem_id=4"
+    },
+    {
+      "name": "fourier_policy_type",
+      "pass": true,
+      "detail": "fourier_codepoint_sum"
+    },
+    {
+      "name": "tokenizer_hash_present",
+      "pass": true,
+      "detail": "37b74fda18adfee3"
+    },
+    {
+      "name": "rope_position_policy",
+      "pass": true,
+      "detail": "rope"
+    },
+    {
+      "name": "collision_audit_written",
+      "pass": true,
+      "detail": "collision_report keys"
+    },
+    {
+      "name": "stage_audits_complete",
+      "pass": true,
+      "detail": "n=4"
+    },
+    {
+      "name": "ablation_ran",
+      "pass": true,
+      "detail": "dense,fourier,fourier_canine,kronecker"
+    },
+    {
+      "name": "figures_core_present",
+      "pass": true,
+      "detail": "['collision_heatmap_scripts.png', 'fourier_wave_composition.png', 'problem4_proof_metrics.png', 'stage_audit_dashboard.png']"
+    },
+    {
+      "name": "unicode_policy_requires_text",
+      "pass": true,
+      "detail": "seam-crossing declared"
+    },
+    {
+      "name": "canine_arm_present",
+      "pass": true,
+      "detail": "fourier_canine"
+    },
+    {
+      "name": "vq_gated_correctly",
+      "pass": true,
+      "detail": "ENABLE_VQ=False"
+    },
+    {
+      "name": "fourier_family_beats_kronecker_on_one_indic_metric",
+      "pass": true,
+      "detail": "star=fourier_canine hi_ce=0.6866 base_hi=0.6917 k=1.0378; disc=1.000/0.833; coll=0/1"
+    },
+    {
+      "name": "english_ce_soft_regression",
+      "pass": true,
+      "detail": "star_en=4.4029 k_en=1.0500 tol=1.5"
+    }
+  ],
+  "ablation_summary": {
+    "dense": {
+      "val_ce_all": 1.9094620943069458,
+      "val_ce_en": 3.179875135421753,
+      "val_ce_hi": 0.7088519334793091,
+      "discrimination_acc": 1.0,
+      "trainable_params": 165120,
+      "position_policy": "rope",
+      "mean_vq_loss": null
+    },
+    "kronecker": {
+      "val_ce_all": 1.0437262058258057,
+      "val_ce_en": 1.0500258207321167,
+      "val_ce_hi": 1.03777277469635,
+      "discrimination_acc": 0.8333333333333334,
+      "trainable_params": 263488,
+      "position_policy": "rope",
+      "mean_vq_loss": null
+    },
+    "fourier": {
+      "val_ce_all": 2.7441799640655518,
+      "val_ce_en": 4.916024684906006,
+      "val_ce_hi": 0.6916674375534058,
+      "discrimination_acc": 1.0,
+      "trainable_params": 165184,
+      "position_policy": "rope",
+      "mean_vq_loss": null
+    },
+    "fourier_canine": {
+      "val_ce_all": 2.49226975440979,
+      "val_ce_en": 4.402944087982178,
+      "val_ce_hi": 0.6865776777267456,
+      "discrimination_acc": 1.0,
+      "trainable_params": 706688,
+      "position_policy": "rope",
+      "mean_vq_loss": null
+    }
+  },
+  "figures": [
+    "param_memory_budget.png",
+    "v5_param_budget_reference.png",
+    "kronecker_byte_grid_example.png",
+    "fourier_wave_composition.png",
+    "pos_dim_truncation_bars.png",
+    "collision_heatmap_scripts.png",
+    "frozen_shift_grad_spike.png",
+    "stage_audit_dashboard.png",
+    "problem4_proof_metrics.png",
+    "train_val_loss_curves.png",
+    "upgrade_ladder_hi_ce.png"
+  ],
+  "n_stage_audits": 4,
+  "embedding_policy_id": "fourier_v1|code512|freq32|rope|canine=1|vq=0|untied|tok_37b74fda18ad",
+  "upgrades": {
+    "position_policy": "rope",
+    "fourier_canine": true,
+    "canine_stride": 2,
+    "vq_problem5_enabled": false,
+    "vq_num_codes": null
+  }
+}

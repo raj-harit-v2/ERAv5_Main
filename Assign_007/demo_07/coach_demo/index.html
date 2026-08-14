@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assign_007 Coach Demo — Problem #4 Fourier</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="kicker">ERA V5 · Assign_007 · Coach visual</div>
+    <h1>REAL Fourier alternative of Kronecker</h1>
+    <div class="nav">
+      <button class="on" data-p="fourier">1 · Fourier sum</button>
+      <button data-p="kron">2 · Kronecker vs Fourier</button>
+      <button data-p="evidence">3 · Evidence stats</button>
+      <button data-p="hrr">4 · HRR / VSA</button>
+      <button data-p="params">5 · Params / store</button>
+    </div>
+
+    <section class="panel on" id="p-fourier">
+      <h2>Fourier char waves → token code</h2>
+      <p class="hint">Each Unicode codepoint → sin/cos wave; sum + normalize → <code>code_dim=512</code> → Linear to d_model.</p>
+      <div class="card">
+        <img src="../figures/fourier_wave_composition.png" alt="Fourier wave composition" />
+      </div>
+      <div class="card">
+        <img src="../figures/anim_fourier_wave_sum_bharat.gif" alt="Animated Fourier wave sum Bharat" />
+        <p class="hint" style="margin-top:8px">
+          <b>Animation:</b> Deterministic codepoint waves compose by addition; only a shared Linear is learned — not a vocab row.
+          Example token: Bharat (<code>भारत</code>).
+        </p>
+      </div>
+      <div class="card">
+        <img src="../figures/anim_fourier_compare_apple_affle.gif" alt="Animated Apple vs Affle Fourier compare" />
+        <p class="hint" style="margin-top:8px">
+          <b>Animation:</b> Near-spelling pairs (Apple vs Affle) stay related but not identical under the same Fourier codec —
+          compositional structure without a table lookup. Does <em>not</em> claim English CE victory.
+        </p>
+      </div>
+    </section>
+
+    <section class="panel" id="p-kron">
+      <h2>Kronecker byte×pos vs Fourier</h2>
+      <p class="hint">Indic UTF-8 burns Kronecker’s 32-byte window; Fourier composes on codepoints (collision groups 0 vs 1 at pos32 on our corpus).</p>
+      <div class="card">
+        <img src="../figures/anim_kronecker_vs_fourier_indic.gif" alt="Animated Kronecker vs Fourier Indic" />
+        <p class="hint" style="margin-top:8px">
+          <b>Animation:</b> Byte×pos windows burn ~3 bytes per Devanagari character; Fourier codes on Unicode codepoints avoid that grid.
+        </p>
+      </div>
+      <div class="split">
+        <div class="card"><img src="../figures/kronecker_byte_grid_example.png" alt="Kronecker grid" /></div>
+        <div class="card"><img src="../figures/collision_heatmap_scripts.png" alt="Collision heatmap" /></div>
+      </div>
+    </section>
+
+    <section class="panel" id="p-evidence">
+      <h2>Evidence scoreboard (smoke run)</h2>
+      <p class="hint">Indic wins (collisions + discrimination + hi_ce). English CE is weaker on smoke — not the Problem #4 claim.</p>
+      <div class="card">
+        <p><b>Overall:</b> <span class="ok">PASS</span> · problem_id=4 · star=<code>fourier_canine</code> · schema=a07.4.2</p>
+        <table>
+          <tr><th>Arm</th><th>val_ce_hi</th><th>val_ce_en</th><th>disc</th><th>params</th></tr>
+          <tr><td>dense</td><td>0.767</td><td>3.019</td><td>1.000</td><td>165120</td></tr>
+          <tr><td>kronecker</td><td>1.028</td><td>1.062</td><td>0.833</td><td>263488</td></tr>
+          <tr><td>fourier</td><td>0.762</td><td>4.845</td><td>0.917</td><td>165184</td></tr>
+          <tr><td>fourier_canine</td><td>0.759</td><td>5.078</td><td>1.000</td><td>706688</td></tr>
+        </table>
+        <p class="hint" style="margin-top:10px">Collisions @ Kronecker pos32: 1 group · Fourier: 0. Discrimination star 1.0 vs Kronecker 0.833.</p>
+        <img src="../figures/problem4_proof_metrics.png" alt="Proof metrics" style="margin-top:12px" />
+        <p class="hint" style="margin-top:8px">
+          <b>P15:</b> Problem #4 scoreboard — Hindi CE (lower better) and discrimination accuracy.
+          Lead here + collisions; English CE on smoke is weaker and is not the claim.
+        </p>
+        <img src="../figures/param_memory_budget.png" alt="Param budget" style="margin-top:12px" />
+        <p class="hint" style="margin-top:8px">
+          <b>P03:</b> Trainable params and AdamW memory by arm — compositional codecs avoid a giant vocab table,
+          not a claim that Fourier is always the smallest smoke LM.
+        </p>
+      </div>
+    </section>
+
+    <section class="panel" id="p-hrr">
+      <h2>HRR / VSA (Fourier-domain bind)</h2>
+      <p class="hint">Circular convolution via FFT — fixed dim N (not N²). S3 math is symbolic role-filler, not Problem #1 numeric ALU.</p>
+      <div class="split">
+        <div class="card"><img src="../figures/vsa_math_role_heatmap.png" alt="Math role heatmap" /></div>
+        <div class="card"><img src="../figures/vsa_capacity_curve.png" alt="Capacity curve" /></div>
+      </div>
+    </section>
+
+    <section class="panel" id="p-params">
+      <h2>Parameters: Store · encode · head</h2>
+      <p class="hint">
+        Reference: dense <code>131,072 × 8,096 = 1,061,158,912</code> input params.
+        Our Fourier path does <em>not</em> store that table — encode is deterministic <code>f(text)</code> then a small Linear.
+        The <code>8,096 × 131,072</code> shape is the output head (logits over vocab).
+      </p>
+      <div class="card">
+        <img src="../figures/anim_dense_vs_fourier_params.gif" alt="Animated dense table vs Fourier params" />
+        <p class="hint" style="margin-top:8px">
+          <b>Animation:</b> Dense gather from a stored V×D table → Fourier char-wave sum + Linear(code→D) →
+          separate D×V head for prediction (not #4 reverse decode).
+        </p>
+      </div>
+      <div class="card">
+        <img src="../figures/v5_param_budget_reference.png" alt="V5 reference param budget" />
+        <p class="hint" style="margin-top:8px">
+          <b>Reference accounting (no giant tensor):</b> dense ~1.06B vs Kronecker/Fourier projections ~66M.
+          Smoke proof still trains at V=512, D=64 — this chart is the session memory story, not our run sizes.
+        </p>
+      </div>
+      <div class="card">
+        <p class="hint" style="margin:0">
+          <b>Store:</b> Fourier keeps <code>Linear(code_dim → d_model)</code> (+ optional CANINE), not a vocab row.<br />
+          <b>Encode:</b> Unicode waves → sum → z-norm → project → emb ∈ R<sup>D</sup>.<br />
+          <b>Head / “invert”:</b> D×V logits ≠ recovering characters from the embedding (that is #5).
+        </p>
+      </div>
+    </section>
+  </div>
+  <script>
+    document.querySelectorAll(".nav button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".nav button").forEach((b) => b.classList.remove("on"));
+        btn.classList.add("on");
+        document.querySelectorAll(".panel").forEach((p) => p.classList.remove("on"));
+        document.getElementById("p-" + btn.dataset.p).classList.add("on");
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+[20:32:44] START Assign_007 Problem #4 Fourier demo (local)
+[20:32:44] corpus_built
+[20:32:44] tokenizer_hashed 37b74fda18adfee3
+[20:32:44] eval_firewall_noted blocked_candidates=16
+[20:32:44] policy_emitted
+[20:32:44] collision_audit_done
+[20:32:44] stage_audits_written
+[20:32:44] train_dense/kronecker/fourier/canine starting (RoPE LM; VQ gated off)
+[20:34:27] train_dense_done
+[20:34:27] train_kronecker_done
+[20:34:27] train_fourier_done
+[20:34:27] train_fourier_canine_done
+[20:34:27] vq_problem5_skipped (ASSIGN007_ENABLE_VQ=0)
+[20:34:29] figures_written param_memory_budget.png,v5_param_budget_reference.png,kronecker_byte_grid_example.png,fourier_wave_composition.png,pos_dim_truncation_bars.png,collision_heatmap_scripts.png,frozen_shift_grad_spike.png,stage_audit_dashboard.png,problem4_proof_metrics.png,train_val_loss_curves.png,upgrade_ladder_hi_ce.png
+[20:34:29] evidence_built
+[20:34:29] Overall evidence: PASS
+[20:34:29] vsa_deep_diagnosis_done pass=30/30 critical_ok=True

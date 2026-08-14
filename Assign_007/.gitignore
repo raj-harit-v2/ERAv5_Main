@@ -1,0 +1,23 @@
+.venv/
+.cursor/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+dist/
+cache/
+.huggingface/
+*.pt
+*.pth
+.DS_Store
+.env
+*.log
+!submission_artifacts/run.log
+
+# Regenerable run outputs — keep coach evidence trio if present
+submission_artifacts/*
+!submission_artifacts/run.log
+!submission_artifacts/evidence.json
+!submission_artifacts/evidence.md
+

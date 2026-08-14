@@ -1,0 +1,81 @@
+/* Coach demo — static CSS only; subtle motion on panels (no GIF). */
+:root {
+  --ink: #152033;
+  --muted: #65758b;
+  --line: #d9e2ef;
+  --cyan: #0891b2;
+  --green: #159447;
+  --bg: #f4f8fc;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Segoe UI", "Nirmala UI", system-ui, sans-serif;
+  color: var(--ink);
+  background: linear-gradient(180deg, #f8fbff, #e8f1f8);
+}
+.wrap {
+  width: min(1176px, 96vw); /* was 980px — ~20% wider canvas */
+  max-width: 1176px;
+  margin: 0 auto;
+  padding: 22px 20px 48px;
+}
+.kicker { font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--cyan); }
+h1 { margin: 6px 0 8px; font-size: 28px; }
+.sub { color: var(--muted); line-height: 1.5; margin: 0 0 18px; max-width: 984px; }
+.nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.nav button {
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+}
+.nav button.on, .nav button:hover { border-color: var(--cyan); background: #ecfeff; }
+.panel { display: none; }
+.panel.on { display: block; animation: rise .35s ease; }
+@keyframes rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.card {
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 10px 24px rgba(20,42,75,.06);
+  margin-top: 10px;
+}
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: #fff;
+  display: block;
+  animation: fadein .8s ease;
+}
+@keyframes fadein {
+  from { opacity: .35; }
+  to { opacity: 1; }
+}
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { border-bottom: 1px solid var(--line); padding: 7px 4px; text-align: left; }
+.ok { color: var(--green); font-weight: 700; }
+.hint { color: var(--muted); font-size: 13px; line-height: 1.5; }
+.cmd {
+  font-family: ui-monospace, Consolas, monospace;
+  background: #0b1220;
+  color: #e2e8f0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+@media (max-width: 900px) {
+  .wrap { width: 100%; max-width: 100%; padding: 16px 12px 40px; }
+  .split { grid-template-columns: 1fr; }
+}
