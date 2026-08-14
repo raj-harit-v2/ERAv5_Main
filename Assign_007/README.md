@@ -42,7 +42,11 @@ One token → one length-512 code; a sentence is a **sequence** of codes.
 
 **HRR / VSA:** FFT circular convolution at fixed `HRR_DIM=2048` for bind/unbind checks. Verification layer — not the default LM embed path.
 
-<img width="800" height="550" alt="High-level_arch" src="vvvvv" />
+<img width="850" height="500" alt="anim_kronecker_vs_fourier_indic" src="https://github.com/user-attachments/assets/f572b8fa-b28e-4c37-8d3c-3ad5088bf95e" />
+
+<img width="1400" height="650" alt="Fourier_store-encode" src="https://github.com/user-attachments/assets/27c9e8ed-6798-497a-bb9e-dbef2951f4ec" />
+
+<img width="1400" height="861" alt="Apple_chk" src="https://github.com/user-attachments/assets/afb7136f-2f6e-4269-bb4f-8129f4299f50" />
 
 ---
 
