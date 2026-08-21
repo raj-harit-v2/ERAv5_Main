@@ -18,9 +18,9 @@ See [`TEACHING_ORDER.md`](TEACHING_ORDER.md).
 | 7 | 2 | linear_attention | 29-Jun-2020 | Katharopoulos et al. — Transformers are RNNs (linear attention) | [url](https://arxiv.org/abs/2006.16236) |
 | 8 | 8 | rope | 20-Apr-2021 | Su et al. — RoFormer / Rotary Position Embedding | [url](https://arxiv.org/abs/2104.09864) |
 | 9 | 10 | alibi | 27-Aug-2021 | Press, Smith, Lewis — Train Short, Test Long (ALiBi) | [url](https://arxiv.org/abs/2108.12409) |
-| 10 |  | flash_attention <span style="background:#fde047;color:#0c1018;font-weight:700">missing</span> | 27-May-2022 | Dao et al. — FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness | [url](https://arxiv.org/abs/2205.14135) |
+| 10 |  | flash_attention <span style="background:#fde047;color:#0c1018;font-weight:700">    **missing** </span> | 27-May-2022 | Dao et al. — FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness | [url](https://arxiv.org/abs/2205.14135) |
 | 11 | 13 | gqa | 22-May-2023 | Ainslie et al. — GQA: Training Generalized Multi-Query Attention | [url](https://arxiv.org/abs/2305.13245) |
-| 12 |  | position_interpolation <span style="background:#fde047;color:#0c1018;font-weight:700">missing</span> | 27-Jun-2023 | Chen et al. — Extending Context Window of Large Language Models via Positional Interpolation | [url](https://arxiv.org/abs/2306.15595) |
+| 12 |  | position_interpolation <span style="background:#fde047;color:#0c1018;font-weight:700">    **missing** </span> | 27-Jun-2023 | Chen et al. — Extending Context Window of Large Language Models via Positional Interpolation | [url](https://arxiv.org/abs/2306.15595) |
 | 13 | 16 | ntk_scaling | 29-Jun-2023 | bloc97 — NTK-Aware Scaled RoPE | [url](https://www.reddit.com/r/LocalLLaMA/comments/14lz7j5/ntkaware_scaled_rope_allows_llama_models_to_have) |
 | 14 | 17 | yarn | 31-Aug-2023 | Peng et al. — YaRN: Efficient Context Window Extension | [url](https://arxiv.org/abs/2309.00071) |
 | 15 | 11 | drope | 31-Aug-2023 | YaRN paper — V4 DroPE extension-factor story (not Sakana drop-PE) | [url](https://arxiv.org/abs/2309.00071) |
