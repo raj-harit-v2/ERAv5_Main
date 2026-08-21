@@ -7,6 +7,7 @@ __pycache__/
 *.egg-info/
 submission_artifacts/*
 !submission_artifacts/.gitkeep
+!submission_artifacts/Q2_TIMELINE_NOTE.md
 demo_08/coach_demo/figures/*
 !demo_08/coach_demo/figures/.gitkeep
 uv.lock
