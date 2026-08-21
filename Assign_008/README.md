@@ -2,7 +2,7 @@
 
 Clinical smoke package + static chronology wall for ERA V5 Assignment §18. Graded narrative surface is the launch-date timeline; teaching tour and PyTorch smoke pipeline are supporting artifacts.
 
-**Netlify publish :** https://subtle-phoenix-49865a.netlify.app/
+**Netlify publish :** 
 
 ---
 
