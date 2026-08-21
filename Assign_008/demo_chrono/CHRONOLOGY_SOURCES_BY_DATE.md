@@ -1,0 +1,24 @@
+# Chronology sources (by launch date)
+
+Sorted ascending by `year_sort` (YYYYMMDD). Generated from `data/chronology.json`. **Sr_No** = launch-date rank only.
+
+| Sr_No | id | title | year_display | source.label | source.url | pdf_verified | pdf_v1 | date_verified |
+| ---: | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| 1 | standard_attention | Scaled dot-product attention | 12-Jun-2017 | Vaswani et al. — Attention Is All You Need | https://arxiv.org/abs/1706.03762 | arXiv:1706.03762v1  [cs.CL]  12 Jun 2017 | https://arxiv.org/abs/1706.03762v1 | yes |
+| 2 | absolute_learned_pe | Absolute learned position embeddings | 20-Jun-2017 | Vaswani et al. — learned PE variant (Transformer §3.5) | https://arxiv.org/abs/1706.03762v3 | arXiv:1706.03762v3 [cs.CL] 20 Jun 2017 | https://arxiv.org/pdf/1706.03762v3 | yes |
+| 3 | sinusoidal_pe | Sinusoidal position encoding | 20-Jun-2017 | Vaswani et al. — sinusoidal PE formulation (§3.5) | https://arxiv.org/abs/1706.03762v3 | arXiv:1706.03762v1  [cs.CL]  12 Jun 2017 | https://arxiv.org/pdf/1706.03762v3 | yes |
+| 4 | mqa | Multi-Query Attention (MQA) | 07-Nov-2019 | Shazeer — Fast Transformer Decoding (MQA) | https://arxiv.org/abs/1911.02150 | arXiv:1911.02150v1  [cs.NE]  7 Nov 2019 | https://arxiv.org/pdf/1911.02150 | yes |
+| 5 | sparse_topk | Sparse / top-k attention | 12-Mar-2020 | Roy et al. — Routing Transformer (content-based sparse / k-means routing) | https://arxiv.org/abs/2003.05997v1 | arXiv:2003.05997v1 [cs.LG] 12 Mar 2020 | https://arxiv.org/pdf/2003.05997v1 | yes |
+| 6 | sliding_window | Sliding-window (local) attention | 10-Apr-2020 | Beltagy et al. — Longformer (sliding-window attention) | https://arxiv.org/abs/2004.05150 | arXiv:2004.05150v1 [cs.CL] 10 Apr 2020 | https://arxiv.org/pdf/2004.05150v1 | yes |
+| 7 | linear_attention | Linear attention (softmax off, state S) | 29-Jun-2020 | Katharopoulos et al. — Transformers are RNNs (linear attention) | https://arxiv.org/abs/2006.16236 | arXiv:2006.16236v1 [cs.LG] 29 Jun 2020 | https://arxiv.org/abs/2006.16236v1 | yes |
+| 8 | rope | Rotary Position Embedding (RoPE) | 20-Apr-2021 | Su et al. — RoFormer / Rotary Position Embedding | https://arxiv.org/abs/2104.09864 | arXiv:2104.09864v1 [cs.CL] 20 Apr 2021 | https://arxiv.org/pdf/2104.09864v1 | yes |
+| 9 | alibi | ALiBi (Attention with Linear Biases) | 27-Aug-2021 | Press, Smith, Lewis — Train Short, Test Long (ALiBi) | https://arxiv.org/abs/2108.12409 | arXiv:2108.12409v1 [cs.CL] 27 Aug 2021 | https://arxiv.org/pdf/2108.12409v1 | yes |
+| 10 | gqa | Grouped-Query Attention (GQA) | 22-May-2023 | Ainslie et al. — GQA: Training Generalized Multi-Query Attention | https://arxiv.org/abs/2305.13245 | arXiv:2305.13245v1 [cs.CL] 22 May 2023 | https://arxiv.org/pdf/2305.13245v1 | yes |
+| 11 | ntk_scaling | NTK-aware RoPE scaling | 29-Jun-2023 | bloc97 — NTK-Aware Scaled RoPE | https://www.reddit.com/r/LocalLLaMA/comments/14lz7j5/ntkaware_scaled_rope_allows_llama_models_to_have | Reddit u/bloc97 r/LocalLLaMA 14lz7j5 · 29 Jun 2023 | https://www.reddit.com/r/LocalLLaMA/comments/14lz7j5/ntkaware_scaled_rope_allows_llama_models_to_have | yes |
+| 12 | yarn | YaRN (Yet another RoPE extensioN) | 31-Aug-2023 | Peng et al. — YaRN: Efficient Context Window Extension | https://arxiv.org/abs/2309.00071 | arXiv:2309.00071v1 [cs.CL] 31 Aug 2023 | https://arxiv.org/pdf/2309.00071v1 | yes |
+| 13 | drope | DroPE (extension factor) | 31-Aug-2023 | YaRN paper — V4 DroPE extension-factor story (not Sakana drop-PE) | https://arxiv.org/abs/2309.00071 | arXiv:2309.00071v1 [cs.CL] 31 Aug 2023 | https://arxiv.org/pdf/2309.00071v1 | yes |
+| 14 | attention_sinks | Attention sinks | 29-Sep-2023 | Xiao et al. — Efficient Streaming Language Models with Attention Sinks | https://arxiv.org/abs/2309.17453 | arXiv:2309.17453v1 [cs.CL] 29 Sep 2023 | https://arxiv.org/pdf/2309.17453v1 | yes |
+| 15 | mla | Multi-head Latent Attention (MLA) | 07-May-2024 | DeepSeek-V2 — Multi-head Latent Attention (MLA) | https://arxiv.org/abs/2405.04434 | arXiv:2405.04434v1 [cs.CL] 7 May 2024 | https://arxiv.org/pdf/2405.04434v1 | yes |
+| 16 | delta_rule | Delta rule write | 10-Jun-2024 | Yang et al. — Parallelizing Linear Transformers with the Delta Rule | https://arxiv.org/abs/2406.06484 | arXiv:2406.06484v1  [cs.LG]  10 Jun 2024 | https://arxiv.org/pdf/2406.06484v1 | yes |
+| 17 | gated_deltanet | Gated DeltaNet | 09-Dec-2024 | Yang et al. — Gated Delta Networks | https://arxiv.org/abs/2412.06464 | arXiv:2412.06464v1  [cs.CL]  9 Dec 2024 | https://arxiv.org/pdf/2412.06464v1 | yes |
+| 18 | deepseek_compressed_sparse | DeepSeek compressed sparse attention | 16-Feb-2025 | DeepSeek — Native Sparse Attention (compression + sparse) | https://arxiv.org/abs/2502.11089 | arXiv:2502.11089v1 [cs.CL] 16 Feb 2025 | https://arxiv.org/pdf/2502.11089v1 | yes |

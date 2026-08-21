@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 8 Widget 10 - What GQA Changes</title>
+<style>
+:root{--ink:#152033;--muted:#65758b;--line:#d9e2ef;--violet:#7c3aed;--violet-soft:#f5f3ff;--cyan:#0891b2;--green:#159447;--amber:#d97706;--slate:#94a3b8}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#f8fbff,#eef5fb);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px}
+button,input{font:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:20px}
+.kicker{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--violet)}
+h1{font-size:26px;line-height:1.15;margin:4px 0 7px}
+.lead{max-width:850px;color:var(--muted);line-height:1.55;margin:0 0 16px}
+.controls{display:grid;grid-template-columns:minmax(340px,1fr) minmax(280px,.8fr);gap:12px;margin-bottom:12px}
+.control{background:#fff;border:1px solid var(--line);border-radius:11px;padding:12px 14px;box-shadow:0 8px 24px rgba(20,42,75,.06)}
+.label{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12px;font-weight:800;margin-bottom:8px}
+.label span{color:var(--violet);font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.modes button{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:8px;padding:8px 5px;cursor:pointer;font-size:12px;font-weight:750;line-height:1.25}
+.modes button small{display:block;color:var(--muted);font-weight:600;font-size:10px;margin-top:2px}
+.modes button.on{border-color:var(--violet);background:var(--violet-soft);color:#5b21b6}
+.modes button.on small{color:#6d28d9}
+input[type=range]{width:100%;accent-color:var(--violet)}
+.ticks{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-top:1px}
+.board{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(330px,.9fr);gap:12px}
+.card{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:11px;box-shadow:0 10px 28px rgba(20,42,75,.07);padding:14px}
+.card h2{font-size:14px;margin:0 0 4px}
+.hint{color:var(--muted);font-size:12px;line-height:1.45;margin:0 0 10px}
+svg{display:block;width:100%;border:1px solid #e6edf5;background:#fbfdff;border-radius:9px}
+.readout{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:10px 0}
+.metric{border:1px solid var(--line);border-radius:8px;padding:10px;background:#fbfdff}
+.metric b{display:block;color:var(--violet);font:800 20px/1.1 ui-monospace,SFMono-Regular,Consolas,monospace}
+.metric span{display:block;color:var(--muted);font-size:11px;margin-top:4px;line-height:1.35}
+.claim{border:1px solid #ddd6fe;background:var(--violet-soft);color:#5b21b6;border-radius:9px;padding:11px 12px;line-height:1.5;font-size:13px}
+.claim b{color:#4c1d95}
+.caveat{margin:11px 1px 0;color:var(--muted);font-size:11px;line-height:1.5}
+@media(max-width:800px){.controls,.board{grid-template-columns:1fr}.wrap{padding:14px}.modes button{padding:8px 2px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="kicker">ERA V5 Session 8 · one idea</div>
+  <h1>GQA stores fewer keys and values—but still stores every token</h1>
+  <p class="lead">Every query head can ask its own question. GQA saves memory by letting several query heads reuse the same key/value head. Change the sharing, then make the context longer.</p>
+
+  <section class="controls" aria-label="Widget controls">
+    <div class="control">
+      <div class="label">How much do query heads share? <span id="modeLabel">GQA · 2 K/V heads</span></div>
+      <div class="modes" role="group" aria-label="Attention sharing mode">
+        <button type="button" data-mode="mha">MHA<small>8 KV heads</small></button>
+        <button type="button" data-mode="gqa" class="on">GQA<small>2 KV heads</small></button>
+        <button type="button" data-mode="mqa">MQA<small>1 KV head</small></button>
+      </div>
+    </div>
+    <div class="control">
+      <div class="label"><label for="context">Context length</label> <span id="contextLabel">32K tokens</span></div>
+      <input id="context" type="range" min="0" max="5" step="1" value="3" aria-label="Context length">
+      <div class="ticks"><span>4K</span><span>1M</span></div>
+    </div>
+  </section>
+
+  <section class="board">
+    <article class="card">
+      <h2>Eight query heads, fewer stored K/V heads</h2>
+      <p class="hint" id="mapHint">Four query heads share each stored key/value head.</p>
+      <svg id="headMap" viewBox="0 0 620 250" role="img" aria-label="Eight query heads mapped to shared key-value heads"><text x="18" y="23" font-size="12" font-weight="700" fill="#152033">QUERY HEADS · each asks a different question</text><path d="M54 78 C54 126 136 123 136 166" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity=".42"></path><rect x="25" y="42" width="58" height="36" rx="7" fill="#fff" stroke="#7c3aed"></rect><text x="54" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#5b21b6">Q1</text><path d="M128 78 C128 126 136 123 136 166" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity=".42"></path><rect x="99" y="42" width="58" height="36" rx="7" fill="#fff" stroke="#7c3aed"></rect><text x="128" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#5b21b6">Q2</text><path d="M202 78 C202 126 136 123 136 166" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity=".42"></path><rect x="173" y="42" width="58" height="36" rx="7" fill="#fff" stroke="#7c3aed"></rect><text x="202" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#5b21b6">Q3</text><path d="M276 78 C276 126 136 123 136 166" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity=".42"></path><rect x="247" y="42" width="58" height="36" rx="7" fill="#fff" stroke="#7c3aed"></rect><text x="276" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#5b21b6">Q4</text><path d="M350 78 C350 126 432 123 432 166" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity=".42"></path><rect x="321" y="42" width="58" height="36" rx="7" fill="#fff" stroke="#7c3aed"></rect><text x="350" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#5b21b6">Q5</text><path d="M424 78 C424 126 432 123 432 166" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity=".42"></path><rect x="395" y="42" width="58" height="36" rx="7" fill="#fff" stroke="#7c3aed"></rect><text x="424" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#5b21b6">Q6</text><path d="M498 78 C498 126 432 123 432 166" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity=".42"></path><rect x="469" y="42" width="58" height="36" rx="7" fill="#fff" stroke="#7c3aed"></rect><text x="498" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#5b21b6">Q7</text><path d="M572 78 C572 126 432 123 432 166" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity=".42"></path><rect x="543" y="42" width="58" height="36" rx="7" fill="#fff" stroke="#7c3aed"></rect><text x="572" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#5b21b6">Q8</text><text x="18" y="151" font-size="12" font-weight="700" fill="#152033">K/V HEADS · these are stored for every token</text><rect x="98.0" y="166" width="150.0" height="48" rx="8" fill="#7c3aed"></rect><text x="173.0" y="195" text-anchor="middle" font-size="12" font-weight="800" fill="#fff">K/V 1</text><rect x="394.0" y="166" width="150.0" height="48" rx="8" fill="#7c3aed"></rect><text x="469.0" y="195" text-anchor="middle" font-size="12" font-weight="800" fill="#fff">K/V 2</text><text x="310" y="238" text-anchor="middle" font-size="12" font-weight="700" fill="#7c3aed">Store 2 K/V heads per token instead of 8</text></svg>
+    </article>
+
+    <article class="card">
+      <h2>Sharing lowers the slope; context keeps growing</h2>
+      <p class="hint">Relative cache size. All three lines are straight because each new token still adds another K/V entry.</p>
+      <svg id="growthChart" viewBox="0 0 500 250" role="img" aria-label="KV cache grows linearly with context for MHA, GQA and MQA"><line x1="50" y1="208" x2="482" y2="208" stroke="#edf2f7"></line><text x="43" y="212" text-anchor="end" font-size="10" fill="#94a3b8">0×</text><line x1="50" y1="161" x2="482" y2="161" stroke="#edf2f7"></line><text x="43" y="165" text-anchor="end" font-size="10" fill="#94a3b8">2×</text><line x1="50" y1="114" x2="482" y2="114" stroke="#edf2f7"></line><text x="43" y="118" text-anchor="end" font-size="10" fill="#94a3b8">4×</text><line x1="50" y1="67" x2="482" y2="67" stroke="#edf2f7"></line><text x="43" y="71" text-anchor="end" font-size="10" fill="#94a3b8">6×</text><line x1="50" y1="20" x2="482" y2="20" stroke="#edf2f7"></line><text x="43" y="24" text-anchor="end" font-size="10" fill="#94a3b8">8×</text><line x1="50" y1="20" x2="50" y2="208" stroke="#f4f6f9"></line><text x="50" y="232" text-anchor="middle" font-size="10" fill="#94a3b8">0</text><line x1="158" y1="20" x2="158" y2="208" stroke="#f4f6f9"></line><text x="158" y="232" text-anchor="middle" font-size="10" fill="#94a3b8">256K</text><line x1="266" y1="20" x2="266" y2="208" stroke="#f4f6f9"></line><text x="266" y="232" text-anchor="middle" font-size="10" fill="#94a3b8">512K</text><line x1="374" y1="20" x2="374" y2="208" stroke="#f4f6f9"></line><text x="374" y="232" text-anchor="middle" font-size="10" fill="#94a3b8">768K</text><line x1="482" y1="20" x2="482" y2="208" stroke="#f4f6f9"></line><text x="482" y="232" text-anchor="middle" font-size="10" fill="#94a3b8">1M</text><path d="M50 208 L482 20" fill="none" stroke="#94a3b8" stroke-width="1.8" opacity=".62"></path><text x="478" y="30" text-anchor="end" font-size="10" font-weight="800" fill="#94a3b8">MHA</text><path d="M50 208 L482 161" fill="none" stroke="#7c3aed" stroke-width="3"></path><text x="478" y="155" text-anchor="end" font-size="10" font-weight="800" fill="#7c3aed">GQA</text><circle cx="63.5" cy="206.53125" r="5" fill="#fff" stroke="#7c3aed" stroke-width="3"></circle><path d="M50 208 L482 184.5" fill="none" stroke="#159447" stroke-width="1.8" opacity=".62"></path><text x="478" y="178.5" text-anchor="end" font-size="10" font-weight="800" fill="#159447">MQA</text><text x="266" y="246" text-anchor="middle" font-size="10" font-weight="700" fill="#65758b">context length</text><text x="6" y="13" font-size="10" font-weight="700" fill="#65758b">relative cache</text></svg>
+      <div class="readout">
+        <div class="metric"><b id="saving">4× smaller</b><span>cache than MHA at the same context</span></div>
+        <div class="metric"><b id="growth">8× larger</b><span>when context grows from 4K to 32K</span></div>
+      </div>
+      <div class="claim" id="claim"><b>What changed:</b> 8 K/V heads became 2. <b>What did not:</b> every token still adds to the cache. At 32K, GQA stores 16 relative units.</div>
+    </article>
+  </section>
+
+  <p class="caveat">This compact picture isolates the two terms that matter here: K/V heads and context length. Real cache bytes also depend on layers, head dimension, batch size and precision. GQA can carry a quality trade-off; this visual demonstrates memory scaling, not model quality.</p>
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var MODES={
+    mha:{name:'MHA',kv:8,color:'#94a3b8',sentence:'Each query head keeps its own key/value head.'},
+    gqa:{name:'GQA',kv:2,color:'#7c3aed',sentence:'Four query heads share each stored key/value head.'},
+    mqa:{name:'MQA',kv:1,color:'#159447',sentence:'All eight query heads share one stored key/value head.'}
+  };
+  var CONTEXTS=[4096,8192,16384,32768,131072,1048576];
+  var mode='gqa';
+  var context=document.getElementById('context');
+
+  function tokens(n){return n>=1048576?'1M':Math.round(n/1024)+'K';}
+
+  function drawMap(cfg){
+    var svg=document.getElementById('headMap');
+    var out='<text x="18" y="23" font-size="12" font-weight="700" fill="#152033">QUERY HEADS · each asks a different question</text>';
+    var i, x, group, targetX;
+    for(i=0;i<8;i++){
+      x=25+i*74;
+      group=Math.floor(i/(8/cfg.kv));
+      targetX=25+(group+.5)*(592/cfg.kv)-37;
+      out+='<path d="M'+(x+29)+' 78 C'+(x+29)+' 126 '+targetX+' 123 '+targetX+' 166" fill="none" stroke="'+cfg.color+'" stroke-width="1.5" opacity=".42"/>';
+      out+='<rect x="'+x+'" y="42" width="58" height="36" rx="7" fill="#fff" stroke="#7c3aed"/>';
+      out+='<text x="'+(x+29)+'" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#5b21b6">Q'+(i+1)+'</text>';
+    }
+    out+='<text x="18" y="151" font-size="12" font-weight="700" fill="#152033">K/V HEADS · these are stored for every token</text>';
+    var width=Math.min(150,520/cfg.kv);
+    for(i=0;i<cfg.kv;i++){
+      x=25+(i+.5)*(592/cfg.kv)-width/2;
+      out+='<rect x="'+x.toFixed(1)+'" y="166" width="'+width.toFixed(1)+'" height="48" rx="8" fill="'+cfg.color+'"/>';
+      out+='<text x="'+(x+width/2).toFixed(1)+'" y="195" text-anchor="middle" font-size="12" font-weight="800" fill="#fff">K/V '+(i+1)+'</text>';
+    }
+    out+='<text x="310" y="238" text-anchor="middle" font-size="12" font-weight="700" fill="'+cfg.color+'">Store '+cfg.kv+' K/V '+(cfg.kv===1?'head':'heads')+' per token instead of 8</text>';
+    svg.innerHTML=out;
+  }
+
+  function drawChart(cfg,currentT){
+    var svg=document.getElementById('growthChart');
+    var W=500,H=250,L=50,R=18,T=20,B=42,maxT=1048576,maxY=8*maxT;
+    function X(v){return L+(v/maxT)*(W-L-R);}
+    function Y(v){return H-B-(v/maxY)*(H-T-B);}
+    var out='',i;
+    [0,2,4,6,8].forEach(function(v){
+      var y=Y(v*maxT);
+      out+='<line x1="'+L+'" y1="'+y+'" x2="'+(W-R)+'" y2="'+y+'" stroke="#edf2f7"/>';
+      out+='<text x="'+(L-7)+'" y="'+(y+4)+'" text-anchor="end" font-size="10" fill="#94a3b8">'+v+'×</text>';
+    });
+    [0,262144,524288,786432,1048576].forEach(function(v){
+      var x=X(v);
+      out+='<line x1="'+x+'" y1="'+T+'" x2="'+x+'" y2="'+(H-B)+'" stroke="#f4f6f9"/>';
+      out+='<text x="'+x+'" y="'+(H-18)+'" text-anchor="middle" font-size="10" fill="#94a3b8">'+(v===0?'0':tokens(v))+'</text>';
+    });
+    var series=[MODES.mha,MODES.gqa,MODES.mqa];
+    series.forEach(function(s){
+      var x1=X(0),y1=Y(0),x2=X(maxT),y2=Y(s.kv*maxT);
+      out+='<path d="M'+x1+' '+y1+' L'+x2+' '+y2+'" fill="none" stroke="'+s.color+'" stroke-width="'+(s.name===cfg.name?3:1.8)+'"'+(s.name===cfg.name?'':' opacity=".62"')+'/>';
+      out+='<text x="'+(x2-4)+'" y="'+Math.max(T+10,y2-6)+'" text-anchor="end" font-size="10" font-weight="800" fill="'+s.color+'">'+s.name+'</text>';
+      var cx=X(currentT),cy=Y(s.kv*currentT);
+      if(s.name===cfg.name) out+='<circle cx="'+cx+'" cy="'+cy+'" r="5" fill="#fff" stroke="'+s.color+'" stroke-width="3"/>';
+    });
+    out+='<text x="'+((L+W-R)/2)+'" y="246" text-anchor="middle" font-size="10" font-weight="700" fill="#65758b">context length</text>';
+    out+='<text x="6" y="13" font-size="10" font-weight="700" fill="#65758b">relative cache</text>';
+    svg.innerHTML=out;
+  }
+
+  function render(){
+    var cfg=MODES[mode];
+    var currentT=CONTEXTS[Number(context.value)];
+    document.querySelectorAll('[data-mode]').forEach(function(button){button.classList.toggle('on',button.dataset.mode===mode);});
+    document.getElementById('modeLabel').textContent=cfg.name+' · '+cfg.kv+' K/V '+(cfg.kv===1?'head':'heads');
+    document.getElementById('contextLabel').textContent=tokens(currentT)+' tokens';
+    document.getElementById('mapHint').textContent=cfg.sentence;
+    document.getElementById('saving').textContent=cfg.kv===8?'no saving':(8/cfg.kv)+'× smaller';
+    document.getElementById('growth').textContent=(currentT/4096)+'× larger';
+    document.getElementById('claim').innerHTML='<b>What changed:</b> 8 K/V heads became '+cfg.kv+'. <b>What did not:</b> every token still adds to the cache. At '+tokens(currentT)+', '+cfg.name+' stores '+(cfg.kv*currentT/4096).toLocaleString('en-US')+' relative units.';
+    drawMap(cfg);
+    drawChart(cfg,currentT);
+  }
+
+  document.querySelectorAll('[data-mode]').forEach(function(button){button.addEventListener('click',function(){mode=button.dataset.mode;render();});});
+  context.addEventListener('input',render);
+  render();
+})();
+</script>
+
+
+</body></html>

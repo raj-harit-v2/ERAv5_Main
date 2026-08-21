@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 8 Widget 6 - The Top-k Catch</title>
+<style>
+:root{--ink:#152033;--muted:#65758b;--line:#d9e2ef;--cyan:#0891b2;--violet:#7c3aed;--green:#159447;--amber:#d97706;--red:#dc2626;--paper:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#f8fbff,#eef5fb);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px}
+.s8w6-wrap{max-width:1280px;margin:0 auto;padding:22px}
+.s8w6-kicker{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--violet)}
+h1{font-size:27px;line-height:1.12;margin:5px 0 8px}
+.s8w6-sub{color:var(--muted);max-width:900px;margin:0 0 16px;line-height:1.55}
+.s8w6-card{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 30px rgba(20,42,75,.08);padding:17px}
+.s8w6-controls{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.s8w6-slider{display:grid;grid-template-columns:auto minmax(180px,350px) auto;align-items:center;gap:10px;flex:1;max-width:560px}
+.s8w6-slider label{font-size:13px;font-weight:800}
+.s8w6-slider output{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--violet);font-weight:800;white-space:nowrap}
+input[type=range]{width:100%;accent-color:var(--violet)}
+button{border:1px solid var(--violet);background:#fff;color:var(--violet);border-radius:8px;padding:9px 15px;font:inherit;font-size:12.5px;font-weight:800;cursor:pointer}
+button:hover{background:#f5f3ff}
+.s8w6-flow{display:grid;grid-template-columns:1fr 34px 1fr 34px 1fr;gap:8px;align-items:stretch}
+.s8w6-step{border:1px solid var(--line);border-radius:10px;padding:12px;background:#fbfdff;min-width:0}
+.s8w6-step h2{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:0 0 4px}
+.s8w6-step p{font-size:12px;line-height:1.45;color:var(--muted);margin:0 0 10px}
+.s8w6-step b{color:var(--ink)}
+.s8w6-arrow{display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:24px;font-weight:800}
+.s8w6-keys{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.s8w6-key{position:relative;border:1px solid #cbd5e1;border-radius:7px;padding:7px 4px;text-align:center;background:#fff;transition:opacity .22s ease,border-color .22s ease,transform .22s ease,background .22s ease}
+.s8w6-key strong{display:block;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px}
+.s8w6-key span{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;color:var(--muted)}
+.s8w6-score .s8w6-key{border-color:#67e8f9;background:#ecfeff}
+.s8w6-select .s8w6-key.drop,.s8w6-use .s8w6-key.drop{opacity:.24;background:#f1f5f9}
+.s8w6-select .s8w6-key.keep{border:2px solid var(--violet);background:#f5f3ff;transform:translateY(-2px)}
+.s8w6-use .s8w6-key.keep{border:2px solid var(--green);background:#f0fdf4}
+.s8w6-badge{display:inline-block;margin-top:10px;padding:5px 8px;border-radius:999px;font-size:11px;font-weight:800}
+.s8w6-all{background:#cffafe;color:#0e7490}.s8w6-few{background:#ede9fe;color:#5b21b6}.s8w6-used{background:#dcfce7;color:#166534}
+.s8w6-costs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.s8w6-cost{border:1px solid var(--line);border-radius:10px;padding:12px;background:#fff}
+.s8w6-costhead{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin-bottom:8px}
+.s8w6-costhead b{font-size:13px}.s8w6-costhead span{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-weight:800}
+.s8w6-track{height:12px;border-radius:999px;background:#edf2f7;overflow:hidden}
+.s8w6-fill{height:100%;border-radius:inherit;transition:width .25s ease}
+.s8w6-scorefill{background:var(--amber);width:100%}.s8w6-valuefill{background:var(--green)}
+.s8w6-cost p{font-size:11.5px;color:var(--muted);line-height:1.45;margin:7px 0 0}
+.s8w6-catch{display:grid;grid-template-columns:auto 1fr;gap:11px;align-items:start;margin-top:14px;border:1px solid #fed7aa;background:#fff7ed;color:#9a3412;border-radius:10px;padding:12px 14px;line-height:1.5}
+.s8w6-catch strong{font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+.s8w6-catch p{margin:0;font-size:12.5px}
+.s8w6-foot{font-size:11.5px;line-height:1.5;color:var(--muted);margin:10px 2px 0}
+.s8w6-pulse .s8w6-score .s8w6-key{animation:s8w6-score .45s ease both}
+.s8w6-pulse .s8w6-select .s8w6-key.keep{animation:s8w6-keep .45s .35s ease both}
+@keyframes s8w6-score{0%{transform:scale(.94);opacity:.35}100%{transform:scale(1);opacity:1}}
+@keyframes s8w6-keep{0%{transform:translateY(0)}100%{transform:translateY(-2px)}}
+@media(max-width:900px){.s8w6-flow{grid-template-columns:1fr}.s8w6-arrow{transform:rotate(90deg);height:22px}.s8w6-costs{grid-template-columns:1fr}}
+@media(max-width:520px){.s8w6-slider{grid-template-columns:1fr}.s8w6-wrap{padding:14px}.s8w6-keys{grid-template-columns:repeat(3,1fr)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="s8w6-wrap" id="s8w6-app">
+  <div class="s8w6-kicker">Sparse attention, one idea</div>
+  <h1>Keep only the strongest keys — but first you must find them</h1>
+  <p class="s8w6-sub">This query has 12 possible keys. Top-k attention keeps only the <em>k</em> highest scores for the final weighted sum.</p>
+
+  <section class="s8w6-card">
+    <div class="s8w6-controls">
+      <div class="s8w6-slider">
+        <label for="s8w6-k">Keys to keep</label>
+        <input id="s8w6-k" type="range" min="1" max="12" value="3" aria-label="Number of keys to keep">
+        <output id="s8w6-kout">k = 3</output>
+      </div>
+      <button id="s8w6-replay" type="button">Replay selection</button>
+    </div>
+
+    <div class="s8w6-flow">
+      <article class="s8w6-step s8w6-score">
+        <h2>1 · Score candidates</h2>
+        <p>The query is compared with <b>every key</b>.</p>
+        <div class="s8w6-keys" id="s8w6-scorekeys"><div class="s8w6-key drop"><strong>K1</strong><span>0.18</span></div><div class="s8w6-key keep"><strong>K2</strong><span>1.34</span></div><div class="s8w6-key drop"><strong>K3</strong><span>-0.22</span></div><div class="s8w6-key drop"><strong>K4</strong><span>0.71</span></div><div class="s8w6-key keep"><strong>K5</strong><span>2.08</span></div><div class="s8w6-key drop"><strong>K6</strong><span>0.43</span></div><div class="s8w6-key drop"><strong>K7</strong><span>-0.51</span></div><div class="s8w6-key keep"><strong>K8</strong><span>1.62</span></div><div class="s8w6-key drop"><strong>K9</strong><span>0.09</span></div><div class="s8w6-key drop"><strong>K10</strong><span>0.96</span></div><div class="s8w6-key drop"><strong>K11</strong><span>-0.14</span></div><div class="s8w6-key drop"><strong>K12</strong><span>1.11</span></div></div>
+        <span class="s8w6-badge s8w6-all">12 scores computed</span>
+      </article>
+
+      <div class="s8w6-arrow" aria-hidden="true">→</div>
+
+      <article class="s8w6-step s8w6-select">
+        <h2>2 · Select top-k</h2>
+        <p>Keep the <b id="s8w6-keeptext">3 highest</b> scores.</p>
+        <div class="s8w6-keys" id="s8w6-selectkeys"><div class="s8w6-key drop"><strong>K1</strong><span>0.18</span></div><div class="s8w6-key keep"><strong>K2</strong><span>1.34</span></div><div class="s8w6-key drop"><strong>K3</strong><span>-0.22</span></div><div class="s8w6-key drop"><strong>K4</strong><span>0.71</span></div><div class="s8w6-key keep"><strong>K5</strong><span>2.08</span></div><div class="s8w6-key drop"><strong>K6</strong><span>0.43</span></div><div class="s8w6-key drop"><strong>K7</strong><span>-0.51</span></div><div class="s8w6-key keep"><strong>K8</strong><span>1.62</span></div><div class="s8w6-key drop"><strong>K9</strong><span>0.09</span></div><div class="s8w6-key drop"><strong>K10</strong><span>0.96</span></div><div class="s8w6-key drop"><strong>K11</strong><span>-0.14</span></div><div class="s8w6-key drop"><strong>K12</strong><span>1.11</span></div></div>
+        <span class="s8w6-badge s8w6-few" id="s8w6-selectbadge">3 of 12 survive</span>
+      </article>
+
+      <div class="s8w6-arrow" aria-hidden="true">→</div>
+
+      <article class="s8w6-step s8w6-use">
+        <h2>3 · Use selected values</h2>
+        <p>Softmax and the weighted sum use only those <b id="s8w6-usetext">3 keys</b>.</p>
+        <div class="s8w6-keys" id="s8w6-usekeys"><div class="s8w6-key drop"><strong>K1</strong><span>0.18</span></div><div class="s8w6-key keep"><strong>K2</strong><span>1.34</span></div><div class="s8w6-key drop"><strong>K3</strong><span>-0.22</span></div><div class="s8w6-key drop"><strong>K4</strong><span>0.71</span></div><div class="s8w6-key keep"><strong>K5</strong><span>2.08</span></div><div class="s8w6-key drop"><strong>K6</strong><span>0.43</span></div><div class="s8w6-key drop"><strong>K7</strong><span>-0.51</span></div><div class="s8w6-key keep"><strong>K8</strong><span>1.62</span></div><div class="s8w6-key drop"><strong>K9</strong><span>0.09</span></div><div class="s8w6-key drop"><strong>K10</strong><span>0.96</span></div><div class="s8w6-key drop"><strong>K11</strong><span>-0.14</span></div><div class="s8w6-key drop"><strong>K12</strong><span>1.11</span></div></div>
+        <span class="s8w6-badge s8w6-used" id="s8w6-usebadge">9 value reads skipped</span>
+      </article>
+    </div>
+
+    <div class="s8w6-costs">
+      <div class="s8w6-cost">
+        <div class="s8w6-costhead"><b>Work to find top-k</b><span>12 / 12</span></div>
+        <div class="s8w6-track"><div class="s8w6-fill s8w6-scorefill"></div></div>
+        <p>Unchanged: naïve top-k scores every key before it can rank them.</p>
+      </div>
+      <div class="s8w6-cost">
+        <div class="s8w6-costhead"><b>Values used in the final sum</b><span id="s8w6-valuecount">3 / 12</span></div>
+        <div class="s8w6-track"><div class="s8w6-fill s8w6-valuefill" id="s8w6-valuefill" style="width: 25%;"></div></div>
+        <p>Reduced: only the selected values contribute to the output.</p>
+      </div>
+    </div>
+
+    <div class="s8w6-catch">
+      <strong>The catch</strong>
+      <p id="s8w6-catchtext">Keeping 3 keys makes the final sum smaller, but this naïve selector still computed all 12 scores. Real speedups need a cheaper way to choose candidates.</p>
+    </div>
+    <p class="s8w6-foot">A practical sparse system may use a local window, a router, or a compressed index to propose candidates. That saves work only if the proposal step is cheaper—and it can miss a useful key.</p>
+  </section>
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var scores=[0.18,1.34,-0.22,0.71,2.08,0.43,-0.51,1.62,0.09,0.96,-0.14,1.11];
+  var order=scores.map(function(_,i){return i;}).sort(function(a,b){return scores[b]-scores[a];});
+  var input=document.getElementById('s8w6-k');
+  var app=document.getElementById('s8w6-app');
+  var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function keyMarkup(k){
+    var kept={};
+    order.slice(0,k).forEach(function(i){kept[i]=true;});
+    return scores.map(function(score,i){
+      return '<div class="s8w6-key '+(kept[i]?'keep':'drop')+'"><strong>K'+(i+1)+'</strong><span>'+score.toFixed(2)+'</span></div>';
+    }).join('');
+  }
+
+  function render(){
+    var k=Number(input.value), markup=keyMarkup(k);
+    document.getElementById('s8w6-kout').textContent='k = '+k;
+    document.getElementById('s8w6-scorekeys').innerHTML=markup;
+    document.getElementById('s8w6-selectkeys').innerHTML=markup;
+    document.getElementById('s8w6-usekeys').innerHTML=markup;
+    document.getElementById('s8w6-keeptext').textContent=k+' highest';
+    document.getElementById('s8w6-usetext').textContent=k+(k===1?' key':' keys');
+    document.getElementById('s8w6-selectbadge').textContent=k+' of 12 survive';
+    document.getElementById('s8w6-usebadge').textContent=(12-k)+' value reads skipped';
+    document.getElementById('s8w6-valuecount').textContent=k+' / 12';
+    document.getElementById('s8w6-valuefill').style.width=(k/12*100)+'%';
+    document.getElementById('s8w6-catchtext').textContent='Keeping '+k+' '+(k===1?'key':'keys')+' makes the final sum smaller, but this naïve selector still computed all 12 scores. Real speedups need a cheaper way to choose candidates.';
+  }
+
+  function replay(){
+    app.classList.remove('s8w6-pulse');
+    if(reduced){return;}
+    void app.offsetWidth;
+    app.classList.add('s8w6-pulse');
+  }
+
+  input.addEventListener('input',render);
+  document.getElementById('s8w6-replay').addEventListener('click',replay);
+  render();
+})();
+</script>
+
+
+</body></html>

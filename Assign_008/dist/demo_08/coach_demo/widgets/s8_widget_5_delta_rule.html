@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Delta rule (local placeholder)</title>
+  <style>
+    body{margin:0;font-family:"Segoe UI",sans-serif;background:#10141c;color:#eef2f8;padding:1.25rem;line-height:1.5}
+    .badge{display:inline-block;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:#e0b06a;border:1px solid #5a4a2e;padding:.2rem .55rem;border-radius:4px}
+    h1{font-size:1.25rem;margin:.6rem 0 .4rem}p{color:#9aa8bc;max-width:40rem}
+    .formula{background:#0c1018;border-radius:8px;padding:.9rem 1rem;margin:1rem 0;font-family:Consolas,monospace;white-space:pre-wrap}
+    .grid{display:grid;gap:.75rem;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr))}
+    .card{background:#1a2230;border-radius:8px;padding:.75rem .9rem}.card strong{display:block;margin-bottom:.25rem}.card span{color:#9aa8bc;font-size:.9rem}
+  </style>
+</head>
+<body>
+  <span class="badge">Phase 2 local placeholder — source Web_files empty</span>
+  <h1>Delta write into S</h1>
+  <p>Instead of only adding outer products, overwrite the component along the current key so a later read recovers the target value (unit-norm keys).</p>
+  <div class="formula">S ← S + (v − S k) kᵀ
+If ‖k‖=1 then S k = v after the write</div>
+  <div class="grid">
+    <div class="card"><strong>Buys</strong><span>Associative overwrite / update</span></div>
+    <div class="card"><strong>Gives up</strong><span>Needs careful key geometry</span></div>
+    <div class="card"><strong>Choose when</strong><span>State must revise, not only accumulate</span></div>
+  </div>
+</body>
+</html>

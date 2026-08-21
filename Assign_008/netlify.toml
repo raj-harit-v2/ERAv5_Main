@@ -1,0 +1,4 @@
+# Publish committed dist/. Rebuild locally: uv run python tests/build_dist.py
+[build]
+  publish = "dist"
+  command = "true"

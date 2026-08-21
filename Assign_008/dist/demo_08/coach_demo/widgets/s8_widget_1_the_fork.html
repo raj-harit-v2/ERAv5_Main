@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 8 Widget 1 - The Fork</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/"><link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="./css2" rel="stylesheet">
+<style>
+:root{--ink:#152033;--muted:#65758b;--line:#d9e2ef;--cyan:#0891b2;--violet:#7c3aed;--green:#159447;--amber:#d97706;--red:#dc2626}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:linear-gradient(180deg,#f8fbff,#eef5fb);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px}
+.s8w1-wrap{max-width:1280px;margin:0 auto;padding:18px 22px}
+.s8w1-kicker{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--violet)}
+.s8w1-wrap h1{font-size:24px;line-height:1.1;margin:4px 0 6px}
+.s8w1-sub{color:var(--muted);max-width:960px;margin:0 0 10px;line-height:1.5;font-size:13px}
+.s8w1-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px}
+.s8w1-tab{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 9px;font:inherit;font-size:11.5px;font-weight:800;color:var(--muted);cursor:pointer;text-align:left;line-height:1.25}
+.s8w1-tab small{display:block;font-weight:500;font-size:10px;margin-top:2px;opacity:.85}
+.s8w1-tab.on{border-color:var(--violet);background:#f5f3ff;color:#5b21b6}
+.s8w1-grid{display:grid;grid-template-columns:270px minmax(0,1fr);gap:12px;align-items:start}
+.s8w1-card{background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 30px rgba(20,42,75,.08);padding:12px}
+.s8w1-card h2{font-size:12px;margin:0 0 9px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.s8w1-two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.s8w1-ctrl{margin-bottom:9px}
+.s8w1-lab{display:flex;justify-content:space-between;font-size:11.5px;font-weight:700;margin-bottom:3px;gap:6px}
+.s8w1-lab span{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--violet);white-space:nowrap}
+.s8w1-wrap input[type=range]{width:100%;accent-color:var(--violet);margin:0}
+.s8w1-run{display:flex;gap:7px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+.s8w1-wrap .s8w1-run button{border:1px solid var(--violet);background:var(--violet);color:#fff;border-radius:8px;padding:6px 14px;font:inherit;font-size:12px;font-weight:800;cursor:pointer}
+.s8w1-wrap .s8w1-run button.s8w1-ghost{background:#fff;color:var(--violet)}
+.s8w1-sweep{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:var(--muted)}
+.s8w1-pane{display:none}
+.s8w1-pane.on{display:block}
+.s8w1-roads{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.s8w1-road{border:1px solid var(--line);background:#fbfdff;border-radius:9px;padding:9px 10px;cursor:pointer;transition:.18s}
+.s8w1-road:hover{border-color:var(--violet)}
+.s8w1-road.on{border-color:var(--violet);background:#f5f3ff;box-shadow:0 0 0 2px #ddd6fe}
+.s8w1-road b{display:block;font-size:12px;margin-bottom:1px}
+.s8w1-road .s8w1-who{font-size:10.5px;color:var(--muted);font-weight:700;font-family:ui-monospace,monospace}
+.s8w1-road p{margin:5px 0 0;font-size:11px;line-height:1.45;color:var(--muted)}
+.s8w1-past{display:inline-block;margin-top:5px;font-size:10px;font-weight:800;border-radius:999px;padding:2px 7px;font-family:ui-monospace,monospace}
+.s8w1-ok{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0}
+.s8w1-over{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+.s8w1-legend{display:flex;gap:13px;flex-wrap:wrap;font-size:11px;margin:0 0 6px;color:var(--muted)}
+.s8w1-key{display:inline-block;width:20px;height:3px;border-radius:2px;vertical-align:middle;margin-right:5px}
+.s8w1-chart{border:1px solid var(--line);background:#fff;border-radius:8px;display:block;width:100%}
+.s8w1-ctitle{font-size:12px;font-weight:800;margin:0 0 2px}
+.s8w1-cnote{font-size:11px;color:var(--muted);margin:0 0 6px;line-height:1.45}
+.s8w1-p2row{display:grid;grid-template-columns:minmax(0,1fr) 296px;gap:10px;margin-top:10px}
+.s8w1-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.s8w1-metric{border:1px solid var(--line);background:#fbfdff;border-radius:8px;padding:8px 9px}
+.s8w1-metric b{display:block;font-size:16px;line-height:1.15;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.s8w1-metric span{display:block;color:var(--muted);font-size:10.5px;margin-top:2px;line-height:1.3}
+.s8w1-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.s8w1-box{border-radius:8px;padding:10px;font-size:11.5px;line-height:1.5}
+.s8w1-b1{border:1px solid #bae6fd;background:#f0f9ff;color:#075985}
+.s8w1-b2{border:1px solid #fed7aa;background:#fff7ed;color:#9a3412}
+.s8w1-b3{border:1px solid #fecaca;background:#fef2f2;color:#991b1b}
+.s8w1-box b{display:block;margin-bottom:4px;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase}
+.s8w1-box code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-weight:700}
+.s8w1-assume{border:1px solid #fde68a;background:#fffbeb;color:#92400e;border-radius:8px;padding:9px 10px;font-size:11px;line-height:1.5;margin-top:10px}
+.s8w1-note{margin-top:10px;border:1px solid #ddd6fe;background:#f5f3ff;color:#5b21b6;border-radius:8px;padding:10px;font-size:11.5px;line-height:1.5}
+.s8w1-note code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-weight:700}
+.s8w1-form{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:9.5px;background:#0f172a;color:#dbeafe;border-radius:8px;padding:10px;line-height:1.55;white-space:pre-wrap;overflow-x:auto}
+@media(max-width:980px){.s8w1-grid{grid-template-columns:1fr}.s8w1-roads{grid-template-columns:1fr}.s8w1-cols{grid-template-columns:1fr}.s8w1-metrics{grid-template-columns:1fr 1fr}.s8w1-p2row{grid-template-columns:1fr}.s8w1-tabs{grid-template-columns:1fr}}
+
+@media (prefers-reduced-motion: reduce){
+  .s8w1-wrap *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<main class="s8w1-wrap">
+  <div class="s8w1-kicker">ERA V5 Session 8</div>
+  <h1>The Fork</h1>
+  <p class="s8w1-sub">Two roads to long context. Pick one and read what it costs in training, what it costs in cache, and where it breaks.</p>
+
+  <div class="s8w1-tabs" id="s8w1-tabs">
+    <button class="s8w1-tab on" data-st="1" aria-label="Tab 1, the two roads">1. The two roads<small>three ways to arrive at a long context</small></button>
+    <button class="s8w1-tab" data-st="2" aria-label="Tab 2, what each costs">2. What each costs<small>cache against context, and the training bill</small></button>
+    <button class="s8w1-tab" data-st="3" aria-label="Tab 3, where each breaks">3. Where each breaks<small>train, serve, and the failure past the design point</small></button>
+  </div>
+
+  <section class="s8w1-grid">
+    <aside class="s8w1-card">
+      <h2>Shared configuration</h2>
+      <div class="s8w1-ctrl"><div class="s8w1-lab">Target context <span id="s8w1-Tv">256K (262,144)</span></div><input id="s8w1-T" type="range" min="13" max="20" step="0.02" value="18" aria-label="Target context"></div>
+      <div class="s8w1-two">
+        <div class="s8w1-ctrl"><div class="s8w1-lab">Layers <span id="s8w1-Lv">32</span></div><input id="s8w1-L" type="range" min="8" max="80" step="2" value="32" aria-label="Layers"></div>
+        <div class="s8w1-ctrl"><div class="s8w1-lab">Width <span id="s8w1-Dv">4,096</span></div><input id="s8w1-D" type="range" min="1024" max="8192" step="256" value="4096" aria-label="Model width"></div>
+      </div>
+      <div class="s8w1-two">
+        <div class="s8w1-ctrl"><div class="s8w1-lab">KV groups <span id="s8w1-Gv">8</span></div><input id="s8w1-G" type="range" min="1" max="32" step="1" value="8" aria-label="Key-value groups"></div>
+        <div class="s8w1-ctrl"><div class="s8w1-lab">Head dim <span id="s8w1-Hv">128</span></div><input id="s8w1-H" type="range" min="64" max="256" step="32" value="128" aria-label="Head dimension"></div>
+      </div>
+      <div class="s8w1-two">
+        <div class="s8w1-ctrl"><div class="s8w1-lab">Train tokens <span id="s8w1-Kv">2.0T</span></div><input id="s8w1-K" type="range" min="200" max="8000" step="100" value="2000" aria-label="Training tokens"></div>
+        <div class="s8w1-ctrl"><div class="s8w1-lab">Rotary base <span id="s8w1-Bv">10,000</span></div><input id="s8w1-B" type="range" min="4" max="7" step="0.05" value="4" aria-label="Rotary base"></div>
+      </div>
+      <div class="s8w1-run">
+        <button id="s8w1-play">Play</button>
+        <button id="s8w1-pause" class="s8w1-ghost">Pause</button>
+        <button id="s8w1-reset" class="s8w1-ghost">Reset</button>
+      </div>
+      <div class="s8w1-sweep" id="s8w1-sweeplab">press Play to sweep the target context from 8K to 1M</div>
+    </aside>
+
+    <section class="s8w1-card">
+
+      <div class="s8w1-pane on" id="s8w1-p1">
+        <p class="s8w1-ctitle">The fork</p>
+        <p class="s8w1-cnote">One trained model, three ways of arriving at a long context. Select a road to trace it.</p>
+        <svg id="s8w1-fork" class="s8w1-chart" height="110" viewBox="0 0 900 118" preserveAspectRatio="none" style="margin-bottom:9px" aria-label="Three roads branching from one model, each with its trained length and the length it reaches"><rect x="8" y="42" width="112" height="34" rx="8" fill="#f5f3ff" stroke="#ddd6fe"></rect><text x="64" y="57" text-anchor="middle" font-size="11" font-weight="800" fill="#5b21b6">one model</text><text x="64" y="70" text-anchor="middle" font-size="9.5" fill="#7c3aed" font-family="ui-monospace,monospace">wants long context</text><path d="M120 59 H 190 V 22 H 300" fill="none" stroke="#0891b2" stroke-width="3" stroke-opacity="1" stroke-linejoin="round"></path><rect x="300" y="7" width="200" height="30" rx="7" fill="#fff" stroke="#0891b2" stroke-opacity="1" stroke-width="2"></rect><text x="400" y="26" text-anchor="middle" font-size="11" font-weight="800" fill="#0891b2" fill-opacity="1">Train short and extend</text><path d="M500 22 H 560" fill="none" stroke="#0891b2" stroke-width="3" stroke-opacity="1"></path><text x="568" y="21" font-size="10.5" font-weight="800" fill="#152033" fill-opacity="1" font-family="ui-monospace,monospace">8K trained, 256K reached</text><text x="568" y="33" font-size="9.5" fill="#65758b" fill-opacity="1">LightningLM V4, extension factor 32x</text><path d="M120 59 H 190 V 59 H 300" fill="none" stroke="#159447" stroke-width="1.6" stroke-opacity="0.42" stroke-linejoin="round"></path><rect x="300" y="44" width="200" height="30" rx="7" fill="#fff" stroke="#159447" stroke-opacity="0.42" stroke-width="1"></rect><text x="400" y="63" text-anchor="middle" font-size="11" font-weight="800" fill="#159447" fill-opacity="0.42">Build native</text><path d="M500 59 H 560" fill="none" stroke="#159447" stroke-width="1.6" stroke-opacity="0.42"></path><text x="568" y="58" font-size="10.5" font-weight="800" fill="#152033" fill-opacity="0.42" font-family="ui-monospace,monospace">1M trained, 1M reached</text><text x="568" y="70" font-size="9.5" fill="#65758b" fill-opacity="0.42">DeepSeek-V4, extension factor 1x</text><path d="M120 59 H 190 V 96 H 300" fill="none" stroke="#d97706" stroke-width="1.6" stroke-opacity="0.42" stroke-linejoin="round"></path><rect x="300" y="81" width="200" height="30" rx="7" fill="#fff" stroke="#d97706" stroke-opacity="0.42" stroke-width="1"></rect><text x="400" y="100" text-anchor="middle" font-size="11" font-weight="800" fill="#d97706" fill-opacity="0.42">Hybrid schedule</text><path d="M500 96 H 560" fill="none" stroke="#d97706" stroke-width="1.6" stroke-opacity="0.42"></path><text x="568" y="95" font-size="10.5" font-weight="800" fill="#152033" fill-opacity="0.42" font-family="ui-monospace,monospace">32K trained, 256K reached</text><text x="568" y="107" font-size="9.5" fill="#65758b" fill-opacity="0.42">Qwen3.6, extension factor 8x</text></svg>
+        <div class="s8w1-roads" id="s8w1-roads"><div class="s8w1-road on" data-i="0" role="button" aria-label="Select the road Train short and extend"><b>Train short and extend</b><span class="s8w1-who">LightningLM V4</span><p>Train at 8K, recalibrate the rotary frequencies with DroPE before annealing, evaluate at 256K. A 32x extension bought without paying to train long.</p><span class="s8w1-past s8w1-ok">reach 256K, target inside it</span></div><div class="s8w1-road" data-i="1" role="button" aria-label="Select the road Build native"><b>Build native</b><span class="s8w1-who">DeepSeek-V4</span><p>Compress every 16 tokens into one entry, select the top 64 blocks per query, keep a 512-token window uncompressed. Train at a million because a million is now affordable.</p><span class="s8w1-past s8w1-ok">reach 1M, target inside it</span></div><div class="s8w1-road" data-i="2" role="button" aria-label="Select the road Hybrid schedule"><b>Hybrid schedule</b><span class="s8w1-who">Qwen3.6</span><p>Gated linear layers carry continuity with an O(1) state, a quarter of the depth keeps sparse attention for exact retrieval, 256K reached from a 32K trained length.</p><span class="s8w1-past s8w1-ok">reach 256K, target inside it</span></div></div>
+        <div class="s8w1-form" id="s8w1-form" style="margin-top:10px">N (non-embedding) = 12 x L x d^2
+                 = 12 x 32 x 4096^2 = 6.44B
+cache = 2 x L_attn x kv_groups x head_dim x entries x 2 bytes
+      + L_linear x d x head_dim x 2 bytes
+fwd FLOPs/token = 2N + 4 x L_attn x d x scored + indexer + linear-state
+train FLOPs = 3 x fwd x tokens</div>
+      </div>
+
+      <div class="s8w1-pane" id="s8w1-p2">
+        <p class="s8w1-ctitle">Key-value cache per conversation, against context length</p>
+        <p class="s8w1-cnote">Both axes are logarithmic. Each road uses its own cache formula. A line goes dotted past the length that road was designed for.</p>
+        <div class="s8w1-legend">
+          <span><i class="s8w1-key" style="background:#0891b2"></i>train short and extend</span>
+          <span><i class="s8w1-key" style="background:#159447"></i>build native</span>
+          <span><i class="s8w1-key" style="background:#d97706"></i>hybrid schedule</span>
+          <span><i class="s8w1-key" style="background:#dc2626"></i>one accelerator of memory</span>
+          <span><i class="s8w1-key" style="background:#94a3b8"></i>the model weights</span>
+        </div>
+        <svg id="s8w1-chart" class="s8w1-chart" height="228" viewBox="0 0 900 260" preserveAspectRatio="none" aria-label="Key-value cache per conversation against context length, logarithmic on both axes"><line x1="64" y1="226.0" x2="886" y2="226.0" stroke="#eef2f7"></line><text x="58" y="229.5" text-anchor="end" font-size="9.5" fill="#94a3b8" font-family="ui-monospace,monospace">10.0 MB</text><line x1="64" y1="183.6" x2="886" y2="183.6" stroke="#eef2f7"></line><text x="58" y="187.1" text-anchor="end" font-size="9.5" fill="#94a3b8" font-family="ui-monospace,monospace">100.0 MB</text><line x1="64" y1="141.2" x2="886" y2="141.2" stroke="#eef2f7"></line><text x="58" y="144.7" text-anchor="end" font-size="9.5" fill="#94a3b8" font-family="ui-monospace,monospace">1.00 GB</text><line x1="64" y1="98.8" x2="886" y2="98.8" stroke="#eef2f7"></line><text x="58" y="102.3" text-anchor="end" font-size="9.5" fill="#94a3b8" font-family="ui-monospace,monospace">10.00 GB</text><line x1="64" y1="56.4" x2="886" y2="56.4" stroke="#eef2f7"></line><text x="58" y="59.9" text-anchor="end" font-size="9.5" fill="#94a3b8" font-family="ui-monospace,monospace">100.00 GB</text><line x1="64" y1="14.0" x2="886" y2="14.0" stroke="#eef2f7"></line><text x="58" y="17.5" text-anchor="end" font-size="9.5" fill="#94a3b8" font-family="ui-monospace,monospace">1.00 TB</text><line x1="64.0" y1="14" x2="64.0" y2="226" stroke="#f1f5f9"></line><text x="64.0" y="241" text-anchor="middle" font-size="9.5" fill="#94a3b8" font-family="ui-monospace,monospace">8K</text><line x1="181.4" y1="14" x2="181.4" y2="226" stroke="#f1f5f9"></line><text x="181.4" y="241" text-anchor="middle" font-size="9.5" fill="#94a3b8" font-family="ui-monospace,monospace">16K</text><line x1="298.9" y1="14" x2="298.9" y2="226" stroke="#f1f5f9"></line><text x="298.9" y="241" text-anchor="middle" font-size="9.5" fill="#94a3b8" font-family="ui-monospace,monospace">32K</text><line x1="416.3" y1="14" x2="416.3" y2="226" stroke="#f1f5f9"></line><text x="416.3" y="241" text-anchor="middle" font-size="9.5" fill="#94a3b8" font-family="ui-monospace,monospace">64K</text><line x1="533.7" y1="14" x2="533.7" y2="226" stroke="#f1f5f9"></line><text x="533.7" y="241" text-anchor="middle" font-size="9.5" fill="#94a3b8" font-family="ui-monospace,monospace">128K</text><line x1="651.1" y1="14" x2="651.1" y2="226" stroke="#f1f5f9"></line><text x="651.1" y="241" text-anchor="middle" font-size="9.5" fill="#94a3b8" font-family="ui-monospace,monospace">256K</text><line x1="768.6" y1="14" x2="768.6" y2="226" stroke="#f1f5f9"></line><text x="768.6" y="241" text-anchor="middle" font-size="9.5" fill="#94a3b8" font-family="ui-monospace,monospace">512K</text><line x1="886.0" y1="14" x2="886.0" y2="226" stroke="#f1f5f9"></line><text x="886.0" y="241" text-anchor="middle" font-size="9.5" fill="#94a3b8" font-family="ui-monospace,monospace">1M</text><text x="450" y="256" text-anchor="middle" font-size="10.5" fill="#65758b">context length in tokens</text><line x1="64" y1="60.50898455154158" x2="886" y2="60.50898455154158" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="6 4"></line><text x="882" y="55.50898455154158" text-anchor="end" font-size="9.5" fill="#dc2626" font-family="ui-monospace,monospace">80 GB accelerator</text><line x1="64" y1="94.13256068299661" x2="886" y2="94.13256068299661" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 4"></line><text x="882" y="89.13256068299661" text-anchor="end" font-size="9.5" fill="#94a3b8" font-family="ui-monospace,monospace">weights 12.88 GB</text><polyline points="64.0,139.9 93.4,135.8 122.7,134.0 152.1,130.9 181.4,127.1 210.8,124.0 240.1,120.4 269.5,117.5 298.9,114.4 328.2,111.2 357.6,108.1 386.9,104.7 416.3,101.6 445.6,98.4 475.0,95.1 504.4,92.0 533.7,88.8 563.1,85.7 592.4,82.5 621.8,79.3 651.1,76.1" fill="none" stroke="#0891b2" stroke-width="3" stroke-opacity="1"></polyline><polyline points="651.1,76.1 680.5,72.9 709.9,69.7 739.2,66.5 768.6,63.3 797.9,60.1 827.3,56.9 856.6,53.7 886.0,50.5" fill="none" stroke="#0891b2" stroke-width="3" stroke-opacity="1" stroke-dasharray="2 5"></polyline><line x1="651.1" y1="14" x2="651.1" y2="226" stroke="#0891b2" stroke-width="1" stroke-opacity=".35" stroke-dasharray="4 4"></line><polyline points="64.0,178.2 93.4,176.0 122.7,175.0 152.1,173.2 181.4,170.7 210.8,168.5 240.1,166.0 269.5,163.8 298.9,161.3 328.2,158.7 357.6,156.1 386.9,153.2 416.3,150.5 445.6,147.6 475.0,144.6 504.4,141.7 533.7,138.8 563.1,135.8 592.4,132.7 621.8,129.7 651.1,126.6 680.5,123.5 709.9,120.3 739.2,117.2 768.6,114.1 797.9,110.9 827.3,107.8 856.6,104.6 886.0,101.5" fill="none" stroke="#159447" stroke-width="1.6" stroke-opacity="0.5"></polyline><line x1="886.0" y1="14" x2="886.0" y2="226" stroke="#159447" stroke-width="1" stroke-opacity=".35" stroke-dasharray="4 4"></line><polyline points="64.0,188.8 93.4,186.8 122.7,185.9 152.1,184.3 181.4,182.0 210.8,180.0 240.1,177.6 269.5,175.5 298.9,173.2 328.2,170.7 357.6,168.2 386.9,165.4 416.3,162.7 445.6,160.0 475.0,157.0 504.4,154.2 533.7,151.3 563.1,148.3 592.4,145.3 621.8,142.3 651.1,139.2" fill="none" stroke="#d97706" stroke-width="1.6" stroke-opacity="0.5"></polyline><polyline points="651.1,139.2 680.5,136.1 709.9,133.0 739.2,129.9 768.6,126.8 797.9,123.6 827.3,120.5 856.6,117.3 886.0,114.2" fill="none" stroke="#d97706" stroke-width="1.6" stroke-opacity="0.5" stroke-dasharray="2 5"></polyline><line x1="651.1" y1="14" x2="651.1" y2="226" stroke="#d97706" stroke-width="1" stroke-opacity=".35" stroke-dasharray="4 4"></line><line x1="651.1" y1="14" x2="651.1" y2="226" stroke="#7c3aed" stroke-width="1.5"></line><circle cx="651.1" cy="76.1" r="5" fill="#fff" stroke="#0891b2" stroke-width="2.4"></circle><circle cx="651.1" cy="126.6" r="3.2" fill="#fff" stroke="#159447" stroke-width="2.4"></circle><circle cx="651.1" cy="139.2" r="3.2" fill="#fff" stroke="#d97706" stroke-width="2.4"></circle></svg>
+        <div class="s8w1-p2row">
+          <div class="s8w1-metrics">
+            <div class="s8w1-metric"><b id="s8w1-m1">34.36 GB</b><span>cache at target, one conversation</span></div>
+            <div class="s8w1-metric"><b id="s8w1-m2">1</b><span>conversations per accelerator</span></div>
+            <div class="s8w1-metric"><b id="s8w1-m3">5,275 GPU-d</b><span>training cost of this road</span></div>
+            <div class="s8w1-metric"><b id="s8w1-m4">256K  1.00x</b><span>reach, and target as a multiple of it</span></div>
+          </div>
+          <div class="s8w1-assume" id="s8w1-assume" style="margin-top:0"><b>Assumptions, not measurements.</b> Accelerator peak <b>494.7 TFLOP/s</b> dense bf16 (H100 SXM), model FLOPs utilisation <b>40%</b>, <b>80 GB</b> of memory on one device, weights and cache both bf16, backward pass costed at twice the forward. Change them on the left and every derived figure moves.</div>
+        </div>
+      </div>
+
+      <div class="s8w1-pane" id="s8w1-p3">
+        <p class="s8w1-ctitle" id="s8w1-dtitle">Train short and extend.  LightningLM V4, trained at 8K, reaching 256K.</p>
+        <p class="s8w1-cnote" id="s8w1-dsub">All three panels are recomputed from the configuration on the left at a target context of 262,144 tokens.</p>
+        <div class="s8w1-cols">
+          <div class="s8w1-box s8w1-b1"><b>What it costs to train</b><span id="s8w1-train">Trains at <code>8,192</code> tokens of sequence. One forward token costs <code>15.03 GFLOP</code>: dense blocks <code>12.88 GFLOP</code>, sequence-dependent terms <code>2.15 GFLOP</code>, which is <code>14.3%</code>. Over <code>2.0T</code> tokens the run is <code>90.19 ZFLOP</code>, or <code>5,275 GPU-days</code>. Training this architecture natively at <code>262,144</code> costs <code>489.63 ZFLOP</code>, <code>5.43x</code> as much. That ratio is the whole argument for extending.</span></div>
+          <div class="s8w1-box s8w1-b2"><b>What it costs to serve</b><span id="s8w1-serve">At <code>262,144</code> tokens it holds <code>262,144</code> cache entries per layer across <code>32</code> attention layers. One conversation is <code>34.36 GB</code>, which is <code>100.00%</code> of the yardstick (grouped-query with 8 groups, bf16, head dimension 128, attention at every layer). Weights take <code>12.88 GB</code> of the 80 GB device, leaving <code>67.12 GB</code> for <code>1</code> simultaneous conversations. One generated token costs <code>81.60 GFLOP</code>.</span></div>
+          <div class="s8w1-box s8w1-b3"><b>What breaks past the design point</b><span id="s8w1-break">The position scheme gives out. At rotary base <code>10,000</code> the slowest of the <code>32</code> bands completes one period in <code>47,117</code> tokens. At the trained length <code>8,192</code>, <code>7 of 32</code> bands still span the window. At the target <code>262,144</code>, <code>0 of 32</code> do. A band that has wrapped many times reports only where two tokens sit inside one period. One band spanning the target needs a base of at least <code>58,804</code>, which is what DroPE, NTK scaling and YaRN supply. The target sits inside the demonstrated 32x extension.</span></div>
+        </div>
+        <div class="s8w1-note" id="s8w1-note">At a target of <code>262,144</code> tokens, <b>hybrid schedule</b> is the cheapest to train at <code>4,572 GPU-days</code>, and <b>hybrid schedule</b> is the cheapest to serve at <code>1.12 GB</code> per conversation. They are usually different roads. Extending is cheap in training and carries a ceiling set by its extension factor. Building native lifts that ceiling and pays up front. The hybrid schedule buys most of the cache saving and inherits an unablated depth ratio. Long context is three decisions.</div>
+      </div>
+
+    </section>
+  </section>
+</main>
+
+<script>
+(function(){
+  var REDUCED_MOTION = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var DEF={T:18,L:32,D:4096,G:8,H:128,K:2000,B:4};
+  var ids=['T','L','D','G','H','K','B'],el={};
+  ids.forEach(function(k){el[k]=document.getElementById('s8w1-'+k);});
+
+  var BYTES=2;            // bf16 key-value cache
+  var PEAK=494.7e12;      // H100 SXM, dense bf16, FLOP per second
+  var MFU=0.40;           // model FLOPs utilisation
+  var HBM=80e9;           // one accelerator
+  var ROT=64;             // rotary dimensions, DeepSeek-V4 rotates the last 64
+  var MODEL_BYTES=2;      // weights held in bf16 for serving
+
+  // road definitions. block m, top-k blocks, sliding window, attention share of depth
+  var ROADS=[
+    {id:'A',name:'Train short and extend',who:'LightningLM V4',col:'#0891b2',
+     trainLen:8192, ext:32, kind:'full', share:1, m:1, k:0, win:0,
+     blurb:'Train at 8K, recalibrate the rotary frequencies with DroPE before annealing, evaluate at 256K. A 32x extension bought without paying to train long.'},
+    {id:'B',name:'Build native',who:'DeepSeek-V4',col:'#159447',
+     trainLen:1048576, ext:1, kind:'compressed', share:1, m:16, k:64, win:512,
+     blurb:'Compress every 16 tokens into one entry, select the top 64 blocks per query, keep a 512-token window uncompressed. Train at a million because a million is now affordable.'},
+    {id:'C',name:'Hybrid schedule',who:'Qwen3.6',col:'#d97706',
+     trainLen:32768, ext:8, kind:'hybrid', share:0.25, m:8, k:64, win:512,
+     blurb:'Gated linear layers carry continuity with an O(1) state, a quarter of the depth keeps sparse attention for exact retrieval, 256K reached from a 32K trained length.'}
+  ];
+  var sel=0, playing=false, raf=null, stage=1;
+
+  function pow2(v){return Math.pow(2,v);}
+  function ctx(){return Math.round(pow2(+el.T.value)/1024)*1024;}
+  function fmtT(n){return n>=1048576?(n/1048576).toFixed(2).replace(/\.00$/,'')+'M':(n/1024).toFixed(0)+'K';}
+  function gb(b){return b>=1e12?(b/1e12).toFixed(2)+' TB':b>=1e9?(b/1e9).toFixed(2)+' GB':b>=1e6?(b/1e6).toFixed(1)+' MB':(b/1e3).toFixed(0)+' KB';}
+  function fl(x){return x>=1e21?(x/1e21).toFixed(2)+' ZFLOP':x>=1e18?(x/1e18).toFixed(2)+' EFLOP':x>=1e15?(x/1e15).toFixed(2)+' PFLOP':x>=1e12?(x/1e12).toFixed(2)+' TFLOP':(x/1e9).toFixed(2)+' GFLOP';}
+  function num(n){return n.toLocaleString('en-US');}
+
+  function cfg(){
+    var L=+el.L.value,D=+el.D.value,G=+el.G.value,Hd=+el.H.value;
+    return {L:L,D:D,G:G,Hd:Hd,N:12*L*D*D,tok:(+el.K.value)*1e9,base:Math.pow(10,+el.B.value)};
+  }
+
+  // entries a single query actually scores, and entries the cache has to hold, for one road
+  function entries(r,T){
+    if(r.kind==='full') return {score:T/2, hold:T};
+    if(r.kind==='compressed'){
+      var blocks=Math.ceil(T/r.m);
+      return {score:Math.min(r.k,blocks)+r.win, hold:blocks+r.win, blocks:blocks};
+    }
+    var b2=Math.ceil(T/r.m);
+    return {score:Math.min(r.k,b2)+r.win, hold:b2+r.win, blocks:b2};
+  }
+
+  // cache bytes = 2 (keys and values) x attention layers x kv groups x head dim x entries x bytes,
+  // plus a fixed matrix state for every linear layer
+  function cache(r,T,c){
+    var e=entries(r,T);
+    var La=Math.max(1,Math.round(c.L*r.share)), Ll=c.L-La;
+    var attn=2*La*c.G*c.Hd*e.hold*BYTES;
+    var lin=Ll*(c.D*c.Hd)*BYTES;
+    return attn+lin;
+  }
+
+  // forward FLOPs per token. 4 = two matmuls (scores, values) x 2 FLOPs per multiply-add
+  function fwdPerToken(r,T,c){
+    var e=entries(r,T);
+    var La=Math.max(1,Math.round(c.L*r.share)), Ll=c.L-La;
+    var attn=4*La*c.D*e.score;
+    var idx=(r.kind==='full')?0:4*La*128*(e.blocks||0);      // the low-rank indexer that picks blocks
+    var lin=4*Ll*c.D*c.Hd;                                    // linear layer state read and write
+    return {dense:2*c.N, attn:attn, idx:idx, lin:lin, total:2*c.N+attn+idx+lin};
+  }
+
+  function trainCost(r,c){
+    var f=fwdPerToken(r,r.trainLen,c);
+    var per=3*f.total;                                        // backward costs about twice the forward
+    var tot=per*c.tok;
+    return {per:per,total:tot,days:tot/(PEAK*MFU*86400),f:f};
+  }
+
+  function reach(r){return r.trainLen*r.ext;}
+
+  // rotary band arithmetic. band j has wavelength 2*pi*base^(2j/rot)
+  function bands(base,T){
+    var n=ROT/2,alive=0,longest=0;
+    for(var j=0;j<n;j++){
+      var lam=2*Math.PI*Math.pow(base,2*j/ROT);
+      if(lam>longest) longest=lam;
+      if(lam>=T) alive++;
+    }
+    return {n:n,alive:alive,longest:longest};
+  }
+  function minBase(T){ return Math.pow(T/(2*Math.PI), ROT/(ROT-2)); }
+
+  function drawFork(){
+    var s=document.getElementById('s8w1-fork');
+    var x0=60,y0=59,parts=['','',''],cols=[];
+    var g='<rect x="8" y="42" width="112" height="34" rx="8" fill="#f5f3ff" stroke="#ddd6fe"/>'+
+          '<text x="64" y="57" text-anchor="middle" font-size="11" font-weight="800" fill="#5b21b6">one model</text>'+
+          '<text x="64" y="70" text-anchor="middle" font-size="9.5" fill="#7c3aed" font-family="ui-monospace,monospace">wants long context</text>';
+    var ys=[22,59,96];
+    ROADS.forEach(function(r,i){
+      var on=(i===sel);
+      var w=on?3:1.6, op=on?1:.42;
+      g+='<path d="M120 '+y0+' H 190 V '+ys[i]+' H 300" fill="none" stroke="'+r.col+'" stroke-width="'+w+'" stroke-opacity="'+op+'" stroke-linejoin="round"/>';
+      g+='<rect x="300" y="'+(ys[i]-15)+'" width="200" height="30" rx="7" fill="#fff" stroke="'+r.col+'" stroke-opacity="'+op+'" stroke-width="'+(on?2:1)+'"/>';
+      g+='<text x="400" y="'+(ys[i]+4)+'" text-anchor="middle" font-size="11" font-weight="800" fill="'+r.col+'" fill-opacity="'+op+'">'+r.name+'</text>';
+      g+='<path d="M500 '+ys[i]+' H 560" fill="none" stroke="'+r.col+'" stroke-width="'+w+'" stroke-opacity="'+op+'"/>';
+      g+='<text x="568" y="'+(ys[i]-1)+'" font-size="10.5" font-weight="800" fill="#152033" fill-opacity="'+op+'" font-family="ui-monospace,monospace">'+fmtT(r.trainLen)+' trained, '+fmtT(reach(r))+' reached</text>';
+      g+='<text x="568" y="'+(ys[i]+11)+'" font-size="9.5" fill="#65758b" fill-opacity="'+op+'">'+r.who+', extension factor '+r.ext+'x</text>';
+    });
+    s.innerHTML=g;
+  }
+
+  function drawChart(c,T){
+    var s=document.getElementById('s8w1-chart');
+    var W=900,Hh=260,pl=64,pr=14,pt=14,pb=34;
+    var xs=[],i;
+    for(i=13;i<=20.0001;i+=0.25) xs.push(i);
+    var series=ROADS.map(function(r){
+      return {r:r,pts:xs.map(function(v){var t=Math.round(pow2(v)/1024)*1024;return {v:v,t:t,y:cache(r,t,c)};})};
+    });
+    var all=[];series.forEach(function(sr){sr.pts.forEach(function(p){all.push(p.y);});});
+    var wts=c.N*MODEL_BYTES; all.push(wts); all.push(HBM);
+    var lo=Math.floor(Math.log10(Math.min.apply(null,all)));
+    var hi=Math.ceil(Math.log10(Math.max.apply(null,all)));
+    function X(v){return pl+(v-13)/7*(W-pl-pr);}
+    function Y(b){return pt+(1-(Math.log10(b)-lo)/(hi-lo))*(Hh-pt-pb);}
+    var g='';
+    for(var d=lo;d<=hi;d++){
+      var y=Y(Math.pow(10,d));
+      g+='<line x1="'+pl+'" y1="'+y.toFixed(1)+'" x2="'+(W-pr)+'" y2="'+y.toFixed(1)+'" stroke="#eef2f7"/>';
+      g+='<text x="'+(pl-6)+'" y="'+(y+3.5).toFixed(1)+'" text-anchor="end" font-size="9.5" fill="#94a3b8" font-family="ui-monospace,monospace">'+gb(Math.pow(10,d))+'</text>';
+    }
+    for(var v=13;v<=20;v++){
+      var x=X(v);
+      g+='<line x1="'+x.toFixed(1)+'" y1="'+pt+'" x2="'+x.toFixed(1)+'" y2="'+(Hh-pb)+'" stroke="#f1f5f9"/>';
+      g+='<text x="'+x.toFixed(1)+'" y="'+(Hh-pb+15)+'" text-anchor="middle" font-size="9.5" fill="#94a3b8" font-family="ui-monospace,monospace">'+fmtT(Math.pow(2,v))+'</text>';
+    }
+    g+='<text x="'+(W/2)+'" y="'+(Hh-4)+'" text-anchor="middle" font-size="10.5" fill="#65758b">context length in tokens</text>';
+    g+='<line x1="'+pl+'" y1="'+Y(HBM)+'" x2="'+(W-pr)+'" y2="'+Y(HBM)+'" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="6 4"/>';
+    g+='<text x="'+(W-pr-4)+'" y="'+(Y(HBM)-5)+'" text-anchor="end" font-size="9.5" fill="#dc2626" font-family="ui-monospace,monospace">80 GB accelerator</text>';
+    g+='<line x1="'+pl+'" y1="'+Y(wts)+'" x2="'+(W-pr)+'" y2="'+Y(wts)+'" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 4"/>';
+    g+='<text x="'+(W-pr-4)+'" y="'+(Y(wts)-5)+'" text-anchor="end" font-size="9.5" fill="#94a3b8" font-family="ui-monospace,monospace">weights '+gb(wts)+'</text>';
+
+    series.forEach(function(sr,i){
+      var rr=reach(sr.r), on=(i===sel);
+      var solid=[],dash=[];
+      sr.pts.forEach(function(p){
+        var pair=X(p.v).toFixed(1)+','+Y(p.y).toFixed(1);
+        if(p.t<=rr) solid.push(pair); else dash.push(pair);
+      });
+      if(dash.length&&solid.length) dash.unshift(solid[solid.length-1]);
+      if(solid.length) g+='<polyline points="'+solid.join(' ')+'" fill="none" stroke="'+sr.r.col+'" stroke-width="'+(on?3:1.6)+'" stroke-opacity="'+(on?1:.5)+'"/>';
+      if(dash.length) g+='<polyline points="'+dash.join(' ')+'" fill="none" stroke="'+sr.r.col+'" stroke-width="'+(on?3:1.6)+'" stroke-opacity="'+(on?1:.5)+'" stroke-dasharray="2 5"/>';
+      if(rr>=8192&&rr<=1048576) g+='<line x1="'+X(Math.log2(rr)).toFixed(1)+'" y1="'+pt+'" x2="'+X(Math.log2(rr)).toFixed(1)+'" y2="'+(Hh-pb)+'" stroke="'+sr.r.col+'" stroke-width="1" stroke-opacity=".35" stroke-dasharray="4 4"/>';
+    });
+    var xm=X(Math.log2(T));
+    g+='<line x1="'+xm.toFixed(1)+'" y1="'+pt+'" x2="'+xm.toFixed(1)+'" y2="'+(Hh-pb)+'" stroke="#7c3aed" stroke-width="1.5"/>';
+    ROADS.forEach(function(r,i){
+      var b=cache(r,T,c);
+      g+='<circle cx="'+xm.toFixed(1)+'" cy="'+Y(b).toFixed(1)+'" r="'+(i===sel?5:3.2)+'" fill="#fff" stroke="'+r.col+'" stroke-width="2.4"/>';
+    });
+    s.innerHTML=g;
+  }
+
+  function render(){
+    var c=cfg(),T=ctx();
+    document.getElementById('s8w1-Tv').textContent=fmtT(T)+' ('+num(T)+')';
+    document.getElementById('s8w1-Lv').textContent=c.L;
+    document.getElementById('s8w1-Dv').textContent=num(c.D);
+    document.getElementById('s8w1-Gv').textContent=c.G;
+    document.getElementById('s8w1-Hv').textContent=c.Hd;
+    document.getElementById('s8w1-Kv').textContent=(c.tok/1e12).toFixed(1)+'T';
+    document.getElementById('s8w1-Bv').textContent=c.base>=1e6?(c.base/1e6).toFixed(2)+'M':num(Math.round(c.base));
+
+    document.getElementById('s8w1-form').textContent=
+      'N (non-embedding) = 12 x L x d^2\n'+
+      '                 = 12 x '+c.L+' x '+c.D+'^2 = '+(c.N/1e9).toFixed(2)+'B\n'+
+      'cache = 2 x L_attn x kv_groups x head_dim x entries x '+BYTES+' bytes\n'+
+      '      + L_linear x d x head_dim x '+BYTES+' bytes\n'+
+      'fwd FLOPs/token = 2N + 4 x L_attn x d x scored + indexer + linear-state\n'+
+      'train FLOPs = 3 x fwd x tokens';
+
+    document.getElementById('s8w1-assume').innerHTML=
+      '<b>Assumptions, not measurements.</b> Accelerator peak <b>494.7 TFLOP/s</b> dense bf16 (H100 SXM), model FLOPs utilisation <b>40%</b>, '+
+      '<b>80 GB</b> of memory on one device, weights and cache both bf16, backward pass costed at twice the forward. '+
+      'Change them on the left and every derived figure moves.';
+
+    drawFork();
+    drawChart(c,T);
+
+    document.getElementById('s8w1-roads').innerHTML=ROADS.map(function(r,i){
+      var rr=reach(r), over=T>rr;
+      return '<div class="s8w1-road'+(i===sel?' on':'')+'" data-i="'+i+'" role="button" aria-label="Select the road '+r.name+'">'+
+        '<b>'+r.name+'</b><span class="s8w1-who">'+r.who+'</span>'+
+        '<p>'+r.blurb+'</p>'+
+        '<span class="s8w1-past '+(over?'s8w1-over':'s8w1-ok')+'">'+
+          (over?('target is '+(T/rr).toFixed(2)+'x past its reach'):('reach '+fmtT(rr)+', target inside it'))+
+        '</span></div>';
+    }).join('');
+    Array.prototype.forEach.call(document.querySelectorAll('.s8w1-road'),function(n){
+      n.onclick=function(){sel=+n.dataset.i;render();};
+    });
+
+    var r=ROADS[sel], e=entries(r,T), cb=cache(r,T,c), tc=trainCost(r,c), rr=reach(r);
+    var wts=c.N*MODEL_BYTES, free=HBM-wts, conc=free>0?Math.floor(free/cb):0;
+    var f=fwdPerToken(r,T,c);
+    var La=Math.max(1,Math.round(c.L*r.share)), Ll=c.L-La;
+
+    document.getElementById('s8w1-m1').textContent=gb(cb);
+    document.getElementById('s8w1-m2').textContent=free>0?num(conc):'0';
+    document.getElementById('s8w1-m3').textContent=Math.round(tc.days).toLocaleString('en-US')+' GPU-d';
+    document.getElementById('s8w1-m4').textContent=fmtT(rr)+'  '+(T/rr).toFixed(2)+'x';
+
+    document.getElementById('s8w1-dtitle').textContent=r.name+'.  '+r.who+', trained at '+fmtT(r.trainLen)+', reaching '+fmtT(rr)+'.';
+    document.getElementById('s8w1-dsub').textContent='All three panels are recomputed from the configuration on the left at a target context of '+num(T)+' tokens.';
+
+    // training panel
+    var full={id:'X',kind:'full',share:1,m:1,k:0,win:0,trainLen:r.trainLen,ext:1};
+    var fullTrain=trainCost(full,c);
+    var attnShare=(tc.f.attn+tc.f.idx+tc.f.lin)/tc.f.total*100;
+    var trainTxt='Trains at <code>'+num(r.trainLen)+'</code> tokens of sequence. One forward token costs <code>'+fl(tc.f.total)+'</code>: dense blocks <code>'+fl(tc.f.dense)+'</code>, sequence-dependent terms <code>'+fl(tc.f.attn+tc.f.idx+tc.f.lin)+'</code>, which is <code>'+attnShare.toFixed(1)+'%</code>. '+
+      'Over <code>'+(c.tok/1e12).toFixed(1)+'T</code> tokens the run is <code>'+fl(tc.total)+'</code>, or <code>'+Math.round(tc.days).toLocaleString('en-US')+' GPU-days</code>.';
+    if(r.kind!=='full'){
+      trainTxt+=' Plain attention on every layer at the same length costs <code>'+fl(fullTrain.total)+'</code>, so the design choice is worth <code>'+(fullTrain.total/tc.total).toFixed(2)+'x</code> on the training bill.';
+    } else {
+      var nat=trainCost({id:'Y',kind:'full',share:1,m:1,k:0,win:0,trainLen:T,ext:1},c);
+      trainTxt+=' Training this architecture natively at <code>'+num(T)+'</code> costs <code>'+fl(nat.total)+'</code>, <code>'+(nat.total/tc.total).toFixed(2)+'x</code> as much. That ratio is the whole argument for extending.';
+    }
+    document.getElementById('s8w1-train').innerHTML=trainTxt;
+
+    // serving panel
+    var baseline=2*c.L*8*128*T*2;   // the industry yardstick: GQA-8, bf16, head dim 128, every layer
+    var serveTxt='At <code>'+num(T)+'</code> tokens it holds <code>'+num(Math.round(e.hold))+'</code> cache entries per layer across <code>'+La+'</code> attention layers'+
+      (Ll>0?(', plus a fixed <code>'+gb(Ll*c.D*c.Hd*BYTES)+'</code> of matrix state across <code>'+Ll+'</code> linear layers'):'')+
+      '. One conversation is <code>'+gb(cb)+'</code>, which is <code>'+(cb/baseline*100).toFixed(2)+'%</code> of the yardstick (grouped-query with 8 groups, bf16, head dimension 128, attention at every layer). '+
+      'Weights take <code>'+gb(wts)+'</code> of the 80 GB device, leaving <code>'+gb(Math.max(0,free))+'</code> for <code>'+num(conc)+'</code> simultaneous conversations. '+
+      'One generated token costs <code>'+fl(f.total)+'</code>.';
+    document.getElementById('s8w1-serve').innerHTML=serveTxt;
+
+    // failure panel
+    var bd=bands(c.base,T), bt=bands(c.base,r.trainLen), mb=minBase(T);
+    var brk='';
+    if(r.kind==='full'){
+      brk='The position scheme gives out. At rotary base <code>'+num(Math.round(c.base))+'</code> the slowest of the <code>'+bd.n+'</code> bands completes one period in <code>'+num(Math.round(bd.longest))+'</code> tokens. '+
+        'At the trained length <code>'+num(r.trainLen)+'</code>, <code>'+bt.alive+' of '+bt.n+'</code> bands still span the window. At the target <code>'+num(T)+'</code>, <code>'+bd.alive+' of '+bd.n+'</code> do. '+
+        'A band that has wrapped many times reports only where two tokens sit inside one period. One band spanning the target needs a base of at least <code>'+num(Math.round(mb))+'</code>, which is what DroPE, NTK scaling and YaRN supply. '+
+        (T>rr?('You are <code>'+(T/rr).toFixed(2)+'x</code> past the '+r.ext+'x extension this road demonstrated.'):'The target sits inside the demonstrated '+r.ext+'x extension.');
+    } else if(r.kind==='compressed'){
+      var reachTok=Math.min(r.k,e.blocks)*r.m+r.win;
+      brk='<b>Coverage</b> gives out. The model trained at this length, so the position scheme holds. Top-<code>'+r.k+'</code> selection over blocks of <code>'+r.m+'</code> tokens plus a <code>'+r.win+'</code>-token window lets a query reach <code>'+num(reachTok)+'</code> tokens of the <code>'+num(T)+'</code> in front of it, which is <code>'+(reachTok/T*100).toFixed(3)+'%</code> of the context. The rest is visible only through a block summary. '+
+        'Compression is lossy by construction: a query cannot see inside its own block, which is why the sliding window exists. '+
+        (T>rr?('Past <code>'+num(rr)+'</code> tokens you are running <code>'+(T/rr).toFixed(2)+'x</code> beyond the length it was built for.'):'Below <code>'+num(rr)+'</code> tokens the model sits inside its design point, which is what this road paid for.');
+    } else {
+      var gap=Math.max(1,Math.round(1/Math.max(r.share,1e-9))-1);
+      brk='Two things give out on different schedules. The rotary base: <code>'+bd.alive+' of '+bd.n+'</code> bands span <code>'+num(T)+'</code> tokens, and the demonstrated extension is <code>'+r.ext+'x</code> from <code>'+num(r.trainLen)+'</code>, putting the target at <code>'+(T/rr).toFixed(2)+'x</code> of the reach. '+
+        'The schedule: <code>'+La+'</code> of <code>'+c.L+'</code> layers keep an exact record, so a fact must survive up to <code>'+gap+'</code> consecutive fixed-state layers before any layer can retrieve it exactly. '+
+        'The ratio that sets that number is a default carried forward across all three reference architectures, never ablated.';
+    }
+    document.getElementById('s8w1-break').innerHTML=brk;
+
+    var cheapest=ROADS.map(function(x){return {n:x.name,d:trainCost(x,c).days};}).sort(function(a,b){return a.d-b.d;})[0];
+    var smallest=ROADS.map(function(x){return {n:x.name,b:cache(x,T,c)};}).sort(function(a,b){return a.b-b.b;})[0];
+    document.getElementById('s8w1-note').innerHTML=
+      'At a target of <code>'+num(T)+'</code> tokens, <b>'+cheapest.n.toLowerCase()+'</b> is the cheapest to train at <code>'+Math.round(cheapest.d).toLocaleString('en-US')+' GPU-days</code>, and <b>'+smallest.n.toLowerCase()+'</b> is the cheapest to serve at <code>'+gb(smallest.b)+'</code> per conversation. '+
+      'They are usually different roads. Extending is cheap in training and carries a ceiling set by its extension factor. Building native lifts that ceiling and pays up front. The hybrid schedule buys most of the cache saving and inherits an unablated depth ratio. Long context is three decisions.';
+  }
+
+  function stop(){playing=false;if(raf){cancelAnimationFrame(raf);raf=null;}document.getElementById('s8w1-sweeplab').textContent='paused at '+fmtT(ctx());}
+  function tick(){
+    if(!playing) return;
+    var v=+el.T.value+0.03;
+    if(v>20){v=13;}
+    el.T.value=v.toFixed(2);
+    render();
+    document.getElementById('s8w1-sweeplab').textContent='sweeping context, now at '+fmtT(ctx());
+    raf=requestAnimationFrame(tick);
+  }
+  document.getElementById('s8w1-play').onclick=function(){if(playing)return;playing=true;raf=requestAnimationFrame(tick);};
+  document.getElementById('s8w1-pause').onclick=stop;
+  document.getElementById('s8w1-reset').onclick=function(){
+    stop(); sel=0;
+    ids.forEach(function(k){el[k].value=DEF[k];});
+    render();
+    document.getElementById('s8w1-sweeplab').textContent='reset to defaults';
+  };
+  ids.forEach(function(k){el[k].addEventListener('input',function(){render();});});
+
+  // ---- tab strip. one panel visible at a time, the configuration column stays put ----
+  function setTab(n){
+    stage=n;
+    var t=document.querySelectorAll('.s8w1-tab'),i;
+    for(i=0;i<t.length;i++) t[i].className='s8w1-tab'+(+t[i].dataset.st===stage?' on':'');
+    for(i=1;i<=3;i++) document.getElementById('s8w1-p'+i).className='s8w1-pane'+(i===stage?' on':'');
+    render();
+    if(window.s8w1Fit) window.s8w1Fit();
+  }
+  document.getElementById('s8w1-tabs').addEventListener('click',function(e){
+    var b=e.target.closest('.s8w1-tab'); if(!b) return;
+    setTab(+b.dataset.st);
+  });
+
+  render();
+  document.getElementById('s8w1-sweeplab').textContent='press Play to sweep the target context from 8K to 1M';
+})();
+</script>
+<script>
+/* Self-sizing: the lesson embeds this at a fixed height, but the content height
+   changes when the predict gate opens, when a tab switches, or when a panel
+   expands. Same-origin, so the frame can be resized from inside. */
+(function(){
+  var fe; try{ fe=window.frameElement; }catch(e){ return; }
+  if(!fe) return;
+  var last=0;
+  function fit(){
+    var h=Math.ceil(document.body.scrollHeight)+8;
+    if(Math.abs(h-last)>2){ last=h; fe.style.height=h+'px'; }
+  }
+  window.s8w1Fit=fit;
+  if(window.ResizeObserver){ new ResizeObserver(fit).observe(document.body); }
+  window.addEventListener('load',fit);
+  document.addEventListener('click',function(){ setTimeout(fit,60); setTimeout(fit,260); },true);
+  document.addEventListener('input',function(){ setTimeout(fit,60); },true);
+  [0,120,400,900,1800].forEach(function(t){ setTimeout(fit,t); });
+})();
+</script>
+
+
+</body></html>

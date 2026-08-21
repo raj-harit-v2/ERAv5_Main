@@ -1,0 +1,103 @@
+{
+  "schema": "a08.demo_asgn_08.1",
+  "title": "How an LLM reads your sentence (grade-10 tour)",
+  "default_sentence": "The cat sat on the mat",
+  "default_chunk1": "The shipment belongs in bay 3. Its invoice number is 4471.",
+  "default_fact": "4471",
+  "default_chunk2_question": "What was the invoice number?",
+  "D": 8,
+  "alpha": 0.391,
+  "steps": [
+    {
+      "id": "s0",
+      "title": "0. What this page is",
+      "simple": "An AI does not 'see' English the way you do. It turns your sentence into numbers, then into vectors, then lets those vectors talk to each other. Type below and watch each stage update."
+    },
+    {
+      "id": "s1",
+      "title": "1. Words become tokens",
+      "simple": "A tokenizer chops text into pieces (words or subwords) and gives each piece an ID. Training that vocab happens once offline. Every request only looks up IDs."
+    },
+    {
+      "id": "s2",
+      "title": "2. Tokens become a grid [B, T, D]",
+      "simple": "Each token ID becomes a vector of length D. Stack T tokens and you get a matrix shaped like batch × time × width. Session 7 taught embeddings; Session 8 starts here."
+    },
+    {
+      "id": "s3",
+      "title": "3. Vectors talk: attention",
+      "simple": "Query asks, Key advertises, Value carries content. Scores → divide by sqrt(d) → hide the future (mask) → softmax weights → mix Values. That is standard scaled attention."
+    },
+    {
+      "id": "s4",
+      "title": "4. Two bills appear",
+      "simple": "Comparing every token to every other costs about T×T work. Saving Keys/Values for later decoding costs about T × users. Later mechanisms (GQA, linear, sparse…) each attack one bill."
+    },
+    {
+      "id": "s5",
+      "title": "5. Across chunks: memory + gate",
+      "simple": "Long docs are split. Chunk 1 packs a summary vector m. Chunk 2 may read m. Training uses stop_gradient so loss in Chunk 2 does not unroll back through all of Chunk 1. Your fact below replaces the old hardcoded invoice."
+    },
+    {
+      "id": "s6",
+      "title": "6. Exact KV cache bytes",
+      "simple": "The memory bill is exact: 2 · L · H_KV · d_head · T · B · P_b. Your sentence sets T; yardstick knobs show why 32K contexts get expensive."
+    },
+    {
+      "id": "s7",
+      "title": "7. GQA shrinks the KV slope",
+      "simple": "Share Key/Value heads across query heads (MHA → GQA → MQA). Cache shrinks by H_Q/H_KV. Prefill compute is still ~T² — GQA alone is not enough for 256K."
+    },
+    {
+      "id": "s8",
+      "title": "8. Softmax off → fixed state S",
+      "simple": "Without softmax’s shared denominator, past keys and values fold into a fixed-size matrix S. Direct sum and S·q match only with softmax off — the door to linear / DeltaNet-style layers."
+    },
+    {
+      "id": "s9",
+      "title": "9. Delta rule overwrite",
+      "simple": "Additive S can blur. Delta writes only the correction Δ = v − S k so a unit key can overwrite. Pair later with sparse G-layers."
+    },
+    {
+      "id": "s10",
+      "title": "10. Sparse top-k",
+      "simple": "Keep softmax quality on a subset: each query keeps only its top-k past keys. Compute ≈ T·k instead of T² — miss the right key and the answer is wrong."
+    },
+    {
+      "id": "s11",
+      "title": "11. RoPE relative position",
+      "simple": "Causal mask blocks the future but not near vs far. RoPE rotates Q and K so the score depends on (j−i). Wireframe uses one 2D pair."
+    },
+    {
+      "id": "s12",
+      "title": "12. DroPE extension factor",
+      "simple": "Train short, recalibrate, serve long. ExtensionFactor = serve/train. Reported V4: 256K/8K = 32×. Algorithm details stay VERIFY."
+    },
+    {
+      "id": "s13",
+      "title": "13. Sequence compression",
+      "simple": "Group m tokens into one summary: stored positions T → T/m. Optional top-k block reads via a cheap indexer (not in the size formula)."
+    },
+    {
+      "id": "s14",
+      "title": "14. Schedule + two roads",
+      "simple": "Motif DDDGDDDG mixes DeltaNet D layers with sparse G layers. Road 1 stretches from short train; Road 2 trains at target length."
+    }
+  ],
+  "widgets": [
+    "tokens",
+    "btd",
+    "attention",
+    "two_bills",
+    "chunk_gate",
+    "kv_cache",
+    "gqa",
+    "linear_softmax_off",
+    "delta",
+    "sparse_topk",
+    "rope",
+    "drope",
+    "compression",
+    "schedule_fork"
+  ]
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Session 8 Widget 3 - Removing Softmax</title>
+<style>
+:root{--ink:#162033;--muted:#66758a;--line:#d8e2ee;--cyan:#087f9d;--violet:#7540d4;--green:#198754;--red:#d94747;--amber:#c87913}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#f8fbff,#eef5fb);color:var(--ink);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+.w{max-width:1160px;margin:auto;padding:18px 22px}
+.k{color:var(--cyan);font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+h1{font-size:24px;line-height:1.15;margin:4px 0 6px}
+.sub{max-width:900px;color:var(--muted);margin:0 0 12px}
+.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+button{border:1px solid var(--line);border-radius:8px;padding:8px 13px;background:#fff;color:var(--muted);font:800 12px inherit;cursor:pointer}
+button.on{border-color:var(--cyan);background:#ecfeff;color:#075985;box-shadow:inset 0 0 0 1px var(--cyan)}
+button.replay{border-color:var(--cyan);background:var(--cyan);color:#fff;margin-left:5px}
+.prompt{font-size:12px;color:var(--muted);margin-left:4px}
+.paths{display:grid;grid-template-columns:1fr 52px 1fr;gap:10px;align-items:stretch}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 28px #14305212;padding:14px}
+.card h2{font-size:13px;margin:0 0 3px}
+.note{color:var(--muted);font-size:11.5px;margin:0 0 12px}
+.versus{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:var(--muted)}
+.tokens{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.token{border:1px solid var(--line);border-radius:9px;background:#fbfdff;padding:9px;min-height:78px;transition:.2s}
+.token.active{border-color:var(--violet);background:#f6f1ff;transform:translateY(-2px);box-shadow:0 5px 14px #7540d422}
+.token b{display:block;font:800 12px ui-monospace,monospace;margin-bottom:4px}
+.token span{display:block;color:var(--muted);font:11px/1.45 ui-monospace,monospace}
+.arrow{text-align:center;color:var(--muted);font-weight:800;margin:4px 0}
+.box{border:1px solid #c5d4e4;background:#f8fbff;border-radius:10px;padding:11px;text-align:center;min-height:72px}
+.box.active{border-color:var(--cyan);background:#ecfeff}
+.box b{display:block;font:800 13px ui-monospace,monospace;margin-bottom:4px}
+.box span{color:var(--muted);font:11.5px ui-monospace,monospace}
+.result{margin-top:10px;border-radius:9px;padding:10px;text-align:center;font:800 14px ui-monospace,monospace}
+.result.good{border:1px solid #a9dfba;background:#effbf3;color:#166534}
+.result.bad{border:1px solid #f1b5b5;background:#fff1f1;color:#991b1b}
+.explain{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.equation{background:#0f172a;color:#dbeafe;border-radius:9px;padding:11px;font:12px/1.65 ui-monospace,monospace;white-space:pre-wrap}
+.takeaway{border:1px solid #b7e0e9;background:#f1fbfd;border-radius:9px;padding:10px 12px;font-size:12.5px}
+.takeaway b{color:#075985}
+.takeaway .warning{color:#991b1b}
+@media(max-width:840px){.paths{grid-template-columns:1fr}.versus{padding:0}.explain{grid-template-columns:1fr}.tokens{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.token{transition:none}}
+</style>
+</head>
+<body>
+<main class="w">
+  <div class="k">ERA V5 Session 8</div>
+  <h1>Removing softmax changes what can be regrouped</h1>
+  <p class="sub">The same query takes two routes. The direct route revisits every old key and value. The regrouped route reads one state. There is one question: do the outputs match?</p>
+
+  <div class="controls" role="group" aria-label="softmax setting">
+    <button id="off" class="on" aria-pressed="true">Softmax OFF</button>
+    <button id="on" aria-pressed="false" class="">Softmax ON</button>
+    <button id="replay" class="replay">Replay</button>
+    <span class="prompt">Change only softmax. Everything else stays fixed.</span>
+  </div>
+
+  <section class="paths">
+    <article class="card">
+      <h2>Direct route: visit the history</h2>
+      <p class="note">The query scores each saved key, then uses those scores to mix the values.</p>
+      <div class="tokens" id="directTokens">
+        <div class="token" data-step="0"><b>k₁, v₁</b><span>score q·k₁ = 1</span><span>value v₁ = [2, 0]</span></div>
+        <div class="token" data-step="1"><b>k₂, v₂</b><span>score q·k₂ = 2</span><span>value v₂ = [0, 2]</span></div>
+        <div class="token" data-step="2"><b>k₃, v₃</b><span>score q·k₃ = 3</span><span>value v₃ = [1, 1]</span></div>
+      </div>
+      <div class="arrow">scores → mix values → add</div>
+      <div class="box" id="directBox"><b id="directFormula">1v₁ + 2v₂ + 3v₃</b><span id="directWeights">raw scores: [1, 2, 3]</span></div>
+      <div class="result good" id="directResult">output y = [5, 7]</div>
+    </article>
+
+    <div class="versus">VS</div>
+
+    <article class="card">
+      <h2>Regrouped route: read one state</h2>
+      <p class="note">Old key-value pairs were combined earlier. The new query reads the fixed-size state once.</p>
+      <div class="tokens" id="stateTokens">
+        <div class="token" data-step="0"><b>v₁k₁ᵀ</b><span>contribution 1</span></div>
+        <div class="token" data-step="1"><b>v₂k₂ᵀ</b><span>contribution 2</span></div>
+        <div class="token" data-step="2"><b>v₃k₃ᵀ</b><span>contribution 3</span></div>
+      </div>
+      <div class="arrow">add once as tokens arrive</div>
+      <div class="box" id="stateBox"><b>state S = [[3, 1], [1, 3]]</b><span>new query: y = S × q</span></div>
+      <div class="result good" id="stateResult">output y = [5, 7]</div>
+    </article>
+  </section>
+
+  <section class="explain">
+    <div class="equation" id="equation">SOFTMAX OFF
+direct:    y = Σ (q·kⱼ)vⱼ
+regrouped: S = Σ vⱼkⱼᵀ, then y = Sq
+result:    the two routes are the same sum</div>
+    <div class="takeaway" id="takeaway"><b>Exact match.</b> Without softmax, the terms are independent and can be regrouped. The past can be accumulated into one state before the query arrives.</div>
+  </section>
+</main>
+<script>
+(function(){
+  var softmax=false,timer=null;
+  var off=document.getElementById('off'),on=document.getElementById('on');
+  function setMode(value){
+    softmax=value;off.className=value?'':'on';on.className=value?'on':'';off.setAttribute('aria-pressed',String(!value));on.setAttribute('aria-pressed',String(value));
+    var directResult=document.getElementById('directResult'),stateResult=document.getElementById('stateResult');
+    if(value){
+      document.getElementById('directFormula').textContent='softmax([1, 2, 3]) × values';
+      document.getElementById('directWeights').textContent='weights ≈ [0.09, 0.24, 0.67]';
+      directResult.textContent='output y ≈ [0.85, 1.15]';directResult.className='result bad';stateResult.className='result bad';
+      document.getElementById('equation').textContent='SOFTMAX ON\ndirect weights depend on q and on every score\nthe old fixed state S does not contain that denominator\nresult: the simple regrouping is no longer exact';
+      document.getElementById('takeaway').innerHTML='<b class="warning">No match.</b> Softmax couples the scores through one query-dependent normalisation. The simple fixed state still returns [5, 7], not exact softmax attention.';
+    }else{
+      document.getElementById('directFormula').textContent='1v₁ + 2v₂ + 3v₃';
+      document.getElementById('directWeights').textContent='raw scores: [1, 2, 3]';
+      directResult.textContent='output y = [5, 7]';directResult.className='result good';stateResult.className='result good';
+      document.getElementById('equation').textContent='SOFTMAX OFF\ndirect:    y = Σ (q·kⱼ)vⱼ\nregrouped: S = Σ vⱼkⱼᵀ, then y = Sq\nresult:    the two routes are the same sum';
+      document.getElementById('takeaway').innerHTML='<b>Exact match.</b> Without softmax, the terms are independent and can be regrouped. The past can be accumulated into one state before the query arrives.';
+    }
+  }
+  function replay(){
+    if(timer)clearInterval(timer);var i=-1,nodes=document.querySelectorAll('.token');nodes.forEach(function(n){n.classList.remove('active')});document.getElementById('directBox').classList.remove('active');document.getElementById('stateBox').classList.remove('active');
+    timer=setInterval(function(){i++;nodes.forEach(function(n){n.classList.toggle('active',+n.dataset.step===i)});if(i===3){nodes.forEach(function(n){n.classList.remove('active')});document.getElementById('directBox').classList.add('active');document.getElementById('stateBox').classList.add('active');clearInterval(timer);timer=null;}},430);
+  }
+  off.onclick=function(){setMode(false);replay()};on.onclick=function(){setMode(true);replay()};document.getElementById('replay').onclick=replay;
+  setMode(false);
+})();
+</script>
+
+
+</body></html>

@@ -1,0 +1,20 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+submission_artifacts/*
+!submission_artifacts/.gitkeep
+demo_08/coach_demo/figures/*
+!demo_08/coach_demo/figures/.gitkeep
+uv.lock
+
+# Generated diagnostics (runners live under tests/)
+diagnostics_02/
+diagnostics_chrono/
+/Diagionistics_*.md
+/Chrono_self_Diagnostics.md
+/*_Diagnostics.md
+/*_Diagionistics*.md

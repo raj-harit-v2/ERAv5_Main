@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Session 8 Widget 9 — Build the KV-cache formula</title>
+<style>
+:root{--ink:#152033;--muted:#65758b;--line:#d9e2ef;--cyan:#0891b2;--violet:#7c3aed;--green:#159447;--amber:#d97706;--red:#dc2626;--blue:#2563eb}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#f8fbff,#eef5fb);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px}
+button,input{font:inherit}
+.wrap{max-width:1280px;margin:0 auto;padding:20px 22px 22px}
+.kicker{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+h1{font-size:26px;line-height:1.15;margin:4px 0 6px}
+.sub{color:var(--muted);max-width:920px;margin:0 0 14px;line-height:1.5}
+.card{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:13px;box-shadow:0 12px 30px rgba(20,42,75,.08)}
+.formula-card{padding:14px 16px;margin-bottom:12px}
+.formula-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:11px}
+.eyebrow{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.formula-head strong{font-size:16px}
+.next{border:1px solid var(--red);background:var(--red);color:#fff;border-radius:8px;padding:9px 14px;font-weight:800;cursor:pointer;white-space:nowrap}
+.terms{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;align-items:stretch}
+.term{position:relative;min-height:76px;border:1px solid var(--line);border-radius:9px;background:#f8fafc;padding:9px 9px 8px;opacity:.48;transition:opacity .2s,border-color .2s,transform .2s,background .2s}
+.term.revealed{opacity:1}
+.term.active{border-color:var(--red);background:#fff5f5;transform:translateY(-2px);box-shadow:0 6px 16px rgba(220,38,38,.1)}
+.term .factor{display:block;font:800 18px/1.1 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--red)}
+.term .label{display:block;font-size:11px;line-height:1.3;color:var(--muted);margin-top:5px}
+.times{position:absolute;right:-8px;top:25px;z-index:2;font-weight:900;color:#94a3b8;background:#fff;border-radius:50%;width:16px;height:16px;text-align:center;line-height:15px}
+.term:last-child .times{display:none}
+.explain{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;border-top:1px solid #eef2f7;margin-top:11px;padding-top:10px}
+.explain p{margin:0;line-height:1.5}
+.running{text-align:right;white-space:nowrap;color:var(--muted);font-size:11.5px}
+.running b{display:block;color:var(--ink);font:800 18px/1.2 ui-monospace,SFMono-Regular,Consolas,monospace;margin-top:2px}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.control{padding:13px 15px}
+.lab{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-weight:800;margin-bottom:7px}
+.lab output{font:800 16px ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--red)}
+input[type=range]{width:100%;accent-color:var(--red)}
+.hint{font-size:11.5px;color:var(--muted);margin:5px 0 0;line-height:1.4}
+.results{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.result{padding:15px 16px}
+.result h2{font-size:13px;margin:0 0 3px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.number{font:800 34px/1.1 ui-monospace,SFMono-Regular,Consolas,monospace;color:#991b1b;margin:7px 0 2px}
+.caption{color:var(--muted);font-size:12px;line-height:1.45;margin:0 0 11px}
+.token-row{display:flex;align-items:center;gap:5px;min-height:46px;margin:8px 0 10px;overflow:hidden}
+.token{width:14px;height:38px;border-radius:3px;background:#fecaca;border:1px solid #ef4444;flex:0 0 auto}
+.token.more{width:auto;padding:0 8px;display:flex;align-items:center;background:#fff5f5;color:#991b1b;font:700 11px ui-monospace,SFMono-Regular,Consolas,monospace}
+.equation{border:1px solid #fecaca;background:#fff5f5;border-radius:8px;padding:9px 10px;font:700 12px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;color:#991b1b}
+.people{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap;min-height:46px;margin:8px 0 10px}
+.person{display:grid;place-items:center;width:26px;height:34px;border-radius:8px 8px 5px 5px;background:#fee2e2;border:1px solid #ef4444;color:#991b1b;font:800 10px ui-monospace,SFMono-Regular,Consolas,monospace}
+.person.more{width:auto;padding:0 8px;background:#fff5f5}
+.bar{height:34px;border:1px solid var(--line);border-radius:8px;background:#edf2f7;overflow:hidden;margin:8px 0 6px}
+.fill{height:100%;background:repeating-linear-gradient(135deg,#dc2626 0 8px,#b91c1c 8px 16px);transition:width .25s ease;display:flex;align-items:center;padding-left:9px;color:#fff;font-weight:800;white-space:nowrap;min-width:3px}
+.scale{display:flex;justify-content:space-between;color:var(--muted);font-size:10.5px}
+.takeaway{grid-column:1/-1;border:1px solid #bbf7d0;background:#f0fdf4;color:#166534;border-radius:9px;padding:10px 12px;line-height:1.5;font-size:12.5px}
+.caveat{grid-column:1/-1;color:var(--muted);font-size:11px;line-height:1.5;padding:0 3px}
+@media(max-width:820px){.terms{grid-template-columns:repeat(3,1fr)}.term:nth-child(3) .times{display:none}.controls,.results{grid-template-columns:1fr}.takeaway,.caveat{grid-column:auto}.formula-head{flex-direction:column}.explain{grid-template-columns:1fr}.running{text-align:left}}
+@media(max-width:470px){.terms{grid-template-columns:repeat(2,1fr)}.term:nth-child(3) .times{display:block}.term:nth-child(2n) .times{display:none}.wrap{padding:15px 12px}.number{font-size:28px}}
+@media(prefers-reduced-motion:reduce){.term,.fill{transition:none}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="kicker">ERA V5 Session 8</div>
+  <h1>Build the KV-cache bill</h1>
+  <p class="sub">One token leaves a key and a value in every layer. Multiply that small record across heads, dimensions, tokens and active users—and it becomes a serving cost.</p>
+
+  <section class="card formula-card" aria-labelledby="formula-title">
+    <div class="formula-head">
+      <div><div class="eyebrow">One user's raw cache</div><strong id="formula-title">Follow each multiplier</strong></div>
+      <button class="next" id="next" type="button">Next multiplier</button>
+    </div>
+    <div class="terms" aria-label="KV-cache formula">
+      <div class="term active revealed" data-step="0"><span class="factor">2</span><span class="label">one key + one value</span><span class="times">×</span></div>
+      <div class="term" data-step="1"><span class="factor">48</span><span class="label">layers</span><span class="times">×</span></div>
+      <div class="term" data-step="2"><span class="factor">8</span><span class="label">KV heads</span><span class="times">×</span></div>
+      <div class="term" data-step="3"><span class="factor">128</span><span class="label">numbers per head</span><span class="times">×</span></div>
+      <div class="term" data-step="4"><span class="factor" id="termT">32,768</span><span class="label">tokens in this user's context</span><span class="times">×</span></div>
+      <div class="term" data-step="5"><span class="factor">2 B</span><span class="label">per number (bf16)</span><span class="times">×</span></div>
+    </div>
+    <div class="explain" aria-live="polite">
+      <p id="explain"><strong>2</strong> means two stored vectors for each token: one key and one value.</p>
+      <div class="running">running product<b id="running">2 stored vectors per head and layer</b></div>
+    </div>
+  </section>
+
+  <section class="controls" aria-label="Cache controls">
+    <div class="card control">
+      <div class="lab"><label for="context">Context per user</label><output id="contextOut">32,768 tokens</output></div>
+      <input id="context" type="range" min="10" max="20" step="1" value="15">
+      <p class="hint">Double the context and one user's cache doubles.</p>
+    </div>
+    <div class="card control">
+      <div class="lab"><label for="users">Active users</label><output id="usersOut">8 users</output></div>
+      <input id="users" type="range" min="1" max="32" step="1" value="8">
+      <p class="hint">Each active conversation needs its own private cache.</p>
+    </div>
+  </section>
+
+  <section class="results">
+    <article class="card result">
+      <h2>Bill for one user</h2>
+      <div class="number" id="perUser">6.44 GB</div>
+      <p class="caption" id="perUserText">At 32,768 tokens, this fixed example keeps 6.44 GB of K/V history for one conversation.</p>
+      <div class="token-row" id="tokens" aria-hidden="true"><span class="token"></span><span class="token"></span><span class="token"></span><span class="token"></span><span class="token"></span><span class="token"></span><span class="token"></span><span class="token"></span><span class="token"></span><span class="token"></span><span class="token more">32,768 token records</span></div>
+      <div class="equation" id="perUserEq">2 × 48 × 8 × 128 × 32,768 × 2 bytes = 6.44 GB</div>
+    </article>
+
+    <article class="card result">
+      <h2>Bill for all active users</h2>
+      <div class="number" id="total">51.54 GB</div>
+      <p class="caption" id="totalText">8 private caches × 6.44 GB each. The model cannot reuse one user’s history for another user.</p>
+      <div class="people" id="people" aria-hidden="true"><span class="person">1</span><span class="person">2</span><span class="person">3</span><span class="person">4</span><span class="person">5</span><span class="person">6</span><span class="person">7</span><span class="person">8</span></div>
+      <div class="bar" aria-hidden="true"><div class="fill" id="fill" style="width: 20.1327%;">51.54 GB</div></div>
+      <div class="scale"><span>0 GB</span><span>256 GB cache scale</span></div>
+    </article>
+
+    <div class="takeaway"><strong>The serving lesson:</strong> context length sets the cache cost of one conversation; concurrency copies that cost for every active conversation. Reducing either multiplier saves memory linearly.</div>
+    <div class="caveat"><strong>What this counts:</strong> raw K and V tensors for a fixed 48-layer, 8-KV-head, head-dimension-128, bf16 example—the comparison yardstick used later in this lesson. Real inference also needs model weights, activations, temporary workspaces and allocator headroom, so this is not total GPU memory.</div>
+  </section>
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var LAYERS=48, KV_HEADS=8, HEAD_DIM=128, BYTES=2;
+  var context=document.getElementById('context');
+  var users=document.getElementById('users');
+  var step=0;
+  var explanations=[
+    '<strong>2</strong> means two stored vectors for each token: one key and one value.',
+    '<strong>48 layers:</strong> every layer makes and keeps its own keys and values.',
+    '<strong>8 KV heads:</strong> each layer stores eight separate key vectors and eight value vectors.',
+    '<strong>128 numbers per head:</strong> a key or value is a vector, not a single number.',
+    '<strong>Context length:</strong> every earlier token leaves another set of K/V vectors behind.',
+    '<strong>2 bytes per number:</strong> bf16 stores each number in two bytes. Now the product is a memory size.'
+  ];
+
+  function fmtInt(n){return Math.round(n).toLocaleString('en-US');}
+  function fmtBytes(n){
+    if(n>=1e12)return (n/1e12).toFixed(2)+' TB';
+    if(n>=1e9)return (n/1e9).toFixed(2)+' GB';
+    if(n>=1e6)return (n/1e6).toFixed(1)+' MB';
+    if(n>=1e3)return (n/1e3).toFixed(1)+' KB';
+    return fmtInt(n)+' B';
+  }
+  function cacheBytes(tokens,count){return 2*LAYERS*KV_HEADS*HEAD_DIM*tokens*count*BYTES;}
+  function runningProduct(tokens){
+    var values=[2,2*LAYERS,2*LAYERS*KV_HEADS,2*LAYERS*KV_HEADS*HEAD_DIM,2*LAYERS*KV_HEADS*HEAD_DIM*tokens,cacheBytes(tokens,1)];
+    if(step<3)return fmtInt(values[step])+(step===0?' stored vectors per head and layer':step===1?' stored vectors per token':' stored vectors per token');
+    if(step===3)return fmtInt(values[step])+' numbers per token';
+    if(step===4)return fmtInt(values[step])+' numbers per user';
+    return fmtBytes(values[step])+' per user';
+  }
+  function drawTokens(tokens){
+    var count=Math.min(18,Math.max(4,Math.round((Math.log2(tokens)-9)*1.7))), html='',i;
+    for(i=0;i<count;i++)html+='<span class="token"></span>';
+    html+='<span class="token more">'+fmtInt(tokens)+' token records</span>';
+    document.getElementById('tokens').innerHTML=html;
+  }
+  function drawPeople(count){
+    var shown=Math.min(count,16),html='',i;
+    for(i=1;i<=shown;i++)html+='<span class="person">'+i+'</span>';
+    if(count>shown)html+='<span class="person more">+'+(count-shown)+'</span>';
+    document.getElementById('people').innerHTML=html;
+  }
+  function render(){
+    var T=Math.pow(2,+context.value), B=+users.value;
+    var one=cacheBytes(T,1), all=cacheBytes(T,B);
+    document.getElementById('contextOut').textContent=fmtInt(T)+' tokens';
+    document.getElementById('usersOut').textContent=B+' '+(B===1?'user':'users');
+    document.getElementById('termT').textContent=fmtInt(T);
+    document.getElementById('perUser').textContent=fmtBytes(one);
+    document.getElementById('perUserText').textContent='At '+fmtInt(T)+' tokens, this fixed example keeps '+fmtBytes(one)+' of K/V history for one conversation.';
+    document.getElementById('perUserEq').textContent='2 × 48 × 8 × 128 × '+fmtInt(T)+' × 2 bytes = '+fmtBytes(one);
+    document.getElementById('total').textContent=fmtBytes(all);
+    document.getElementById('totalText').textContent=B+' private '+(B===1?'cache':'caches')+' × '+fmtBytes(one)+' each. The model cannot reuse one user’s history for another user.';
+    document.getElementById('fill').style.width=Math.min(100,all/256e9*100)+'%';
+    document.getElementById('fill').textContent=all>11e9?fmtBytes(all):'';
+    document.getElementById('explain').innerHTML=explanations[step];
+    document.getElementById('running').textContent=runningProduct(T);
+    document.querySelectorAll('.term').forEach(function(el,i){
+      el.classList.toggle('revealed',i<=step);
+      el.classList.toggle('active',i===step);
+    });
+    document.getElementById('next').textContent=step===5?'Start again':'Next multiplier';
+    drawTokens(T); drawPeople(B);
+  }
+  document.getElementById('next').addEventListener('click',function(){step=step===5?0:step+1;render();});
+  context.addEventListener('input',render);
+  users.addEventListener('input',render);
+  render();
+})();
+</script>
+
+
+</body></html>

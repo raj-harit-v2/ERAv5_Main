@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 8 Widget 15 - V5 Attention Decision Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/"><link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="./css2" rel="stylesheet">
+<style>
+:root{--ink:#152033;--muted:#65758b;--line:#d9e2ef;--cyan:#0891b2;--violet:#7c3aed;--green:#159447;--amber:#d97706;--red:#dc2626}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:linear-gradient(180deg,#f8fbff,#eef5fb);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:13px}
+.s8w15-wrap{max-width:1280px;margin:0 auto;padding:13px 16px}
+.s8w15-kicker{font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--green)}
+.s8w15-wrap h1{font-size:20px;line-height:1.1;margin:2px 0 4px}
+.s8w15-sub{color:var(--muted);max-width:1240px;margin:0 0 8px;font-size:12px;line-height:1.4}
+.s8w15-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:9px}
+.s8w15-tbtn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:5px 9px;font:inherit;font-size:11.5px;font-weight:800;color:var(--muted);cursor:pointer;text-align:left;line-height:1.2}
+.s8w15-tbtn small{display:block;font-weight:500;font-size:9.5px;margin-top:1px;opacity:.85}
+.s8w15-tbtn.on{border-color:var(--green);background:#f0fdf4;color:#14532d}
+.s8w15-grid{display:grid;grid-template-columns:556px minmax(0,1fr);gap:12px;align-items:start}
+.s8w15-side{display:grid;grid-template-columns:1fr 1fr;gap:9px;align-items:start}
+.s8w15-card{background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 30px rgba(20,42,75,.08);padding:9px 10px;margin-bottom:9px}
+.s8w15-scol>.s8w15-card:last-child{margin-bottom:0}
+.s8w15-card h2{font-size:10.5px;margin:0 0 5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.s8w15-ctrl{margin-bottom:6px}
+.s8w15-lab{display:flex;justify-content:space-between;gap:6px;font-size:10.5px;font-weight:700;margin-bottom:1px}
+.s8w15-lab span{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--green);white-space:nowrap}
+.s8w15-wrap input[type=range]{width:100%;height:13px;margin:0;accent-color:var(--green)}
+.s8w15-wrap select{width:100%;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);padding:3px 4px;font:inherit;font-size:10.5px}
+.s8w15-run{display:flex;gap:7px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.s8w15-wrap .s8w15-run button{border:1px solid var(--green);background:var(--green);color:#fff;border-radius:7px;padding:5px 13px;font:inherit;font-size:11.5px;font-weight:800;cursor:pointer}
+.s8w15-wrap .s8w15-run button.s8w15-ghost{background:#fff;color:var(--green)}
+.s8w15-sweep{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10.5px;color:var(--muted)}
+.s8w15-metrics{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:9px}
+.s8w15-metric{border:1px solid var(--line);background:#fbfdff;border-radius:8px;padding:6px 7px}
+.s8w15-metric b{display:block;font-size:13.5px;line-height:1.15;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.s8w15-metric span{display:block;color:var(--muted);font-size:9px;margin-top:2px;line-height:1.25}
+.s8w15-stack{display:flex;gap:4px;flex-wrap:wrap;margin:3px 0 8px}
+.s8w15-l{width:26px;height:26px;border-radius:5px;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:ui-monospace,monospace}
+.s8w15-la{background:#dcfce7;border:1px solid #86efac;color:#166534}
+.s8w15-ll{background:#f1f5f9;border:1px solid #cbd5e1;color:#64748b}
+.s8w15-gates{display:grid;grid-template-columns:1fr 1fr;gap:7px;align-items:start}
+.s8w15-gate{display:flex;gap:8px;align-items:flex-start;border-radius:8px;padding:7px 9px;font-size:11px;line-height:1.42}
+.s8w15-pass{border:1px solid #bbf7d0;background:#f0fdf4;color:#166534}
+.s8w15-fail{border:1px solid #fecaca;background:#fef2f2;color:#991b1b}
+.s8w15-flag{border:1px solid #fed7aa;background:#fff7ed;color:#9a3412}
+.s8w15-icon{font-weight:900;font-family:ui-monospace,monospace;flex:none;font-size:10px;border:1px solid currentColor;border-radius:5px;padding:0 4px;margin-top:1px}
+.s8w15-gate b{display:block;margin-bottom:2px;font-size:11.5px}
+.s8w15-gate code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-weight:700}
+.s8w15-json{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;background:#0f172a;color:#dbeafe;border-radius:8px;padding:10px;line-height:1.42;white-space:pre;overflow-x:auto;max-height:780px;overflow-y:auto}
+.s8w15-title{font-size:11.5px;font-weight:800;margin:0 0 1px;line-height:1.3}
+.s8w15-nt{font-size:10.5px;color:var(--muted);margin:0 0 6px;line-height:1.35}
+.s8w15-oqs{display:grid;grid-template-columns:1fr 1fr;gap:7px;align-items:start}
+.s8w15-oq{border:1px solid #ddd6fe;background:#faf5ff;border-radius:9px;padding:7px 8px;font-size:10.5px;line-height:1.36;color:#5b21b6}
+.s8w15-oq .s8w15-oqh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:3px}
+.s8w15-oq b{font-size:11px}
+.s8w15-bears{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:9px;font-weight:800;background:#ede9fe;border-radius:999px;padding:1px 7px;white-space:nowrap}
+.s8w15-needs{display:block;margin-top:3px;padding-top:3px;border-top:1px dashed #ddd6fe;color:#6d28d9}
+.s8w15-oq code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-weight:700}
+.s8w15-setts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;align-items:start;margin-bottom:9px}
+.s8w15-settled{border:1px solid #bae6fd;background:#f0f9ff;color:#075985;border-radius:9px;padding:7px 8px;font-size:10.5px;line-height:1.36}
+.s8w15-settled b{display:block;margin-bottom:2px}
+.s8w15-settled code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-weight:700}
+.s8w15-assume{border:1px solid #fde68a;background:#fffbeb;color:#92400e;border-radius:8px;padding:6px 8px;font-size:10px;line-height:1.38}
+.s8w15-close{margin-top:8px;border:1px solid #ddd6fe;background:#f5f3ff;color:#5b21b6;border-radius:8px;padding:7px 8px;font-size:10.5px;line-height:1.4}
+.s8w15-close code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-weight:700}
+.s8w15-pane{display:none}
+.s8w15-pane.on{display:block}
+@media(max-width:1100px){.s8w15-grid{grid-template-columns:1fr}.s8w15-side{grid-template-columns:1fr}.s8w15-metrics{grid-template-columns:1fr 1fr}.s8w15-gates,.s8w15-oqs,.s8w15-setts{grid-template-columns:1fr}.s8w15-tabs{grid-template-columns:1fr 1fr}}
+
+@media (prefers-reduced-motion: reduce){
+  .s8w15-wrap *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<main class="s8w15-wrap">
+  <div class="s8w15-kicker">ERA V5 Session 8</div>
+  <h1>V5 Attention Decision Board</h1>
+  <p class="s8w15-sub">Assemble a candidate. Every figure is computed from the formulas used earlier in this session.</p>
+
+  <div class="s8w15-tabs" id="s8w15-tabs" role="group" aria-label="panels of this widget">
+    <button class="s8w15-tbtn on" type="button" data-st="1" aria-label="Tab 1, assemble">1. Assemble<small>the stack you built</small></button>
+    <button class="s8w15-tbtn" type="button" data-st="2" aria-label="Tab 2, results">2. Results<small>eleven gates, checked</small></button>
+    <button class="s8w15-tbtn" type="button" data-st="3" aria-label="Tab 3, open questions">3. Open questions<small>settled, and still open</small></button>
+    <button class="s8w15-tbtn" type="button" data-st="4" aria-label="Tab 4, the spec">4. The spec<small>attention_policy_id</small></button>
+  </div>
+
+  <section class="s8w15-grid">
+    <aside class="s8w15-side">
+      <div class="s8w15-scol">
+        <div class="s8w15-card">
+          <h2>Target and stack</h2>
+          <div class="s8w15-ctrl"><div class="s8w15-lab">Target context <span id="s8w15-Tv">256K (262,144)</span></div><input id="s8w15-T" type="range" min="13" max="20" step="0.02" value="18" aria-label="Target context"></div>
+          <div class="s8w15-ctrl"><div class="s8w15-lab">Layers <span id="s8w15-Lv">32</span></div><input id="s8w15-L" type="range" min="8" max="80" step="2" value="32" aria-label="Layers"></div>
+          <div class="s8w15-ctrl"><div class="s8w15-lab">Model width <span id="s8w15-Dv">4,096</span></div><input id="s8w15-D" type="range" min="1024" max="8192" step="256" value="4096" aria-label="Model width"></div>
+          <div class="s8w15-ctrl"><div class="s8w15-lab">Layer schedule</div>
+            <select id="s8w15-sched" aria-label="Model width">
+              <option value="dddg" selected="">DDDGDDDG, the V4 motif</option>
+              <option value="interleave">Interleaved compression, one in two</option>
+              <option value="full">Attention at every layer</option>
+              <option value="linear">Linear at every layer</option>
+              <option value="custom">Custom ratio</option>
+            </select></div>
+          <div class="s8w15-ctrl" id="s8w15-ratiowrap" style="display: none;"><div class="s8w15-lab">Exact-attention share <span id="s8w15-Rv">25%</span></div><input id="s8w15-R" type="range" min="0" max="100" step="5" value="25" aria-label="Exact-attention share"></div>
+        </div>
+
+        <div class="s8w15-card">
+          <h2>Position and extension</h2>
+          <div class="s8w15-ctrl"><div class="s8w15-lab">Position scheme</div>
+            <select id="s8w15-pos" aria-label="Exact-attention share">
+              <option value="rope" selected="">Rotary, applied to a subset of dimensions</option>
+              <option value="alibi">ALiBi distance penalty</option>
+              <option value="learned">Learned absolute table</option>
+            </select></div>
+          <div class="s8w15-ctrl"><div class="s8w15-lab">Extension policy</div>
+            <select id="s8w15-ext" aria-label="Extension policy">
+              <option value="none">None, evaluate only at the trained length</option>
+              <option value="drope" selected="">DroPE before annealing, 32x demonstrated</option>
+              <option value="ntk">NTK-aware base scaling, 16x</option>
+              <option value="yarn">YaRN, 32x</option>
+            </select></div>
+          <div class="s8w15-ctrl"><div class="s8w15-lab">Trained sequence length <span id="s8w15-Sv">8K</span></div><input id="s8w15-S" type="range" min="11" max="20" step="1" value="13" aria-label="Trained sequence length"></div>
+          <div class="s8w15-ctrl"><div class="s8w15-lab">Rotary base <span id="s8w15-Bv">10,000</span></div><input id="s8w15-B" type="range" min="4" max="7" step="0.05" value="4" aria-label="Rotary base"></div>
+          <div class="s8w15-ctrl"><div class="s8w15-lab">Rotary dimensions <span id="s8w15-Rdv">64 of 128</span></div><input id="s8w15-Rd" type="range" min="0" max="256" step="8" value="64" aria-label="Rotary dimensions"></div>
+        </div>
+
+        <div class="s8w15-card">
+          <h2>Assumptions, not measurements</h2>
+          <div class="s8w15-assume" id="s8w15-assume">Accelerator peak <b>494.7 TFLOP/s</b> dense bf16, utilisation <b>40%</b>, <b>80 GB</b> per device, weights bf16, backward at twice the forward, non-embedding parameters taken as <b>12 x layers x width squared</b>, the block indexer costed at a width of <b>128</b>, and extension factors taken from published results (<b>32x</b> DroPE and YaRN, <b>16x</b> NTK) rather than from a run of yours. Nothing here has been measured on V5.</div>
+        </div>
+      </div>
+
+      <div class="s8w15-scol">
+        <div class="s8w15-card">
+          <h2>Sparsity, compression, heads</h2>
+          <div class="s8w15-ctrl"><div class="s8w15-lab">Attention-layer kind</div>
+            <select id="s8w15-kind" aria-label="Rotary dimensions">
+              <option value="gqa">Grouped-query, uncompressed</option>
+              <option value="csa" selected="">Compressed blocks plus top-k selection</option>
+              <option value="hca">Heavily compressed, dense over survivors</option>
+            </select></div>
+          <div class="s8w15-ctrl"><div class="s8w15-lab">Block size <span id="s8w15-Mv">16 tokens</span></div><input id="s8w15-M" type="range" min="1" max="128" step="1" value="16" aria-label="Block size"></div>
+          <div class="s8w15-ctrl"><div class="s8w15-lab">Top-k blocks per query <span id="s8w15-Kv">64</span></div><input id="s8w15-K" type="range" min="8" max="1024" step="8" value="64" aria-label="Top-k blocks per query"></div>
+          <div class="s8w15-ctrl"><div class="s8w15-lab">Sliding window <span id="s8w15-Wv">512 tokens</span></div><input id="s8w15-W" type="range" min="0" max="4096" step="64" value="512" aria-label="Sliding window"></div>
+          <div class="s8w15-ctrl"><div class="s8w15-lab">Query heads <span id="s8w15-Qv">32</span></div><input id="s8w15-Q" type="range" min="4" max="128" step="4" value="32" aria-label="Query heads"></div>
+          <div class="s8w15-ctrl"><div class="s8w15-lab">Key-value groups <span id="s8w15-Gv">8</span></div><input id="s8w15-G" type="range" min="1" max="128" step="1" value="8" aria-label="Key-value groups"></div>
+          <div class="s8w15-ctrl"><div class="s8w15-lab">Head dimension <span id="s8w15-Hv">128</span></div><input id="s8w15-H" type="range" min="32" max="256" step="16" value="128" aria-label="Head dimension"></div>
+          <div class="s8w15-ctrl"><div class="s8w15-lab">Cache precision</div>
+            <select id="s8w15-prec" aria-label="Head dimension"><option value="2" selected="">bf16, 2 bytes</option><option value="1">fp8, 1 byte</option><option value="0.5">int4, half a byte</option></select></div>
+        </div>
+
+        <div class="s8w15-card">
+          <h2>Cross-chunk state and budgets</h2>
+          <div class="s8w15-ctrl"><div class="s8w15-lab">Cross-chunk state</div>
+            <select id="s8w15-mem" aria-label="Cross-chunk state"><option value="none">None</option><option value="stream" selected="">Memory Stream, one gated vector</option><option value="linear">Linear recurrent state carried across</option></select></div>
+          <div class="s8w15-ctrl"><div class="s8w15-lab">Chunk length <span id="s8w15-Cv">32K</span></div><input id="s8w15-C" type="range" min="12" max="20" step="1" value="15" aria-label="Chunk length"></div>
+          <div class="s8w15-ctrl"><div class="s8w15-lab">Training tokens <span id="s8w15-Ktv">2.0T</span></div><input id="s8w15-Kt" type="range" min="200" max="8000" step="100" value="2000" aria-label="Training tokens"></div>
+          <div class="s8w15-ctrl"><div class="s8w15-lab">Training budget <span id="s8w15-Buv">6,000 GPU-d</span></div><input id="s8w15-Bu" type="range" min="500" max="40000" step="500" value="6000" aria-label="Training budget"></div>
+          <div class="s8w15-ctrl"><div class="s8w15-lab">Conversations wanted <span id="s8w15-Ccv">16</span></div><input id="s8w15-Cc" type="range" min="1" max="256" step="1" value="16" aria-label="Concurrent conversations wanted"></div>
+          <div class="s8w15-ctrl"><div class="s8w15-lab">Accelerators per replica <span id="s8w15-Nv">8</span></div><input id="s8w15-N" type="range" min="1" max="64" step="1" value="8" aria-label="Accelerators per replica"></div>
+        </div>
+      </div>
+    </aside>
+
+    <section>
+      <div class="s8w15-card" style="margin-bottom:0">
+        <div class="s8w15-run">
+          <button id="s8w15-play" type="button" aria-label="Play the target context sweep">Play</button>
+          <button id="s8w15-pause" class="s8w15-ghost" type="button" aria-label="Pause the sweep">Pause</button>
+          <button id="s8w15-reset" class="s8w15-ghost" type="button" aria-label="Reset every control to its default">Reset</button>
+          <span class="s8w15-sweep" id="s8w15-sweeplab">press Play to sweep the target context and watch the gates move</span>
+        </div>
+
+        <div class="s8w15-metrics">
+          <div class="s8w15-metric"><b id="s8w15-m1">578.8 MB</b><span>cache at target, one conversation</span></div>
+          <div class="s8w15-metric"><b id="s8w15-m2">192.9 MFLOP</b><span>attention compute per generated token</span></div>
+          <div class="s8w15-metric"><b id="s8w15-m3">256K  1.00x</b><span>reach, and target as a multiple of it</span></div>
+          <div class="s8w15-metric"><b id="s8w15-m4">4,567 GPU-d</b><span>training cost of this candidate</span></div>
+          <div class="s8w15-metric"><b id="s8w15-m5">1.68%</b><span>cache against the GQA-8 bf16 yardstick</span></div>
+          <div class="s8w15-metric"><b id="s8w15-m6">1,083</b><span>conversations per replica</span></div>
+        </div>
+
+        <div class="s8w15-pane on" id="s8w15-p1">
+          <p class="s8w15-title">The stack you assembled</p>
+          <p class="s8w15-nt" id="s8w15-stacknote">8 exact-attention layers (G) and 24 fixed-state linear layers (D) out of 32. Longest run without an exact layer: 3. The linear layers hold 25.2 MB of matrix state that does not grow with context; the attention layers hold 553.6 MB that does.</p>
+          <div class="s8w15-stack" id="s8w15-stack"><div class="s8w15-l s8w15-ll" title="layer 1">D</div><div class="s8w15-l s8w15-ll" title="layer 2">D</div><div class="s8w15-l s8w15-ll" title="layer 3">D</div><div class="s8w15-l s8w15-la" title="layer 4">G</div><div class="s8w15-l s8w15-ll" title="layer 5">D</div><div class="s8w15-l s8w15-ll" title="layer 6">D</div><div class="s8w15-l s8w15-ll" title="layer 7">D</div><div class="s8w15-l s8w15-la" title="layer 8">G</div><div class="s8w15-l s8w15-ll" title="layer 9">D</div><div class="s8w15-l s8w15-ll" title="layer 10">D</div><div class="s8w15-l s8w15-ll" title="layer 11">D</div><div class="s8w15-l s8w15-la" title="layer 12">G</div><div class="s8w15-l s8w15-ll" title="layer 13">D</div><div class="s8w15-l s8w15-ll" title="layer 14">D</div><div class="s8w15-l s8w15-ll" title="layer 15">D</div><div class="s8w15-l s8w15-la" title="layer 16">G</div><div class="s8w15-l s8w15-ll" title="layer 17">D</div><div class="s8w15-l s8w15-ll" title="layer 18">D</div><div class="s8w15-l s8w15-ll" title="layer 19">D</div><div class="s8w15-l s8w15-la" title="layer 20">G</div><div class="s8w15-l s8w15-ll" title="layer 21">D</div><div class="s8w15-l s8w15-ll" title="layer 22">D</div><div class="s8w15-l s8w15-ll" title="layer 23">D</div><div class="s8w15-l s8w15-la" title="layer 24">G</div><div class="s8w15-l s8w15-ll" title="layer 25">D</div><div class="s8w15-l s8w15-ll" title="layer 26">D</div><div class="s8w15-l s8w15-ll" title="layer 27">D</div><div class="s8w15-l s8w15-la" title="layer 28">G</div><div class="s8w15-l s8w15-ll" title="layer 29">D</div><div class="s8w15-l s8w15-ll" title="layer 30">D</div><div class="s8w15-l s8w15-ll" title="layer 31">D</div><div class="s8w15-l s8w15-la" title="layer 32">G</div></div>
+        </div>
+
+        <div class="s8w15-pane" id="s8w15-p2">
+          <p class="s8w15-title">Gates</p>
+          <p class="s8w15-nt">Thresholds this session argued for. A gate that fails names the number to defend, and failing one on purpose is fine as long as the proposal says why.</p>
+          <div class="s8w15-gates" id="s8w15-gates"><div class="s8w15-gate s8w15-pass"><span class="s8w15-icon">OK</span><span><b>Head layout closes</b>Query heads times head dimension is <code>32 x 128 = 4,096</code> against a model width of <code>4,096</code>, which closes exactly. Query heads divided by key-value groups is <code>4.00</code>, a whole number.</span></div><div class="s8w15-gate s8w15-pass"><span class="s8w15-icon">OK</span><span><b>Rotary subset</b><code>64</code> of <code>128</code> dimensions rotate, leaving <code>64</code> carrying content alone. DeepSeek-V4 rotates <code>64</code>. Rotating everything forces the whole representation to carry positional structure, which most of what a token means does not need.</span></div><div class="s8w15-gate s8w15-flag"><span class="s8w15-icon">!</span><span><b>Position reaches the target</b>Trained at <code>8,192</code>, extension <code>32x</code>, so the reach is <code>262,144</code> and the target is <code>1.00x</code> of it. At base <code>10,000</code>, <code>0 of 32</code> rotary bands still span the window; a base of <code>58,804</code> is the minimum for one band to span it.</span></div><div class="s8w15-gate s8w15-pass"><span class="s8w15-icon">OK</span><span><b>Cache budget</b>One conversation at <code>262,144</code> tokens is <code>578.8 MB</code>. Weights take <code>12.88 GB</code> of the <code>640.00 GB</code> replica, leaving <code>627.12 GB</code>, which is <code>1,083</code> conversations against the <code>16</code> you asked for. Against the GQA-8 bf16 head-dim-128 yardstick this is <code>1.68%</code>.</span></div><div class="s8w15-gate s8w15-pass"><span class="s8w15-icon">OK</span><span><b>Attention compute</b>Per generated token the attention path costs <code>192.9 MFLOP</code> against <code>68.72 GFLOP</code> for dense attention at every layer, or <code>0.28%</code>. Filling the window once costs <code>3.43 PFLOP</code>, which is <code>2.17 s</code> on <code>8</code> accelerators.</span></div><div class="s8w15-gate s8w15-flag"><span class="s8w15-icon">!</span><span><b>Selection coverage</b>Top-<code>64</code> over blocks of <code>16</code> plus a <code>512</code>-token window lets one query reach <code>1,536</code> of <code>262,144</code> tokens, which is <code>0.586%</code> of the context in any detail. The rest is visible only as block summaries. That may be enough. It is not something the arithmetic can tell you.</span></div><div class="s8w15-gate s8w15-pass"><span class="s8w15-icon">OK</span><span><b>Local detail survives compression</b>The window keeps <code>512</code> tokens uncompressed against a block size of <code>16</code>, a ratio of <code>32.0</code> blocks of recent detail. Local structure comes from the window and long-range structure from the summaries.</span></div><div class="s8w15-gate s8w15-pass"><span class="s8w15-icon">OK</span><span><b>Path to an exact record</b><code>8</code> of <code>32</code> layers can retrieve exactly, so information passes through at most <code>3</code> fixed-state layers before an exact layer can reach it. The V4 motif gives <code>3</code>.</span></div><div class="s8w15-gate s8w15-pass"><span class="s8w15-icon">OK</span><span><b>State across chunk boundaries</b><code>8</code> chunks, <code>8.2 KB</code> carried across each boundary against <code>109.1 MB</code> of cache per chunk. It is O(1) in the number of chunks, which is the point. It carries a summary, which is the cost.</span></div><div class="s8w15-gate s8w15-pass"><span class="s8w15-icon">OK</span><span><b>Training budget</b>Training at a sequence length of <code>8,192</code> for <code>2.0T</code> tokens costs <code>4,567 GPU-days</code> against a budget of <code>6,000</code>. Training natively at the target instead would cost <code>4,590 GPU-days</code>, which is the number the extend-or-build-native question turns on.</span></div><div class="s8w15-gate s8w15-pass"><span class="s8w15-icon">OK</span><span><b>Cache precision</b>bf16 throughout. The cheapest untried lever on this board is dropping it, and the cheapest way to be wrong is dropping it without measuring.</span></div></div>
+        </div>
+
+        <div class="s8w15-pane" id="s8w15-p3">
+          <p class="s8w15-title">What the evidence already settles</p>
+          <p class="s8w15-nt">Three claims this session is willing to make, checked against your candidate.</p>
+          <div class="s8w15-setts" id="s8w15-settled"><div class="s8w15-settled"><b>Held: A stored absolute position table is out.</b>Your candidate does not use one.</div><div class="s8w15-settled"><b>Held: Grouped-query alone falls short of the target.</b>Your candidate does more than divide the head count.</div><div class="s8w15-settled"><b>Held: Linear attention, sparsity or compression is mandatory.</b>Your candidate uses a linear stack of 24 layers and block compression with top-k selection. All three reference architectures use at least one.</div></div>
+
+          <p class="s8w15-title">What is still open, and what would settle it</p>
+          <p class="s8w15-nt">Each question is attached to a choice you have made, and shows the value you chose. These are the parts of the architecture that no published result decides for you.</p>
+          <div class="s8w15-oqs" id="s8w15-oq"><div class="s8w15-oq"><div class="s8w15-oqh"><b>Extend, or build native.</b><span class="s8w15-bears">position.extension = drope, trained at 8K</span></div>V4 trained at 8K and stretched <code>32x</code> with DroPE; DeepSeek built for a million natively. You chose to extend by <code>32x</code> from <code>8,192</code> to <code>262,144</code>, while native training at the target costs <code>4,590 GPU-days</code> against your <code>4,567</code>, a ratio of <code>1.00x</code>. Compression has almost closed the cost gap that made extension attractive, so the ceiling on extension stops being worth accepting.<span class="s8w15-needs"><b>Needs:</b> An extension-factor study at V5 target length, and a costed native estimate.</span></div><div class="s8w15-oq"><div class="s8w15-oqh"><b>The schedule, and its ratio.</b><span class="s8w15-bears">schedule = dddg, 8 of 32 exact</span></div><code>DDDGDDDG</code> was carried unchanged from the 1.78B seed to the 120B run and never ablated. Your exact-attention share is <code>25%</code>, putting <code>3</code> fixed-state layers between exact layers at <code>578.8 MB</code> of cache. A different ratio moves both numbers by an unmeasured amount.<span class="s8w15-needs"><b>Needs:</b> The ablation at a scale where it transfers: three or four ratios at 1B and 3B proxy scale, per-language perplexity and long-context retrieval.</span></div><div class="s8w15-oq"><div class="s8w15-oqh"><b>Linear state or sequence compression.</b><span class="s8w15-bears">both levers active</span></div>You are using both. V4 and Qwen3.6 chose the linear state, DeepSeek chose compression, and no published result compares them at matched budget. Your linear layers hold <code>25.2 MB</code> that does not grow, your attention layers <code>553.6 MB</code> that does.<span class="s8w15-needs"><b>Needs:</b> A matched-budget comparison at a long context. Short contexts flatter the linear state.</span></div><div class="s8w15-oq"><div class="s8w15-oqh"><b>The sparsity budget.</b><span class="s8w15-bears">top_k_blocks = 64</span></div>V4 capped selection at <code>256</code>, a kernel constraint from older hardware. Your <code>64</code> reaches <code>1,536</code> tokens of <code>262,144</code> in detail at <code>75.5 MFLOP</code> per token. Doubling it doubles that term and leaves the cache alone.<span class="s8w15-needs"><b>Needs:</b> Sweep k on current kernels and set the cap where quality stops improving.</span></div><div class="s8w15-oq"><div class="s8w15-oqh"><b>Whether cross-chunk state still earns its place.</b><span class="s8w15-bears">cross_chunk_state = stream, chunk 32K</span></div>At <code>262,144</code> with a chunk of <code>32,768</code> you cross <code>8</code> boundaries; grow the chunk to the target and the count falls to one. V4 measured its injection near <code>6%</code> of the embedding magnitude, an effect small enough that V5 lengths may not need it.<span class="s8w15-needs"><b>Needs:</b> An ablation at the target length.</span></div><div class="s8w15-oq"><div class="s8w15-oqh"><b>Every head count and dimension.</b><span class="s8w15-bears">d_model = 4096, 32 heads of 128</span></div>The reference numbers here were derived at a width of <code>4096</code>, which V5 has not committed to. You set <code>4,096</code>, giving <code>4,096</code> across the heads and a sharing factor of <code>4.00</code>. Both move cache and compute independently.<span class="s8w15-needs"><b>Needs:</b> A committed width first. Head counts are downstream of it.</span></div></div>
+          <div class="s8w15-close" id="s8w15-close"><b>No gates failed, 2 flagged.</b> The board has checked that <code>578.8 MB</code> of cache, <code>192.9 MFLOP</code> of attention compute per token, a reach of <code>262,144</code> and <code>4,567 GPU-days</code> of training are internally consistent with each other and with what this session argued. <b>6 questions above are still open</b>, and every one of them settles by a proxy run. We know the shape of the answer, which is why the spec on tab 4 carries a status of <code>candidate</code>.</div>
+        </div>
+
+        <div class="s8w15-pane" id="s8w15-p4">
+          <p class="s8w15-title">attention_policy_id</p>
+          <p class="s8w15-nt">The candidate as a specification. Copy it into the proposal, defend the numbers in it, and record which gates you failed on purpose. Its status field says what it is.</p>
+          <div class="s8w15-json" id="s8w15-json">{
+  "spec_version": "era-v5/s8-attention-candidate/1",
+  "status": "candidate_not_decision",
+  "candidate_id": "v5-attn-dddg-csa-drope-256k",
+  "target_context_tokens": 262144,
+  "model": {
+    "layers": 32,
+    "d_model": 4096,
+    "params_non_embedding": 6442450944,
+    "params_formula": "12 * layers * d_model^2"
+  },
+  "schedule": {
+    "motif": "dddg",
+    "exact_attention_layers": 8,
+    "linear_layers": 24,
+    "exact_attention_share": 0.25,
+    "max_run_without_exact_layer": 3,
+    "ablated": false
+  },
+  "position": {
+    "scheme": "rope",
+    "rope_base": 10000,
+    "rotary_dims": 64,
+    "head_dim": 128,
+    "extension_policy": "drope",
+    "extension_factor": 32,
+    "trained_sequence_length": 8192,
+    "reach_tokens": 262144,
+    "target_over_reach": 1,
+    "rope_bands_total": 32,
+    "rope_bands_spanning_target": 0,
+    "rope_base_required_for_one_band": 58804
+  },
+  "attention": {
+    "kind": "csa",
+    "block_size": 16,
+    "top_k_blocks": 64,
+    "sliding_window": 512,
+    "query_heads": 32,
+    "kv_groups": 8,
+    "head_dim": 128,
+    "entries_scored_per_query": 576,
+    "context_reachable_in_detail": 0.005859
+  },
+  "cache": {
+    "precision_bytes": 2,
+    "entries_held_per_attention_layer": 16896,
+    "bytes_at_target": 578813952,
+    "gb_at_target": 0.579,
+    "share_of_gqa8_bf16_hd128_baseline": 0.01685,
+    "conversations_per_replica": 1083,
+    "conversations_wanted": 16
+  },
+  "cross_chunk_state": {
+    "kind": "stream",
+    "chunk_tokens": 32768,
+    "chunks_at_target": 8,
+    "bytes_carried": 8192
+  },
+  "compute": {
+    "attention_flops_per_token": 192937984,
+    "forward_flops_per_token": 13077839872,
+    "share_of_dense_attention": 0.00281,
+    "prefill_flops_at_target": 3428277255405568,
+    "prefill_seconds": 2.166,
+    "accelerators_per_replica": 8
+  },
+  "training": {
+    "tokens": 2000000000000,
+    "sequence_length": 8192,
+    "flops_total": 7.807696896e+22,
+    "gpu_days": 4566.8,
+    "gpu_days_if_native_at_target": 4589.6,
+    "budget_gpu_days": 6000
+  },
+  "gates": {
+    "passed": 9,
+    "flagged": 2,
+    "failed": 0,
+    "failing": []
+  },
+  "open_questions": [
+    {
+      "id": "extend_or_native",
+      "bears_on": "position.extension = drope, trained at 8K",
+      "needs": "An extension-factor study at V5 target length, and a costed native estimate."
+    },
+    {
+      "id": "schedule_ratio",
+      "bears_on": "schedule = dddg, 8 of 32 exact",
+      "needs": "The ablation at a scale where it transfers: three or four ratios at 1B and 3B proxy scale, per-language perplexity and long-context retrieval."
+    },
+    {
+      "id": "linear_vs_compression",
+      "bears_on": "both levers active",
+      "needs": "A matched-budget comparison at a long context. Short contexts flatter the linear state."
+    },
+    {
+      "id": "sparsity_budget",
+      "bears_on": "top_k_blocks = 64",
+      "needs": "Sweep k on current kernels and set the cap where quality stops improving."
+    },
+    {
+      "id": "memory_stream_value",
+      "bears_on": "cross_chunk_state = stream, chunk 32K",
+      "needs": "An ablation at the target length."
+    },
+    {
+      "id": "width_and_heads",
+      "bears_on": "d_model = 4096, 32 heads of 128",
+      "needs": "A committed width first. Head counts are downstream of it."
+    }
+  ],
+  "assumptions": {
+    "accelerator_peak_flops": 494700000000000,
+    "mfu": 0.4,
+    "device_bytes": 80000000000,
+    "weights_bytes_per_param": 2,
+    "backward_multiple_of_forward": 2,
+    "indexer_width": 128
+  },
+  "decided_by": "proxy run, not this board"
+}</div>
+        </div>
+      </div>
+    </section>
+  </section>
+</main>
+
+<script>
+(function(){
+  var REDUCED_MOTION = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var DEF={T:18,L:32,D:4096,R:25,S:13,B:4,Rd:64,M:16,K:64,W:512,Q:32,G:8,H:128,C:15,Kt:2000,Bu:6000,Cc:16,N:8};
+  var SEL={sched:'dddg',pos:'rope',ext:'drope',kind:'csa',prec:'2',mem:'stream'};
+  var ids=['T','L','D','R','S','B','Rd','M','K','W','Q','G','H','C','Kt','Bu','Cc','N'],el={};
+  ids.forEach(function(k){el[k]=document.getElementById('s8w15-'+k);});
+  var sels=['sched','pos','ext','kind','prec','mem'],se={};
+  sels.forEach(function(k){se[k]=document.getElementById('s8w15-'+k);});
+
+  var PEAK=494.7e12,MFU=0.40,HBM=80e9,IDX_DIM=128;
+  var EXT={none:1,drope:32,ntk:16,yarn:32};
+  var SHARE={dddg:0.25,interleave:0.5,full:1,linear:0};
+  var playing=false,raf=null;
+
+  function pow2(v){return Math.pow(2,v);}
+  function ctx(){return Math.round(pow2(+el.T.value)/1024)*1024;}
+  function fmtT(n){return n>=1048576?(n/1048576).toFixed(2).replace(/\.00$/,'')+'M':n>=1024?(n/1024).toFixed(0)+'K':String(Math.round(n));}
+  function gb(b){return b>=1e12?(b/1e12).toFixed(2)+' TB':b>=1e9?(b/1e9).toFixed(2)+' GB':b>=1e6?(b/1e6).toFixed(1)+' MB':(b/1e3).toFixed(1)+' KB';}
+  function fl(x){return x>=1e15?(x/1e15).toFixed(2)+' PFLOP':x>=1e12?(x/1e12).toFixed(2)+' TFLOP':x>=1e9?(x/1e9).toFixed(2)+' GFLOP':(x/1e6).toFixed(1)+' MFLOP';}
+  function num(n){return Math.round(n).toLocaleString('en-US');}
+
+  function state(){
+    var L=+el.L.value,D=+el.D.value,sch=se.sched.value;
+    var share=(sch==='custom')?(+el.R.value)/100:SHARE[sch];
+    var La=Math.round(L*share), Ll=L-La;
+    var m=+el.M.value,k=+el.K.value,w=+el.W.value,kind=se.kind.value;
+    var eff_m=(kind==='gqa')?1:(kind==='hca'?m*4:m);
+    var T=ctx();
+    var blocks=Math.ceil(T/eff_m);
+    var scored=(kind==='gqa')?T/2:(kind==='hca'?blocks+w:Math.min(k,blocks)+w);
+    var held=(kind==='gqa')?T:blocks+w;
+    return {L:L,D:D,sch:sch,share:share,La:La,Ll:Ll,m:m,k:k,w:w,kind:kind,eff_m:eff_m,
+      T:T,blocks:blocks,scored:scored,held:held,
+      Q:+el.Q.value,G:+el.G.value,Hd:+el.H.value,prec:parseFloat(se.prec.value),
+      base:Math.pow(10,+el.B.value),rot:+el.Rd.value,S:pow2(+el.S.value),
+      pos:se.pos.value,extp:se.ext.value,mem:se.mem.value,chunk:pow2(+el.C.value),
+      tok:(+el.Kt.value)*1e9,budget:+el.Bu.value,want:+el.Cc.value,dev:+el.N.value,
+      N:12*L*D*D};
+  }
+  function cache(s,T){
+    var blocks=(s.kind==='gqa')?0:Math.ceil(T/s.eff_m);
+    var held=(s.kind==='gqa')?T:blocks+s.w;
+    return 2*s.La*s.G*s.Hd*held*s.prec + s.Ll*s.D*s.Hd*s.prec;
+  }
+  function attnFlops(s,T){
+    var blocks=(s.kind==='gqa')?0:Math.ceil(T/s.eff_m);
+    var scored=(s.kind==='gqa')?T/2:(s.kind==='hca'?blocks+s.w:Math.min(s.k,blocks)+s.w);
+    var qd=s.Q*s.Hd;
+    return 4*s.La*qd*scored + (s.kind==='csa'?4*s.La*IDX_DIM*blocks:0) + 4*s.Ll*s.D*s.Hd;
+  }
+  function fwdPerToken(s,T){return 2*s.N+attnFlops(s,T);}
+  function trainDays(s){return 3*fwdPerToken(s,s.S)*s.tok/(PEAK*MFU*86400);}
+  function reach(s){return s.pos==='learned'?s.S:(s.pos==='alibi'?Infinity:s.S*EXT[s.extp]);}
+  function bandsAlive(s,T){if(s.rot<2)return 0;var a=0,n=s.rot/2;for(var j=0;j<n;j++){if(2*Math.PI*Math.pow(s.base,2*j/s.rot)>=T)a++;}return a;}
+  function minBase(s,T){return s.rot>2?Math.pow(T/(2*Math.PI),s.rot/(s.rot-2)):Infinity;}
+  function gapLayers(s){return s.La>0?Math.ceil(s.L/s.La)-1:s.L;}
+
+  function render(){
+    var s=state(),T=s.T;
+    document.getElementById('s8w15-Tv').textContent=fmtT(T)+' ('+num(T)+')';
+    document.getElementById('s8w15-Lv').textContent=s.L;
+    document.getElementById('s8w15-Dv').textContent=num(s.D);
+    document.getElementById('s8w15-Rv').textContent=(s.share*100).toFixed(0)+'%';
+    document.getElementById('s8w15-ratiowrap').style.display=(s.sch==='custom')?'block':'none';
+    document.getElementById('s8w15-Sv').textContent=fmtT(s.S);
+    document.getElementById('s8w15-Bv').textContent=num(s.base);
+    document.getElementById('s8w15-Rdv').textContent=s.rot+' of '+s.Hd;
+    document.getElementById('s8w15-Mv').textContent=s.m+' tokens'+(s.kind==='hca'?' (x4 here)':'');
+    document.getElementById('s8w15-Kv').textContent=s.k;
+    document.getElementById('s8w15-Wv').textContent=s.w+' tokens';
+    document.getElementById('s8w15-Qv').textContent=s.Q;
+    document.getElementById('s8w15-Gv').textContent=s.G;
+    document.getElementById('s8w15-Hv').textContent=s.Hd;
+    document.getElementById('s8w15-Cv').textContent=fmtT(s.chunk);
+    document.getElementById('s8w15-Ktv').textContent=(s.tok/1e12).toFixed(1)+'T';
+    document.getElementById('s8w15-Buv').textContent=num(s.budget)+' GPU-d';
+    document.getElementById('s8w15-Ccv').textContent=s.want;
+    document.getElementById('s8w15-Nv').textContent=s.dev;
+
+    document.getElementById('s8w15-assume').innerHTML=
+      'Accelerator peak <b>494.7 TFLOP/s</b> dense bf16, utilisation <b>40%</b>, <b>80 GB</b> per device, weights bf16, backward at twice the forward, '+
+      'non-embedding parameters taken as <b>12 x layers x width squared</b>, the block indexer costed at a width of <b>128</b>, '+
+      'and extension factors taken from published results (<b>32x</b> DroPE and YaRN, <b>16x</b> NTK) rather than from a run of yours. Nothing here has been measured on V5.';
+
+    var cb=cache(s,T), af=attnFlops(s,T), fw=fwdPerToken(s,T), rr=reach(s), td=trainDays(s);
+    var baseCache=2*s.L*8*128*T*2, baseFlops=4*s.L*s.D*(T/2);
+    var weights=s.N*2, pool=HBM*s.dev, free=pool-weights, conc=free>0?Math.floor(free/cb):0;
+
+    document.getElementById('s8w15-m1').textContent=gb(cb);
+    document.getElementById('s8w15-m2').textContent=fl(af);
+    document.getElementById('s8w15-m3').textContent=(rr===Infinity?'unbounded':fmtT(rr)+'  '+(T/rr).toFixed(2)+'x');
+    document.getElementById('s8w15-m4').textContent=num(td)+' GPU-d';
+    document.getElementById('s8w15-m5').textContent=(cb/baseCache*100).toFixed(2)+'%';
+    document.getElementById('s8w15-m6').textContent=num(conc);
+
+    var stack='';
+    for(var i=0;i<s.L;i++){
+      var isA=s.La>0 && (i%Math.max(1,Math.round(s.L/Math.max(s.La,1)))===Math.max(0,Math.round(s.L/Math.max(s.La,1))-1));
+      stack+='<div class="s8w15-l '+(isA?'s8w15-la':'s8w15-ll')+'" title="layer '+(i+1)+'">'+(isA?'G':'D')+'</div>';
+    }
+    document.getElementById('s8w15-stack').innerHTML=stack;
+    document.getElementById('s8w15-stacknote').textContent=
+      s.La+' exact-attention layers (G) and '+s.Ll+' fixed-state linear layers (D) out of '+s.L+'. Longest run without an exact layer: '+gapLayers(s)+
+      '. The linear layers hold '+gb(s.Ll*s.D*s.Hd*s.prec)+' of matrix state that does not grow with context; the attention layers hold '+gb(cb-s.Ll*s.D*s.Hd*s.prec)+' that does.';
+
+    var gates=[];
+    function g(ok,warn,t,b){gates.push({s:ok?'pass':(warn?'flag':'fail'),t:t,b:b});}
+
+    // 1. head layout arithmetic
+    var qd=s.Q*s.Hd, divides=(s.Q%s.G===0);
+    g(qd===s.D&&divides, (Math.abs(qd-s.D)/s.D<0.26)&&divides,'Head layout closes',
+      'Query heads times head dimension is <code>'+s.Q+' x '+s.Hd+' = '+num(qd)+'</code> against a model width of <code>'+num(s.D)+'</code>'+
+      (qd===s.D?', which closes exactly.':', a mismatch of <code>'+num(Math.abs(qd-s.D))+'</code> that needs an explicit projection you have not specified.')+
+      ' Query heads divided by key-value groups is <code>'+(s.Q/s.G).toFixed(2)+'</code>'+(divides?', a whole number.':', which is not a whole number, so the grouping is undefined.'));
+
+    // 2. rotary dimensions
+    g(s.rot>0&&s.rot<=s.Hd&&s.rot<s.Hd, s.rot>0&&s.rot<=s.Hd,'Rotary subset',
+      s.rot===0?'No rotary dimensions. If the position scheme is rotary this is a contradiction, and if it is ALiBi say so in the position field rather than leaving the rotation at zero.'
+      :(s.rot>s.Hd?('You are rotating <code>'+s.rot+'</code> of <code>'+s.Hd+'</code> dimensions, which is more dimensions than the head has.')
+      :('<code>'+s.rot+'</code> of <code>'+s.Hd+'</code> dimensions rotate, leaving <code>'+(s.Hd-s.rot)+'</code> carrying content alone. DeepSeek-V4 rotates <code>64</code>. Rotating everything forces the whole representation to carry positional structure, which most of what a token means does not need.')));
+
+    // 3. position reach
+    var alive=bandsAlive(s,T), mb=minBase(s,T);
+    if(s.pos==='learned'){
+      g(false,false,'Position reaches the target',
+        'A learned absolute table has no row past <code>'+num(s.S)+'</code>, so at <code>'+num(T)+'</code> there is nothing to evaluate. Session 7 measured this wall and this session opened by ruling it out.');
+    } else if(s.pos==='alibi'){
+      g(true,true,'Position reaches the target',
+        'ALiBi is defined at every distance, so <code>'+num(T)+'</code> is not out of range. It hard-codes that further always means less relevant, which is an assumption about your documents. Nothing in the arithmetic tests it.');
+    } else {
+      g(T<=rr&&alive>0, T<=rr,'Position reaches the target',
+        'Trained at <code>'+num(s.S)+'</code>, extension <code>'+EXT[s.extp]+'x</code>, so the reach is <code>'+num(rr)+'</code> and the target is <code>'+(T/rr).toFixed(2)+'x</code> of it. '+
+        'At base <code>'+num(s.base)+'</code>, <code>'+alive+' of '+(s.rot/2)+'</code> rotary bands still span the window; a base of <code>'+num(mb)+'</code> is the minimum for one band to span it.');
+    }
+
+    // 4. cache budget
+    g(conc>=s.want, conc>=Math.ceil(s.want/2),'Cache budget',
+      'One conversation at <code>'+num(T)+'</code> tokens is <code>'+gb(cb)+'</code>. Weights take <code>'+gb(weights)+'</code> of the <code>'+gb(pool)+'</code> replica, leaving <code>'+gb(Math.max(free,0))+'</code>, which is <code>'+num(conc)+'</code> conversations against the <code>'+s.want+'</code> you asked for'+
+      (conc<s.want?(', a shortfall of <code>'+num(s.want-conc)+'</code>. You need the cache under <code>'+gb(Math.max(free,0)/s.want)+'</code> per conversation to hit the target.'):'.')+
+      ' Against the GQA-8 bf16 head-dim-128 yardstick this is <code>'+(cb/baseCache*100).toFixed(2)+'%</code>.');
+
+    // 5. compute
+    var pf=T*fw, secs=pf/(s.dev*PEAK*MFU);
+    g(af<=baseFlops*0.5, af<=baseFlops,'Attention compute',
+      'Per generated token the attention path costs <code>'+fl(af)+'</code> against <code>'+fl(baseFlops)+'</code> for dense attention at every layer, or <code>'+(af/baseFlops*100).toFixed(2)+'%</code>. '+
+      'Filling the window once costs <code>'+fl(pf)+'</code>, which is <code>'+secs.toFixed(2)+' s</code> on <code>'+s.dev+'</code> accelerators.');
+
+    // 6. coverage of the context
+    if(s.kind==='csa'){
+      var cov=(Math.min(s.k,s.blocks)*s.eff_m+s.w)/T;
+      g(cov>=0.02, cov>=0.005,'Selection coverage',
+        'Top-<code>'+s.k+'</code> over blocks of <code>'+s.eff_m+'</code> plus a <code>'+s.w+'</code>-token window lets one query reach <code>'+num(Math.min(s.k,s.blocks)*s.eff_m+s.w)+'</code> of <code>'+num(T)+'</code> tokens, which is <code>'+(cov*100).toFixed(3)+'%</code> of the context in any detail. '+
+        'The rest is visible only as block summaries. That may be enough. It is not something the arithmetic can tell you.');
+    } else if(s.kind==='hca'){
+      g(true,true,'Selection coverage',
+        'Heavily compressed and dense over the survivors, so every one of the <code>'+num(s.blocks)+'</code> entries is attended and nothing is skipped. Coverage is complete. Resolution is coarse: <code>'+s.eff_m+'</code> tokens are averaged into each entry.');
+    } else {
+      g(true,false,'Selection coverage','Uncompressed grouped-query attention scores every previous token, so coverage is total and the cost is the straight line in <code>T</code> that this session spent Section 10 warning about.');
+    }
+
+    // 7. local detail
+    if(s.kind!=='gqa'){
+      g(s.w>=s.eff_m*4, s.w>0,'Local detail survives compression',
+        s.w===0?('There is no sliding window. A query cannot see inside its own compressed block, so the most recent <code>'+s.eff_m+'</code> tokens exist only as a summary that is not yet complete. That is exactly the detail language modelling depends on most.')
+        :('The window keeps <code>'+s.w+'</code> tokens uncompressed against a block size of <code>'+s.eff_m+'</code>, a ratio of <code>'+(s.w/s.eff_m).toFixed(1)+'</code> blocks of recent detail. Local structure comes from the window and long-range structure from the summaries.'));
+    } else {
+      g(true,false,'Local detail survives compression','Nothing is compressed, so no local detail is lost and no window is needed.');
+    }
+
+    // 8. exact-retrieval gap
+    var gp=gapLayers(s);
+    g(s.La>0&&gp<=3, s.La>0,'Path to an exact record',
+      s.La===0?('No layer in this stack keeps an exact record. Everything is a fixed-size state, so a fact that the state has overwritten cannot be recovered anywhere in the model. All three reference architectures keep some exact layers.')
+      :('<code>'+s.La+'</code> of <code>'+s.L+'</code> layers can retrieve exactly, so information passes through at most <code>'+gp+'</code> fixed-state layers before an exact layer can reach it. The V4 motif gives <code>3</code>.'));
+
+    // 9. cross-chunk state
+    var chunks=Math.ceil(T/s.chunk);
+    if(chunks<=1){
+      g(true,true,'State across chunk boundaries','The target fits inside one chunk of <code>'+num(s.chunk)+'</code>, so no boundary is crossed. Whatever cross-chunk state you selected is doing no work here and should not be credited with any.');
+    } else if(s.mem==='none'){
+      g(false,false,'State across chunk boundaries',
+        'The target is <code>'+chunks+'</code> chunks of <code>'+num(s.chunk)+'</code> and nothing crosses a boundary, so <code>'+num(T-s.chunk)+'</code> tokens, <code>'+((T-s.chunk)/T*100).toFixed(1)+'%</code> of the advertised window, are unreachable from the last chunk.');
+    } else if(s.mem==='linear'&&s.Ll===0){
+      g(false,false,'State across chunk boundaries','You are carrying a linear recurrent state across <code>'+chunks+'</code> boundaries in a stack with <code>0</code> linear layers. There is no state to carry.');
+    } else {
+      var sb=(s.mem==='stream')?s.D*s.prec:Math.max(s.Ll,1)*s.D*s.Hd*s.prec;
+      g(true,true,'State across chunk boundaries',
+        '<code>'+chunks+'</code> chunks, <code>'+gb(sb)+'</code> carried across each boundary against <code>'+gb(cache(s,s.chunk))+'</code> of cache per chunk. It is O(1) in the number of chunks, which is the point. It carries a summary, which is the cost.');
+    }
+
+    // 10. training budget
+    g(td<=s.budget, td<=s.budget*1.5,'Training budget',
+      'Training at a sequence length of <code>'+num(s.S)+'</code> for <code>'+(s.tok/1e12).toFixed(1)+'T</code> tokens costs <code>'+num(td)+' GPU-days</code> against a budget of <code>'+num(s.budget)+'</code>'+
+      (td>s.budget?(', over by <code>'+num(td-s.budget)+'</code>.'):'.')+
+      ' Training natively at the target instead would cost <code>'+num(3*fwdPerToken(s,T)*s.tok/(PEAK*MFU*86400))+' GPU-days</code>, which is the number the extend-or-build-native question turns on.');
+
+    // 11. precision
+    if(s.prec<2){
+      g(true,true,'Cache precision',
+        'Dropping the cache to <code>'+s.prec+'</code> bytes per number multiplies concurrency by <code>'+(2/s.prec).toFixed(1)+'x</code> and gives <code>'+num(conc)+'</code> conversations. It is also a quality change nobody in this session measured, so it is a hypothesis with a very attractive number attached.');
+    } else {
+      g(true,false,'Cache precision','bf16 throughout. The cheapest untried lever on this board is dropping it, and the cheapest way to be wrong is dropping it without measuring.');
+    }
+
+    document.getElementById('s8w15-gates').innerHTML=gates.map(function(x){
+      var cls=x.s==='pass'?'s8w15-pass':x.s==='flag'?'s8w15-flag':'s8w15-fail';
+      var ic=x.s==='pass'?'OK':x.s==='flag'?'!':'X';
+      return '<div class="s8w15-gate '+cls+'"><span class="s8w15-icon">'+ic+'</span><span><b>'+x.t+'</b>'+x.b+'</span></div>';
+    }).join('');
+
+    // settled
+    var settled=[
+      {ok:s.pos!=='learned',t:'A stored absolute position table is out.',
+       b:s.pos==='learned'?'Your candidate uses one. Session 7 measured the wall directly, and this is the one place the board says you contradict the evidence.':'Your candidate does not use one.'},
+      {ok:!(s.kind==='gqa'&&s.Ll===0),t:'Grouped-query alone falls short of the target.',
+       b:(s.kind==='gqa'&&s.Ll===0)?('Your candidate is uncompressed grouped-query at every layer, so the cache is a straight line in context: <code>'+gb(cb)+'</code> at <code>'+num(T)+'</code> tokens and <code>'+gb(cache(s,T*2))+'</code> at twice that. Dividing a straight line by a constant leaves a straight line.'):'Your candidate does more than divide the head count.'},
+      {ok:(s.Ll>0||s.kind!=='gqa'),t:'Linear attention, sparsity or compression is mandatory.',
+       b:(s.Ll>0||s.kind!=='gqa')?('Your candidate uses '+[s.Ll>0?'a linear stack of '+s.Ll+' layers':null,s.kind==='csa'?'block compression with top-k selection':null,s.kind==='hca'?'heavy compression':null].filter(Boolean).join(' and ')+'. All three reference architectures use at least one.'):'Your candidate uses none of them, which no reference architecture does at this context length.'}
+    ];
+    document.getElementById('s8w15-settled').innerHTML=settled.map(function(x){
+      return '<div class="s8w15-settled"><b>'+(x.ok?'Held: ':'Contradicted: ')+x.t+'</b>'+x.b+'</div>';
+    }).join('');
+
+    // open questions attached to the choices they bear on
+    var oq=[];
+    oq.push({id:'extend_or_native',bears:'position.extension = '+s.extp+', trained at '+fmtT(s.S),
+      q:'Extend, or build native.',
+      b:'V4 trained at 8K and stretched <code>32x</code> with DroPE; DeepSeek built for a million natively. You chose '+(s.pos!=='rope'?('a position scheme (<code>'+s.pos+'</code>) that leaves the extension policy inactive'):(s.extp==='none'?'neither, evaluating only at the trained length':'to extend by <code>'+EXT[s.extp]+'x</code> from <code>'+num(s.S)+'</code> to <code>'+num(rr)+'</code>'))+
+        ', while native training at the target costs <code>'+num(3*fwdPerToken(s,T)*s.tok/(PEAK*MFU*86400))+' GPU-days</code> against your <code>'+num(td)+'</code>, a ratio of <code>'+(fwdPerToken(s,T)/fwdPerToken(s,s.S)).toFixed(2)+'x</code>. '+
+        ((fwdPerToken(s,T)/fwdPerToken(s,s.S))<1.5
+          ?'Compression has almost closed the cost gap that made extension attractive, so the ceiling on extension stops being worth accepting.'
+          :'Extending is the cheaper road with an extension factor as its ceiling. Native has no ceiling and pays for it in this number.'),
+      n:'An extension-factor study at V5 target length, and a costed native estimate.'});
+    oq.push({id:'schedule_ratio',bears:'schedule = '+s.sch+', '+s.La+' of '+s.L+' exact',
+      q:'The schedule, and its ratio.',
+      b:'<code>DDDGDDDG</code> was carried unchanged from the 1.78B seed to the 120B run and never ablated. Your exact-attention share is <code>'+(s.share*100).toFixed(0)+'%</code>, putting <code>'+gp+'</code> fixed-state layers between exact layers at <code>'+gb(cb)+'</code> of cache. A different ratio moves both numbers by an unmeasured amount.',
+      n:'The ablation at a scale where it transfers: three or four ratios at 1B and 3B proxy scale, per-language perplexity and long-context retrieval.'});
+    if(s.Ll>0&&s.kind!=='gqa'){
+      oq.push({id:'linear_vs_compression',bears:'both levers active',
+        q:'Linear state or sequence compression.',
+        b:'You are using both. V4 and Qwen3.6 chose the linear state, DeepSeek chose compression, and no published result compares them at matched budget. Your linear layers hold <code>'+gb(s.Ll*s.D*s.Hd*s.prec)+'</code> that does not grow, your attention layers <code>'+gb(cb-s.Ll*s.D*s.Hd*s.prec)+'</code> that does.',
+        n:'A matched-budget comparison at a long context. Short contexts flatter the linear state.'});
+    } else if(s.Ll>0){
+      oq.push({id:'linear_vs_compression',bears:'primary lever = linear state',
+        q:'Linear state or sequence compression.',
+        b:'You chose the linear state, as V4 and Qwen3.6 did. DeepSeek chose compression and reports the stronger cache number. The two have never been compared at matched budget.',
+        n:'A matched-budget comparison at a long context.'});
+    } else {
+      oq.push({id:'linear_vs_compression',bears:'primary lever = sequence compression',
+        q:'Linear state or sequence compression.',
+        b:'You chose compression, as DeepSeek did. V4 and Qwen3.6 chose the linear state. The comparison that separates them has not been run.',
+        n:'A matched-budget comparison at a long context.'});
+    }
+    if(s.kind==='csa'){
+      oq.push({id:'sparsity_budget',bears:'top_k_blocks = '+s.k,
+        q:'The sparsity budget.',
+        b:'V4 capped selection at <code>256</code>, a kernel constraint from older hardware. Your <code>'+s.k+'</code> reaches <code>'+num(Math.min(s.k,s.blocks)*s.eff_m+s.w)+'</code> tokens of <code>'+num(T)+'</code> in detail at <code>'+fl(4*s.La*s.Q*s.Hd*(Math.min(s.k,s.blocks)+s.w))+'</code> per token. Doubling it doubles that term and leaves the cache alone.',
+        n:'Sweep k on current kernels and set the cap where quality stops improving.'});
+    }
+    if(s.mem!=='none'){
+      oq.push({id:'memory_stream_value',bears:'cross_chunk_state = '+s.mem+', chunk '+fmtT(s.chunk),
+        q:'Whether cross-chunk state still earns its place.',
+        b:'At <code>'+num(T)+'</code> with a chunk of <code>'+num(s.chunk)+'</code> you cross <code>'+chunks+'</code> boundaries; grow the chunk to the target and the count falls to one. V4 measured its injection near <code>6%</code> of the embedding magnitude, an effect small enough that V5 lengths may not need it.',
+        n:'An ablation at the target length.'});
+    }
+    oq.push({id:'width_and_heads',bears:'d_model = '+s.D+', '+s.Q+' heads of '+s.Hd,
+      q:'Every head count and dimension.',
+      b:'The reference numbers here were derived at a width of <code>4096</code>, which V5 has not committed to. You set <code>'+num(s.D)+'</code>, giving <code>'+num(s.Q*s.Hd)+'</code> across the heads and a sharing factor of <code>'+(s.Q/s.G).toFixed(2)+'</code>. Both move cache and compute independently.',
+      n:'A committed width first. Head counts are downstream of it.'});
+
+    document.getElementById('s8w15-oq').innerHTML=oq.map(function(x){
+      return '<div class="s8w15-oq"><div class="s8w15-oqh"><b>'+x.q+'</b><span class="s8w15-bears">'+x.bears+'</span></div>'+x.b+
+        '<span class="s8w15-needs"><b>Needs:</b> '+x.n+'</span></div>';
+    }).join('');
+
+    var fails=gates.filter(function(x){return x.s==='fail';}).length;
+    var flags=gates.filter(function(x){return x.s==='flag';}).length;
+    document.getElementById('s8w15-close').innerHTML=
+      '<b>'+(fails?(fails+' gate'+(fails>1?'s':'')+' failed and '+flags+' flagged.'):('No gates failed'+(flags?', '+flags+' flagged.':'.')))+'</b> '+
+      'The board has checked that <code>'+gb(cb)+'</code> of cache, <code>'+fl(af)+'</code> of attention compute per token, a reach of <code>'+(rr===Infinity?'unbounded':num(rr))+'</code> and <code>'+num(td)+' GPU-days</code> of training are internally consistent with each other and with what this session argued. '+
+      '<b>'+oq.length+' questions above are still open</b>, and every one of them settles by a proxy run. We know the shape of the answer, which is why the spec on tab 4 carries a status of <code>candidate</code>.';
+
+    // the emitted specification
+    var chunksN=Math.ceil(T/s.chunk);
+    var spec={
+      spec_version:'era-v5/s8-attention-candidate/1',
+      status:'candidate_not_decision',
+      candidate_id:'v5-attn-'+s.sch+'-'+s.kind+'-'+s.extp+'-'+fmtT(T).toLowerCase(),
+      target_context_tokens:T,
+      model:{layers:s.L,d_model:s.D,params_non_embedding:s.N,params_formula:'12 * layers * d_model^2'},
+      schedule:{motif:s.sch,exact_attention_layers:s.La,linear_layers:s.Ll,
+        exact_attention_share:+(s.share).toFixed(4),max_run_without_exact_layer:gp,ablated:false},
+      position:{scheme:s.pos,rope_base:s.base,rotary_dims:s.rot,head_dim:s.Hd,
+        extension_policy:s.extp,extension_factor:(s.pos==='rope'?EXT[s.extp]:null),
+        trained_sequence_length:s.S,reach_tokens:(rr===Infinity?null:rr),
+        target_over_reach:(rr===Infinity?null:+(T/rr).toFixed(3)),
+        rope_bands_total:(s.rot>1?s.rot/2:0),rope_bands_spanning_target:alive,
+        rope_base_required_for_one_band:(isFinite(mb)?Math.round(mb):null)},
+      attention:{kind:s.kind,block_size:s.eff_m,top_k_blocks:(s.kind==='csa'?s.k:null),
+        sliding_window:s.w,query_heads:s.Q,kv_groups:s.G,head_dim:s.Hd,
+        entries_scored_per_query:Math.round(s.scored),
+        context_reachable_in_detail:(s.kind==='csa'?+(((Math.min(s.k,s.blocks)*s.eff_m+s.w)/T).toFixed(6)):1)},
+      cache:{precision_bytes:s.prec,entries_held_per_attention_layer:Math.round(s.held),
+        bytes_at_target:Math.round(cb),gb_at_target:+(cb/1e9).toFixed(3),
+        share_of_gqa8_bf16_hd128_baseline:+(cb/baseCache).toFixed(5),
+        conversations_per_replica:conc,conversations_wanted:s.want},
+      cross_chunk_state:{kind:s.mem,chunk_tokens:s.chunk,chunks_at_target:chunksN,
+        bytes_carried:(s.mem==='none'?0:(s.mem==='stream'?s.D*s.prec:Math.max(s.Ll,1)*s.D*s.Hd*s.prec))},
+      compute:{attention_flops_per_token:Math.round(af),
+        forward_flops_per_token:Math.round(fw),
+        share_of_dense_attention:+(af/baseFlops).toFixed(5),
+        prefill_flops_at_target:Math.round(pf),
+        prefill_seconds:+(secs).toFixed(3),accelerators_per_replica:s.dev},
+      training:{tokens:s.tok,sequence_length:s.S,
+        flops_total:Math.round(3*fwdPerToken(s,s.S)*s.tok),
+        gpu_days:+td.toFixed(1),gpu_days_if_native_at_target:+(3*fwdPerToken(s,T)*s.tok/(PEAK*MFU*86400)).toFixed(1),
+        budget_gpu_days:s.budget},
+      gates:{passed:gates.length-fails-flags,flagged:flags,failed:fails,
+        failing:gates.filter(function(x){return x.s==='fail';}).map(function(x){return x.t;})},
+      open_questions:oq.map(function(x){return {id:x.id,bears_on:x.bears,needs:x.n};}),
+      assumptions:{accelerator_peak_flops:PEAK,mfu:MFU,device_bytes:HBM,
+        weights_bytes_per_param:2,backward_multiple_of_forward:2,indexer_width:IDX_DIM},
+      decided_by:'proxy run, not this board'
+    };
+    document.getElementById('s8w15-json').textContent=JSON.stringify(spec,null,2);
+  }
+
+  function stop(){playing=false;if(raf){cancelAnimationFrame(raf);raf=null;}document.getElementById('s8w15-sweeplab').textContent='paused at a target of '+fmtT(ctx());}
+  function tick(){
+    if(!playing)return;
+    var v=+el.T.value+0.025; if(v>20)v=13;
+    el.T.value=v.toFixed(2); render();
+    document.getElementById('s8w15-sweeplab').textContent='sweeping the target, now at '+fmtT(ctx());
+    raf=requestAnimationFrame(tick);
+  }
+  document.getElementById('s8w15-play').onclick=function(){if(playing)return;playing=true;raf=requestAnimationFrame(tick);};
+  document.getElementById('s8w15-pause').onclick=stop;
+  document.getElementById('s8w15-reset').onclick=function(){
+    stop();
+    ids.forEach(function(k){el[k].value=DEF[k];});
+    sels.forEach(function(k){se[k].value=SEL[k];});
+    render();
+    document.getElementById('s8w15-sweeplab').textContent='reset to defaults';
+  };
+  ids.forEach(function(k){el[k].addEventListener('input',render);});
+  sels.forEach(function(k){se[k].addEventListener('change',render);});
+  // ---- tabs: one panel at a time, the configuration column stays ----
+  function setTab(n){
+    var t=document.querySelectorAll('.s8w15-tbtn'),i;
+    for(i=0;i<t.length;i++) t[i].className='s8w15-tbtn'+(+t[i].dataset.st===n?' on':'');
+    for(i=1;i<=4;i++) document.getElementById('s8w15-p'+i).className='s8w15-pane'+(i===n?' on':'');
+    render();
+    if(window.s8w15Fit) window.s8w15Fit();   // the frame follows the tab
+  }
+  document.getElementById('s8w15-tabs').addEventListener('click',function(e){
+    var b=e.target.closest('.s8w15-tbtn'); if(!b) return;
+    setTab(+b.dataset.st);
+  });
+
+  render();
+  setTab(1);
+  document.getElementById('s8w15-sweeplab').textContent='press Play to sweep the target context and watch the gates move';
+})();
+</script>
+<script>
+/* Self-sizing: the lesson embeds this at a fixed height, but the content height
+   changes when the predict gate opens, when a tab switches, or when a panel
+   expands. Same-origin, so the frame can be resized from inside. */
+(function(){
+  var fe; try{ fe=window.frameElement; }catch(e){ return; }
+  if(!fe) return;
+  var last=0;
+  function fit(){
+    var h=Math.ceil(document.body.scrollHeight)+8;
+    if(Math.abs(h-last)>2){ last=h; fe.style.height=h+'px'; }
+  }
+  if(window.ResizeObserver){ new ResizeObserver(fit).observe(document.body); }
+  window.addEventListener('load',fit);
+  document.addEventListener('click',function(){ setTimeout(fit,60); setTimeout(fit,260); },true);
+  document.addEventListener('input',function(){ setTimeout(fit,60); },true);
+  [0,120,400,900,1800].forEach(function(t){ setTimeout(fit,t); });
+  window.s8w15Fit=fit;
+})();
+</script>
+
+
+</body></html>

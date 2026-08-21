@@ -1,0 +1,20 @@
+[
+  "standard_attention",
+  "absolute_learned_pe",
+  "sinusoidal_pe",
+  "rope",
+  "alibi",
+  "mqa",
+  "gqa",
+  "sliding_window",
+  "attention_sinks",
+  "ntk_scaling",
+  "yarn",
+  "linear_attention",
+  "delta_rule",
+  "gated_deltanet",
+  "mla",
+  "sparse_topk",
+  "deepseek_compressed_sparse",
+  "drope"
+]

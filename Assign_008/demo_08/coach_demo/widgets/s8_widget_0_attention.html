@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 8 Widget 0 - Attention, Built</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/"><link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="./css2" rel="stylesheet">
+<style>
+:root{--ink:#152033;--muted:#65758b;--line:#d9e2ef;--cyan:#0891b2;--violet:#7c3aed;--green:#159447;--amber:#d97706;--red:#dc2626}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:linear-gradient(180deg,#f8fbff,#eef5fb);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px}
+.s8w0-wrap{max-width:1280px;margin:0 auto;padding:18px 22px 20px}
+.s8w0-kicker{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan)}
+.s8w0-wrap h1{font-size:26px;line-height:1.1;margin:4px 0 6px}
+.s8w0-sub{color:var(--muted);max-width:960px;margin:0 0 12px;line-height:1.5;font-size:13px}
+
+.s8w0-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:12px}
+.s8w0-tab{border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 10px;font:inherit;text-align:left;cursor:pointer;line-height:1.2}
+.s8w0-tab b{display:block;font-size:12.5px;font-weight:800;color:var(--ink)}
+.s8w0-tab span{display:block;font-size:10.5px;color:var(--muted);margin-top:2px}
+.s8w0-tab:hover{border-color:var(--cyan)}
+.s8w0-tab.on{border-color:var(--cyan);background:#ecfeff;box-shadow:inset 0 0 0 1px var(--cyan)}
+
+.s8w0-grid{display:grid;grid-template-columns:250px minmax(0,1fr);gap:13px;align-items:start}
+.s8w0-card{background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 30px rgba(20,42,75,.07);padding:13px}
+.s8w0-card h2{font-size:12px;margin:0 0 9px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.s8w0-lead{margin:0 0 10px;font-size:12.5px;color:var(--muted);line-height:1.5}
+
+.s8w0-toks{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:11px}
+.s8w0-tok{border:1.5px solid var(--line);background:#fff;border-radius:7px;padding:5px 10px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.s8w0-tok:hover{border-color:var(--cyan)}
+.s8w0-tok.on{border-color:var(--cyan);background:#ecfeff;color:#0e7490}
+.s8w0-tok.fut{opacity:.4}
+
+.s8w0-sw{display:flex;align-items:center;gap:8px;margin-bottom:9px;font-size:12.5px;font-weight:700}
+.s8w0-sw input{accent-color:var(--cyan);width:16px;height:16px}
+.s8w0-note{font-size:11.5px;color:var(--muted);line-height:1.5;margin:0 0 9px}
+
+.s8w0-run{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}
+.s8w0-run button{border:1px solid var(--cyan);background:var(--cyan);color:#fff;border-radius:8px;padding:7px 14px;font:inherit;font-size:12px;font-weight:800;cursor:pointer}
+.s8w0-run button.s8w0-ghost{background:#fff;color:var(--cyan)}
+
+.s8w0-mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.s8w0-vec{display:inline-flex;gap:3px}
+.s8w0-n{background:#f1f5f9;border-radius:4px;padding:2px 6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11.5px;min-width:48px;text-align:right;display:inline-block}
+.s8w0-n.q{background:#ecfeff;color:#0e7490}
+.s8w0-n.k{background:#f5f3ff;color:#5b21b6}
+.s8w0-n.v{background:#f0fdf4;color:#166534}
+
+table.s8w0-t{width:100%;border-collapse:collapse;font-size:12px}
+table.s8w0-t th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding:5px 6px;border-bottom:1px solid var(--line);font-weight:800}
+table.s8w0-t td{padding:5px 6px;border-bottom:1px solid #eef2f7;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+table.s8w0-t td.lbl{font-family:Inter,sans-serif;font-weight:700}
+table.s8w0-t tr.on td{background:#ecfeff}
+table.s8w0-t tr.masked td{opacity:.38}
+
+.s8w0-bar{height:15px;border-radius:3px;background:var(--cyan);display:inline-block;vertical-align:middle;min-width:1px}
+.s8w0-bar.neg{background:var(--red)}
+.s8w0-eq{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11.5px;background:#0f172a;color:#dbeafe;border-radius:8px;padding:9px 11px;line-height:1.65;white-space:pre;overflow-x:auto;margin:0 0 10px}
+.s8w0-say{border:1px solid #a5f3fc;background:#ecfeff;color:#155e75;border-radius:8px;padding:10px 11px;font-size:12.5px;line-height:1.55;margin-top:10px}
+.s8w0-say b{color:#0e7490}
+.s8w0-two{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.s8w0-mx{display:grid;gap:2px;font-size:0}
+.s8w0-cell{height:26px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:10.5px;font-family:ui-monospace,monospace;font-weight:700;color:#fff}
+.s8w0-hd{font-size:10px;color:var(--muted);text-align:center;font-family:ui-monospace,monospace;height:14px}
+.s8w0-rl{font-size:10px;color:var(--muted);font-family:ui-monospace,monospace;display:flex;align-items:center;justify-content:flex-end;padding-right:5px}
+@media(max-width:1040px){.s8w0-grid,.s8w0-two{grid-template-columns:1fr}.s8w0-tabs{grid-template-columns:1fr 1fr}}
+@media (prefers-reduced-motion: reduce){.s8w0-wrap *{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<main class="s8w0-wrap">
+  <div class="s8w0-kicker">ERA V5 Session 8</div>
+  <h1>Attention, Built</h1>
+  <p class="s8w0-sub">Six tokens, four numbers each, every value computed on this page. Step through the five things attention does to turn a sequence into one output vector.</p>
+
+  <div class="s8w0-tabs" id="s8w0-tabs" role="tablist"><button class="s8w0-tab on" role="tab" data-i="0" aria-selected="true" aria-label="1. Q, K, V, three vectors per token"><b>1. Q, K, V</b><span>three vectors per token</span></button><button class="s8w0-tab" role="tab" data-i="1" aria-selected="false" aria-label="2. Scores, every query against every key"><b>2. Scores</b><span>every query against every key</span></button><button class="s8w0-tab" role="tab" data-i="2" aria-selected="false" aria-label="3. Softmax, scores become weights"><b>3. Softmax</b><span>scores become weights</span></button><button class="s8w0-tab" role="tab" data-i="3" aria-selected="false" aria-label="4. The mask, no looking ahead"><b>4. The mask</b><span>no looking ahead</span></button><button class="s8w0-tab" role="tab" data-i="4" aria-selected="false" aria-label="5. The output, a weighted sum of values"><b>5. The output</b><span>a weighted sum of values</span></button></div>
+
+  <section class="s8w0-grid">
+    <aside class="s8w0-card">
+      <h2>Controls</h2>
+      <p class="s8w0-lead" id="s8w0-ctrlhint">Every token is projected three times. The matrices are fixed here so the numbers never move.</p>
+      <div id="s8w0-tokwrap" hidden="">
+        <div style="font-size:11.5px;font-weight:700;margin-bottom:5px">Query token</div>
+        <div class="s8w0-toks" id="s8w0-toks"><button class="s8w0-tok" data-i="0" aria-label="query token 0, the">0 the</button><button class="s8w0-tok" data-i="1" aria-label="query token 1, cat">1 cat</button><button class="s8w0-tok" data-i="2" aria-label="query token 2, sat">2 sat</button><button class="s8w0-tok" data-i="3" aria-label="query token 3, on">3 on</button><button class="s8w0-tok" data-i="4" aria-label="query token 4, the">4 the</button><button class="s8w0-tok on" data-i="5" aria-label="query token 5, mat">5 mat</button></div>
+      </div>
+      <label class="s8w0-sw" id="s8w0-scalewrap" hidden=""><input type="checkbox" id="s8w0-scale" checked="" aria-label="Divide scores by the square root of the head dimension"> Scale by sqrt(d)</label>
+      <label class="s8w0-sw" id="s8w0-maskwrap" hidden=""><input type="checkbox" id="s8w0-mask" checked="" aria-label="Apply the causal mask so a token cannot see the future"> Causal mask</label>
+      <p class="s8w0-note" id="s8w0-cnote"></p>
+      <div class="s8w0-run">
+        <button id="s8w0-play" aria-label="Play through the query tokens">Play</button>
+        <button id="s8w0-pause" class="s8w0-ghost" aria-label="Pause">Pause</button>
+        <button id="s8w0-reset" class="s8w0-ghost" aria-label="Reset to the starting state">Reset</button>
+      </div>
+    </aside>
+
+    <section class="s8w0-card" id="s8w0-panel"><div class="s8w0-eq">q = e Wq      k = e Wk      v = e Wv        (d = 4)</div><p class="s8w0-lead">One row per token. The embedding on the left is what Session 7 handed forward. The three vectors on the right are what attention actually works with.</p><table class="s8w0-t"><tbody><tr><th></th><th>embedding e</th><th>query q</th><th>key k</th><th>value v</th></tr><tr><td class="lbl">0 the</td><td><span class="s8w0-vec"><span class="s8w0-n "> 0.90</span><span class="s8w0-n ">-0.40</span><span class="s8w0-n "> 0.20</span><span class="s8w0-n "> 0.50</span></span></td><td><span class="s8w0-vec"><span class="s8w0-n q"> 0.73</span><span class="s8w0-n q">-0.19</span><span class="s8w0-n q"> 0.01</span><span class="s8w0-n q"> 0.61</span></span></td><td><span class="s8w0-vec"><span class="s8w0-n k"> 0.47</span><span class="s8w0-n k">-0.25</span><span class="s8w0-n k"> 0.73</span><span class="s8w0-n k"> 0.23</span></span></td><td><span class="s8w0-vec"><span class="s8w0-n v">-0.24</span><span class="s8w0-n v"> 0.65</span><span class="s8w0-n v"> 0.13</span><span class="s8w0-n v">-0.16</span></span></td></tr><tr><td class="lbl">1 cat</td><td><span class="s8w0-vec"><span class="s8w0-n "> 0.30</span><span class="s8w0-n "> 0.80</span><span class="s8w0-n ">-0.60</span><span class="s8w0-n "> 0.10</span></span></td><td><span class="s8w0-vec"><span class="s8w0-n q">-0.15</span><span class="s8w0-n q"> 0.91</span><span class="s8w0-n q">-0.33</span><span class="s8w0-n q">-0.27</span></span></td><td><span class="s8w0-vec"><span class="s8w0-n k"> 0.51</span><span class="s8w0-n k"> 0.39</span><span class="s8w0-n k">-0.33</span><span class="s8w0-n k"> 0.45</span></span></td><td><span class="s8w0-vec"><span class="s8w0-n v"> 0.44</span><span class="s8w0-n v">-0.09</span><span class="s8w0-n v"> 0.71</span><span class="s8w0-n v">-0.34</span></span></td></tr><tr><td class="lbl">2 sat</td><td><span class="s8w0-vec"><span class="s8w0-n ">-0.50</span><span class="s8w0-n "> 0.60</span><span class="s8w0-n "> 0.70</span><span class="s8w0-n ">-0.20</span></span></td><td><span class="s8w0-vec"><span class="s8w0-n q">-0.23</span><span class="s8w0-n q">-0.02</span><span class="s8w0-n q"> 0.55</span><span class="s8w0-n q">-0.37</span></span></td><td><span class="s8w0-vec"><span class="s8w0-n k">-0.39</span><span class="s8w0-n k"> 0.47</span><span class="s8w0-n k"> 0.14</span><span class="s8w0-n k">-0.13</span></span></td><td><span class="s8w0-vec"><span class="s8w0-n v"> 0.41</span><span class="s8w0-n v">-0.14</span><span class="s8w0-n v">-0.28</span><span class="s8w0-n v"> 0.74</span></span></td></tr><tr><td class="lbl">3 on</td><td><span class="s8w0-vec"><span class="s8w0-n "> 0.40</span><span class="s8w0-n ">-0.70</span><span class="s8w0-n ">-0.30</span><span class="s8w0-n "> 0.80</span></span></td><td><span class="s8w0-vec"><span class="s8w0-n q"> 0.37</span><span class="s8w0-n q">-0.14</span><span class="s8w0-n q">-0.05</span><span class="s8w0-n q"> 0.73</span></span></td><td><span class="s8w0-vec"><span class="s8w0-n k"> 0.51</span><span class="s8w0-n k">-0.29</span><span class="s8w0-n k"> 0.22</span><span class="s8w0-n k"> 0.37</span></span></td><td><span class="s8w0-vec"><span class="s8w0-n v">-0.69</span><span class="s8w0-n v"> 0.34</span><span class="s8w0-n v"> 0.39</span><span class="s8w0-n v">-0.39</span></span></td></tr><tr><td class="lbl">4 the</td><td><span class="s8w0-vec"><span class="s8w0-n "> 0.90</span><span class="s8w0-n ">-0.40</span><span class="s8w0-n "> 0.20</span><span class="s8w0-n "> 0.50</span></span></td><td><span class="s8w0-vec"><span class="s8w0-n q"> 0.73</span><span class="s8w0-n q">-0.19</span><span class="s8w0-n q"> 0.01</span><span class="s8w0-n q"> 0.61</span></span></td><td><span class="s8w0-vec"><span class="s8w0-n k"> 0.47</span><span class="s8w0-n k">-0.25</span><span class="s8w0-n k"> 0.73</span><span class="s8w0-n k"> 0.23</span></span></td><td><span class="s8w0-vec"><span class="s8w0-n v">-0.24</span><span class="s8w0-n v"> 0.65</span><span class="s8w0-n v"> 0.13</span><span class="s8w0-n v">-0.16</span></span></td></tr><tr><td class="lbl">5 mat</td><td><span class="s8w0-vec"><span class="s8w0-n ">-0.60</span><span class="s8w0-n "> 0.20</span><span class="s8w0-n "> 0.90</span><span class="s8w0-n "> 0.30</span></span></td><td><span class="s8w0-vec"><span class="s8w0-n q">-0.10</span><span class="s8w0-n q">-0.31</span><span class="s8w0-n q"> 0.86</span><span class="s8w0-n q"> 0.04</span></span></td><td><span class="s8w0-vec"><span class="s8w0-n k">-0.32</span><span class="s8w0-n k"> 0.42</span><span class="s8w0-n k"> 0.37</span><span class="s8w0-n k">-0.00</span></span></td><td><span class="s8w0-vec"><span class="s8w0-n v">-0.03</span><span class="s8w0-n v"> 0.01</span><span class="s8w0-n v">-0.25</span><span class="s8w0-n v"> 0.88</span></span></td></tr></tbody></table><div class="s8w0-say"><b>The query</b> is what a token is looking for. <b>The key</b> is what it offers to others. <b>The value</b> is what it hands over when chosen. Three different jobs, so three different matrices.</div></section>
+  </section>
+</main>
+
+<script>
+(function(){
+  var TOKENS=['the','cat','sat','on','the','mat'];
+  var D=4;
+  // Fixed embeddings and projections. Nothing random, so the page is the same every time.
+  var E=[[ 0.9,-0.4, 0.2, 0.5],
+         [ 0.3, 0.8,-0.6, 0.1],
+         [-0.5, 0.6, 0.7,-0.2],
+         [ 0.4,-0.7,-0.3, 0.8],
+         [ 0.9,-0.4, 0.2, 0.5],
+         [-0.6, 0.2, 0.9, 0.3]];
+  var Wq=[[ 0.6, 0.1,-0.3, 0.2],[-0.2, 0.7, 0.1,-0.4],[ 0.3,-0.5, 0.6, 0.1],[ 0.1, 0.2, 0.4, 0.5]];
+  var Wk=[[ 0.4,-0.2, 0.5, 0.1],[ 0.2, 0.6,-0.1, 0.3],[-0.3, 0.1, 0.7,-0.2],[ 0.5, 0.3, 0.2, 0.6]];
+  var Wv=[[ 0.2, 0.5, 0.1,-0.3],[ 0.6,-0.1, 0.4, 0.2],[ 0.1, 0.3,-0.5, 0.7],[-0.4, 0.2, 0.6, 0.1]];
+
+  function mul(v,W){ var o=[]; for(var j=0;j<D;j++){ var s=0; for(var i=0;i<D;i++) s+=v[i]*W[i][j]; o.push(s);} return o; }
+  function dot(a,b){ var s=0; for(var i=0;i<D;i++) s+=a[i]*b[i]; return s; }
+  function f(x,p){ return (x<0?'':' ')+x.toFixed(p===undefined?2:p); }
+
+  var Q=E.map(function(e){return mul(e,Wq);}),
+      K=E.map(function(e){return mul(e,Wk);}),
+      V=E.map(function(e){return mul(e,Wv);});
+
+  var S={tab:0, qi:5, scale:true, mask:true, timer:null};
+
+  function scores(qi){
+    var raw=[], d=Math.sqrt(D);
+    for(var j=0;j<TOKENS.length;j++){
+      var s=dot(Q[qi],K[j]);
+      raw.push(S.scale? s/d : s);
+    }
+    return raw;
+  }
+  function masked(qi,raw){
+    return raw.map(function(s,j){ return (S.mask && j>qi)? -Infinity : s; });
+  }
+  function softmax(a){
+    var m=-Infinity; a.forEach(function(x){ if(x>m) m=x; });
+    if(m===-Infinity) return a.map(function(){return 0;});
+    var ex=a.map(function(x){ return x===-Infinity?0:Math.exp(x-m); });
+    var sum=ex.reduce(function(p,c){return p+c;},0);
+    return ex.map(function(x){ return x/sum; });
+  }
+  function output(qi){
+    var w=softmax(masked(qi,scores(qi))), o=[0,0,0,0];
+    for(var j=0;j<TOKENS.length;j++) for(var i=0;i<D;i++) o[i]+=w[j]*V[j][i];
+    return {w:w,o:o};
+  }
+
+  var TABS=[
+    {b:'1. Q, K, V',   s:'three vectors per token'},
+    {b:'2. Scores',    s:'every query against every key'},
+    {b:'3. Softmax',   s:'scores become weights'},
+    {b:'4. The mask',  s:'no looking ahead'},
+    {b:'5. The output',s:'a weighted sum of values'}
+  ];
+
+  document.getElementById('s8w0-tabs').innerHTML=TABS.map(function(t,i){
+    return '<button class="s8w0-tab'+(i===0?' on':'')+'" role="tab" data-i="'+i+'" aria-selected="'+(i===0)+'" aria-label="'+t.b+', '+t.s+'"><b>'+t.b+'</b><span>'+t.s+'</span></button>';
+  }).join('');
+  document.getElementById('s8w0-tabs').addEventListener('click',function(e){
+    var b=e.target.closest('.s8w0-tab'); if(!b) return; setTab(+b.dataset.i);
+  });
+
+  function setTab(i){
+    S.tab=i; stop();
+    Array.prototype.forEach.call(document.querySelectorAll('.s8w0-tab'),function(n,j){
+      n.classList.toggle('on',j===i); n.setAttribute('aria-selected',j===i);
+    });
+    render();
+  }
+
+  function vec(a,cls){ return '<span class="s8w0-vec">'+a.map(function(x){return '<span class="s8w0-n '+(cls||'')+'">'+f(x)+'</span>';}).join('')+'</span>'; }
+
+  function renderToks(){
+    document.getElementById('s8w0-toks').innerHTML=TOKENS.map(function(t,i){
+      var fut = S.mask && S.tab>=1 && i>S.qi;
+      return '<button class="s8w0-tok'+(i===S.qi?' on':'')+(fut?' fut':'')+'" data-i="'+i+'" aria-label="query token '+i+', '+t+'">'+i+' '+t+'</button>';
+    }).join('');
+  }
+  document.getElementById('s8w0-toks').addEventListener('click',function(e){
+    var b=e.target.closest('.s8w0-tok'); if(!b) return; S.qi=+b.dataset.i; render();
+  });
+
+  var scaleEl=document.getElementById('s8w0-scale'), maskEl=document.getElementById('s8w0-mask');
+  scaleEl.addEventListener('change',function(){ S.scale=scaleEl.checked; render(); });
+  maskEl.addEventListener('change',function(){ S.mask=maskEl.checked; render(); });
+
+  function heat(x,lo,hi){
+    var t=(x-lo)/(hi-lo||1); t=Math.max(0,Math.min(1,t));
+    return 'rgb('+Math.round(236-128*t)+','+Math.round(254-140*t)+','+Math.round(255-100*t)+')';
+  }
+
+  function render(){
+    renderToks();
+    var P=document.getElementById('s8w0-panel'), h='';
+    var qi=S.qi, raw=scores(qi), msk=masked(qi,raw), w=softmax(msk), out=output(qi);
+
+    document.getElementById('s8w0-tokwrap').hidden = (S.tab===0);
+    document.getElementById('s8w0-scalewrap').hidden = (S.tab===0||S.tab===4);
+    document.getElementById('s8w0-maskwrap').hidden = (S.tab<3);
+    document.getElementById('s8w0-ctrlhint').textContent =
+      ['Every token is projected three times. The matrices are fixed here so the numbers never move.',
+       'Pick the token doing the asking. Its query is compared against every key.',
+       'The same scores, turned into weights that add to one.',
+       'Turn the mask off and a token can read words that have not happened yet.',
+       'The weights multiply the values and add up. That sum is the output.'][S.tab];
+    document.getElementById('s8w0-cnote').textContent =
+      S.tab===1 ? 'Scaling keeps the scores small enough that the softmax does not saturate.'
+      : S.tab===3 ? 'The mask is applied before the softmax, so the future gets no weight at all.'
+      : S.tab===4 ? 'Change the query token and watch the output move.' : '';
+
+    if(S.tab===0){
+      h+='<div class="s8w0-eq">q = e Wq      k = e Wk      v = e Wv        (d = 4)</div>';
+      h+='<p class="s8w0-lead">One row per token. The embedding on the left is what Session 7 handed forward. The three vectors on the right are what attention actually works with.</p>';
+      h+='<table class="s8w0-t"><tr><th></th><th>embedding e</th><th>query q</th><th>key k</th><th>value v</th></tr>';
+      TOKENS.forEach(function(t,i){
+        h+='<tr><td class="lbl">'+i+' '+t+'</td><td>'+vec(E[i])+'</td><td>'+vec(Q[i],'q')+'</td><td>'+vec(K[i],'k')+'</td><td>'+vec(V[i],'v')+'</td></tr>';
+      });
+      h+='</table>';
+      h+='<div class="s8w0-say"><b>The query</b> is what a token is looking for. <b>The key</b> is what it offers to others. <b>The value</b> is what it hands over when chosen. Three different jobs, so three different matrices.</div>';
+    }
+
+    if(S.tab===1){
+      h+='<div class="s8w0-eq">score(i,j) = q_i &middot; k_j '+(S.scale?'/ sqrt(d)':'')+'</div>';
+      h+='<div class="s8w0-two"><div>';
+      h+='<p class="s8w0-lead">Token <b>'+qi+' '+TOKENS[qi]+'</b> asking. One dot product per key.</p>';
+      h+='<table class="s8w0-t"><tr><th>key</th><th>q &middot; k</th><th></th></tr>';
+      var mx=Math.max.apply(null,raw.map(Math.abs));
+      raw.forEach(function(s,j){
+        h+='<tr'+(j===qi?' class="on"':'')+'><td class="lbl">'+j+' '+TOKENS[j]+'</td><td>'+f(s,3)+'</td>'+
+           '<td><span class="s8w0-bar'+(s<0?' neg':'')+'" style="width:'+Math.round(Math.abs(s)/mx*70)+'px"></span></td></tr>';
+      });
+      h+='</table></div><div>';
+      h+='<p class="s8w0-lead">Every pair, all 36 of them. This grid is the cost.</p>';
+      var all=[],lo=Infinity,hi=-Infinity;
+      for(var a=0;a<6;a++){ all.push(scores(a)); }
+      all.forEach(function(r){ r.forEach(function(x){ if(x<lo)lo=x; if(x>hi)hi=x; }); });
+      h+='<div class="s8w0-mx" style="grid-template-columns:34px repeat(6,1fr)"><div></div>';
+      for(var c=0;c<6;c++) h+='<div class="s8w0-hd">'+c+'</div>';
+      for(var r=0;r<6;r++){
+        h+='<div class="s8w0-rl">'+r+'</div>';
+        for(var c2=0;c2<6;c2++){
+          h+='<div class="s8w0-cell" style="background:'+heat(all[r][c2],lo,hi)+';color:#0f172a'+(r===qi?';outline:2px solid #0891b2':'')+'">'+all[r][c2].toFixed(1)+'</div>';
+        }
+      }
+      h+='</div>';
+      h+='</div></div>';
+      h+='<div class="s8w0-say">Six tokens make <b>36</b> scores. Sixty tokens make 3,600. Six hundred make 360,000. <b>That is the quadratic bill</b>, and it is the whole reason the rest of this session exists.</div>';
+    }
+
+    if(S.tab===2){
+      h+='<div class="s8w0-eq">w_j = exp(score_j) / sum_over_all_keys exp(score)</div>';
+      h+='<p class="s8w0-lead">Token <b>'+qi+' '+TOKENS[qi]+'</b> asking. Exponentiate, then divide by the total, so the weights add to exactly one.</p>';
+      h+='<table class="s8w0-t"><tr><th>key</th><th>score</th><th>exp</th><th>weight</th><th></th></tr>';
+      var mm=-Infinity; msk.forEach(function(x){ if(x>mm) mm=x; });
+      var sum=0; msk.forEach(function(x){ sum += x===-Infinity?0:Math.exp(x-mm); });
+      msk.forEach(function(s,j){
+        var ex = s===-Infinity?0:Math.exp(s-mm);
+        h+='<tr'+(s===-Infinity?' class="masked"':'')+'><td class="lbl">'+j+' '+TOKENS[j]+'</td><td>'+(s===-Infinity?'-inf':f(s,3))+'</td><td>'+ex.toFixed(3)+'</td><td>'+w[j].toFixed(4)+'</td>'+
+           '<td><span class="s8w0-bar" style="width:'+Math.round(w[j]*150)+'px"></span></td></tr>';
+      });
+      h+='<tr><td class="lbl">total</td><td></td><td>'+sum.toFixed(3)+'</td><td><b>'+w.reduce(function(p,c){return p+c;},0).toFixed(4)+'</b></td><td></td></tr></table>';
+      h+='<div class="s8w0-say">The weights sum to <b>one</b>, always. That is the constraint the whole session is about: it couples every key to every other key, and it is what makes the sum impossible to rearrange. <b>Section 3 takes it out.</b></div>';
+    }
+
+    if(S.tab===3){
+      h+='<div class="s8w0-eq">score(i,j) = -inf   when j &gt; i        applied before the softmax</div>';
+      h+='<p class="s8w0-lead">A decoder writes left to right, so token <b>'+qi+'</b> may not read tokens after it. Uncheck the mask and watch the weights leak into the future.</p>';
+      h+='<table class="s8w0-t"><tr><th>key</th><th>position</th><th>score</th><th>weight</th><th></th></tr>';
+      msk.forEach(function(s,j){
+        h+='<tr'+(s===-Infinity?' class="masked"':'')+'><td class="lbl">'+j+' '+TOKENS[j]+'</td><td>'+(j>qi?'ahead':(j===qi?'self':'behind'))+'</td>'+
+           '<td>'+(s===-Infinity?'-inf':f(s,3))+'</td><td>'+w[j].toFixed(4)+'</td>'+
+           '<td><span class="s8w0-bar" style="width:'+Math.round(w[j]*150)+'px"></span></td></tr>';
+      });
+      h+='</table>';
+      var leak=0; w.forEach(function(x,j){ if(j>qi) leak+=x; });
+      h+='<div class="s8w0-say">Weight sitting on tokens that have not happened yet: <b>'+(leak*100).toFixed(1)+'%</b>. '+
+         (S.mask?'The mask holds it at zero.':'With the mask off the model is reading its own answer, which is why a model trained this way scores beautifully and generates nothing.')+'</div>';
+    }
+
+    if(S.tab===4){
+      h+='<div class="s8w0-eq">out_i = sum_j  w_j &middot; v_j</div>';
+      h+='<p class="s8w0-lead">Token <b>'+qi+' '+TOKENS[qi]+'</b>. Each value vector scaled by its weight, then added.</p>';
+      h+='<table class="s8w0-t"><tr><th>key</th><th>weight</th><th>value v</th><th>w &middot; v</th></tr>';
+      w.forEach(function(x,j){
+        if(x<0.0005) return;
+        h+='<tr><td class="lbl">'+j+' '+TOKENS[j]+'</td><td>'+x.toFixed(4)+'</td><td>'+vec(V[j],'v')+'</td><td>'+vec(V[j].map(function(y){return y*x;}))+'</td></tr>';
+      });
+      h+='<tr><td class="lbl"><b>output</b></td><td></td><td></td><td>'+vec(out.o,'q')+'</td></tr></table>';
+      var top=0; w.forEach(function(x,j){ if(x>w[top]) top=j; });
+      h+='<div class="s8w0-say">One vector out, the same width as the one that went in. It leans hardest on token <b>'+top+' '+TOKENS[top]+'</b> at <b>'+(w[top]*100).toFixed(1)+'%</b>. Everything the rest of this session changes is <b>how that sum is computed</b>, never what it means.</div>';
+    }
+
+    P.innerHTML=h;
+  }
+
+  function stop(){ if(S.timer){ clearInterval(S.timer); S.timer=null; } }
+  document.getElementById('s8w0-play').onclick=function(){
+    stop(); S.timer=setInterval(function(){ S.qi=(S.qi+1)%TOKENS.length; render(); },1100);
+  };
+  document.getElementById('s8w0-pause').onclick=stop;
+  document.getElementById('s8w0-reset').onclick=function(){
+    stop(); S.qi=5; S.scale=true; S.mask=true; scaleEl.checked=true; maskEl.checked=true; setTab(0);
+  };
+
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    document.getElementById('s8w0-play').disabled=true;
+  }
+  render();
+})();
+</script>
+<script>
+/* Self-sizing: the lesson embeds this at a fixed height, but the content height
+   changes when a tab switches. Same-origin, so the frame can be resized from inside. */
+(function(){
+  var fe; try{ fe=window.frameElement; }catch(e){ return; }
+  if(!fe) return;
+  var last=0;
+  function fit(){
+    var h=Math.ceil(document.body.scrollHeight)+8;
+    if(Math.abs(h-last)>2){ last=h; fe.style.height=h+'px'; }
+  }
+  if(window.ResizeObserver){ new ResizeObserver(fit).observe(document.body); }
+  window.addEventListener('load',fit);
+  document.addEventListener('click',function(){ setTimeout(fit,60); setTimeout(fit,260); },true);
+  document.addEventListener('change',function(){ setTimeout(fit,60); },true);
+  [0,120,400,900,1800].forEach(function(t){ setTimeout(fit,t); });
+})();
+</script>
+
+
+</body></html>

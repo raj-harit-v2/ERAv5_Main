@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Session 8 — Attention chronology</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <p class="eyebrow">Assignment §18 · field timeline</p>
+    <h1>Attention mechanisms by launch date</h1>
+    <p class="lede">
+      Field timeline by launch date — not teaching order. See
+      <a href="../demo_Asgn_08/index.html">demo_Asgn_08</a> for the pedagogical tour (Pipeline → System).
+      Teaching rank (<strong>Te_No</strong>) vs launch rank (<strong>Sr_No</strong>) are in
+      <a href="CHRONOLOGY_Compare.md">CHRONOLOGY_Compare.md</a>
+      (see also <a href="TEACHING_ORDER.md">TEACHING_ORDER.md</a>) — do not confuse them with the date rail.
+    </p>
+    <p class="lede muted">
+      Each card shows the verified launch date on the rail. Source line:
+      paper name (abs) + <span class="verify-badge">Stamp</span> text +
+      <code>pdf_v</code> link to the PDF/post.
+    </p>
+    <details class="q2-box">
+      <summary>What the timeline shows (Assignment Q2)</summary>
+      <p>
+        Once the mechanisms are sorted by date, the field’s priorities read as a sequence of bills,
+        not a taxonomy. <strong>2017:</strong> exact global attention and position encoding arrive
+        together (Transformer + learned/sinusoidal PE). <strong>2019–2023:</strong> the bill shifts to
+        <strong>KV memory at decode</strong> (MQA → GQA → MLA) while <strong>position</strong> forks
+        (RoPE, ALiBi) and <strong>compute</strong> forks (Longformer window, linear attention, sparse
+        routing). <strong>2023:</strong> a cluster of <strong>RoPE stretch</strong> fixes (NTK, YaRN,
+        attention sinks, DroPE/V4 extension story) appears after long-context pain is already visible —
+        you would not see that cluster as one “family” in a list. <strong>2024–2025:</strong>
+        <strong>stateful recurrence</strong> returns (delta rule, Gated DeltaNet) alongside
+        <strong>aggressive sparse compression</strong> (DeepSeek NSA). A list tells you what exists;
+        the timeline shows <strong>what problem was urgent when</strong> and why the next paper existed.
+      </p>
+      <p><strong>Extra mechanism:</strong> none added (minimum 18 only).</p>
+    </details>
+  </header>
+
+  <main>
+    <div id="timeline" class="timeline" aria-live="polite"></div>
+  </main>
+
+  <footer class="footer">
+    <p>
+      Sources:
+      <a href="CHRONOLOGY_SOURCES_BY_DATE.md">CHRONOLOGY_SOURCES_BY_DATE.md</a>
+      · <a href="CHRONOLOGY_Compare.md">CHRONOLOGY_Compare.md</a> (Sr_No / Te_No)
+      · Coach widgets reused where available
+    </p>
+  </footer>
+
+  <script src="data/chronology.embed.js"></script>
+  <script src="scripts/chrono_app.js"></script>
+</body>
+</html>

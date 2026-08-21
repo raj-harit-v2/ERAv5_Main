@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How a model reads your text</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <p class="eyebrow">Attention · long context</p>
+    <h1>How a model reads your text</h1>
+    <p class="lede">
+      Enter a sentence. Run the pipeline. Explore tokens, attention, memory, and
+      the tradeoffs that appear when context grows.
+    </p>
+  </header>
+
+  <main>
+    <section id="inputs" class="panel-input sticky-input">
+      <h2 class="sr-only">Input</h2>
+      <div class="input-grid">
+        <div>
+          <label for="sentence">Sentence</label>
+          <textarea id="sentence" spellcheck="false" placeholder="The cat sat on the mat"></textarea>
+        </div>
+        <div class="chunk-fields">
+          <label for="chunk1">Chunk 1 (cross-chunk memory)</label>
+          <textarea id="chunk1" spellcheck="false"></textarea>
+          <div class="fact-row">
+            <div>
+              <label for="fact">Fact to remember</label>
+              <input id="fact" type="text" />
+            </div>
+            <div>
+              <label for="question">Chunk 2 question</label>
+              <input id="question" type="text" />
+            </div>
+          </div>
+          <p class="sample-hint" id="sample-hint">
+            <span class="hint-lead">Try: sentence</span>
+            <span class="hint-body">
+              <code>The cat sat on the mat</code> · after Run → Tokens / Embedding / Attention / Bills.
+              Chunk data starts on Memory (Chunk 1 + fact + question).
+            </span>
+          </p>
+        </div>
+      </div>
+      <div class="actions">
+        <button type="button" class="primary" id="btn-update">Run</button>
+        <span id="status" title=""></span>
+        <span class="kbd-hint">Ctrl+Enter</span>
+      </div>
+    </section>
+
+    <nav class="stage-nav" id="stage-nav" aria-label="Demo stages">
+      <button type="button" class="stage-tab on" data-stage="pipeline">Pipeline</button>
+      <button type="button" class="stage-tab" data-stage="memory">Memory</button>
+      <button type="button" class="stage-tab" data-stage="compute">Compute</button>
+      <button type="button" class="stage-tab" data-stage="position">Position</button>
+      <button type="button" class="stage-tab" data-stage="system">System</button>
+    </nav>
+
+    <div class="stage-toolbar">
+      <button type="button" class="ghost" id="stage-prev" aria-label="Previous stage">←</button>
+      <div class="stage-title-row">
+        <h2 id="stage-title">Pipeline</h2>
+        <button type="button" class="tip-btn tip-btn-stage" id="stage-info" aria-label="Stage tip" aria-expanded="false">
+          <span class="tip-bulb" aria-hidden="true">💡</span>
+        </button>
+        <div class="tip-pop" id="stage-info-pop" hidden></div>
+      </div>
+      <button type="button" class="ghost" id="stage-next" aria-label="Next stage">→</button>
+    </div>
+    <p class="stage-blurb" id="stage-blurb"></p>
+
+    <div id="stage-pipeline" class="stage-panel on" data-stage="pipeline">
+      <div class="stage-grid stage-grid-2 stage-grid-scroll">
+        <article class="panel-block" data-panel="tokens">
+          <div class="panel-head">
+            <div class="panel-head-text">
+              <h3>Tokens</h3>
+              <p class="panel-caption" data-caption="tokens"></p>
+            </div>
+            <button type="button" class="tip-btn" data-tip="tokens" aria-label="Tokens tip"><span class="tip-bulb" aria-hidden="true">💡</span></button>
+          </div>
+          <div class="widget" id="w-tokens"></div>
+        </article>
+        <article class="panel-block" data-panel="btd">
+          <div class="panel-head">
+            <div class="panel-head-text">
+              <h3>Embedding grid <span class="dim">[B, T, D]</span></h3>
+              <p class="panel-caption" data-caption="btd"></p>
+            </div>
+            <button type="button" class="tip-btn" data-tip="btd" aria-label="Embedding tip"><span class="tip-bulb" aria-hidden="true">💡</span></button>
+          </div>
+          <div class="widget" id="w-btd"></div>
+        </article>
+        <article class="panel-block" data-panel="attn">
+          <div class="panel-head">
+            <div class="panel-head-text">
+              <h3>Causal attention</h3>
+              <p class="panel-caption" data-caption="attn"></p>
+            </div>
+            <button type="button" class="tip-btn" data-tip="attn" aria-label="Attention tip"><span class="tip-bulb" aria-hidden="true">💡</span></button>
+          </div>
+          <div class="widget" id="w-attn"></div>
+        </article>
+        <article class="panel-block" data-panel="bills">
+          <div class="panel-head">
+            <div class="panel-head-text">
+              <h3>Two bills</h3>
+              <p class="panel-caption" data-caption="bills"></p>
+            </div>
+            <button type="button" class="tip-btn" data-tip="bills" aria-label="Bills tip"><span class="tip-bulb" aria-hidden="true">💡</span></button>
+          </div>
+          <div class="widget" id="w-bills"></div>
+        </article>
+      </div>
+    </div>
+
+    <div id="stage-memory" class="stage-panel" data-stage="memory" hidden>
+      <div class="stage-grid">
+        <article class="panel-block panel-span" data-panel="chunk">
+          <div class="panel-head">
+            <div class="panel-head-text">
+              <h3>Cross-chunk gate</h3>
+              <p class="panel-caption" data-caption="chunk"></p>
+            </div>
+            <button type="button" class="tip-btn" data-tip="chunk" aria-label="Chunk gate tip"><span class="tip-bulb" aria-hidden="true">💡</span></button>
+          </div>
+          <div class="widget" id="w-chunk"></div>
+        </article>
+        <article class="panel-block" data-panel="kv">
+          <div class="panel-head">
+            <div class="panel-head-text">
+              <h3>KV cache bytes</h3>
+              <p class="panel-caption" data-caption="kv"></p>
+            </div>
+            <button type="button" class="tip-btn" data-tip="kv" aria-label="KV tip"><span class="tip-bulb" aria-hidden="true">💡</span></button>
+          </div>
+          <div class="widget" id="w-kv"></div>
+        </article>
+        <article class="panel-block" data-panel="gqa">
+          <div class="panel-head">
+            <div class="panel-head-text">
+              <h3>GQA / MQA</h3>
+              <p class="panel-caption" data-caption="gqa"></p>
+            </div>
+            <button type="button" class="tip-btn" data-tip="gqa" aria-label="GQA tip"><span class="tip-bulb" aria-hidden="true">💡</span></button>
+          </div>
+          <div class="widget" id="w-gqa"></div>
+        </article>
+      </div>
+    </div>
+
+    <div id="stage-compute" class="stage-panel" data-stage="compute" hidden>
+      <div class="stage-grid stage-grid-3">
+        <article class="panel-block" data-panel="linear">
+          <div class="panel-head">
+            <div class="panel-head-text">
+              <h3>Softmax off → state S</h3>
+              <p class="panel-caption" data-caption="linear"></p>
+            </div>
+            <button type="button" class="tip-btn" data-tip="linear" aria-label="Linear tip"><span class="tip-bulb" aria-hidden="true">💡</span></button>
+          </div>
+          <div class="widget" id="w-linear"></div>
+        </article>
+        <article class="panel-block" data-panel="delta">
+          <div class="panel-head">
+            <div class="panel-head-text">
+              <h3>Delta rule</h3>
+              <p class="panel-caption" data-caption="delta"></p>
+            </div>
+            <button type="button" class="tip-btn" data-tip="delta" aria-label="Delta tip"><span class="tip-bulb" aria-hidden="true">💡</span></button>
+          </div>
+          <div class="widget" id="w-delta"></div>
+        </article>
+        <article class="panel-block" data-panel="sparse">
+          <div class="panel-head">
+            <div class="panel-head-text">
+              <h3>Sparse top-k</h3>
+              <p class="panel-caption" data-caption="sparse"></p>
+            </div>
+            <button type="button" class="tip-btn" data-tip="sparse" aria-label="Sparse tip"><span class="tip-bulb" aria-hidden="true">💡</span></button>
+          </div>
+          <div class="widget" id="w-sparse"></div>
+        </article>
+      </div>
+    </div>
+
+    <div id="stage-position" class="stage-panel" data-stage="position" hidden>
+      <div class="stage-grid stage-grid-2">
+        <article class="panel-block" data-panel="rope">
+          <div class="panel-head">
+            <div class="panel-head-text">
+              <h3>RoPE</h3>
+              <p class="panel-caption" data-caption="rope"></p>
+            </div>
+            <button type="button" class="tip-btn" data-tip="rope" aria-label="RoPE tip"><span class="tip-bulb" aria-hidden="true">💡</span></button>
+          </div>
+          <div class="widget" id="w-rope"></div>
+        </article>
+        <article class="panel-block" data-panel="drope">
+          <div class="panel-head">
+            <div class="panel-head-text">
+              <h3>Extension (DroPE factor)</h3>
+              <p class="panel-caption" data-caption="drope"></p>
+            </div>
+            <button type="button" class="tip-btn" data-tip="drope" aria-label="DroPE tip"><span class="tip-bulb" aria-hidden="true">💡</span></button>
+          </div>
+          <div class="widget" id="w-drope"></div>
+        </article>
+      </div>
+    </div>
+
+    <div id="stage-system" class="stage-panel" data-stage="system" hidden>
+      <div class="stage-grid stage-grid-2">
+        <article class="panel-block" data-panel="comp">
+          <div class="panel-head">
+            <div class="panel-head-text">
+              <h3>Sequence compression</h3>
+              <p class="panel-caption" data-caption="comp"></p>
+            </div>
+            <button type="button" class="tip-btn" data-tip="comp" aria-label="Compression tip"><span class="tip-bulb" aria-hidden="true">💡</span></button>
+          </div>
+          <div class="widget" id="w-comp"></div>
+        </article>
+        <article class="panel-block" data-panel="sched">
+          <div class="panel-head">
+            <div class="panel-head-text">
+              <h3>Schedule &amp; roads</h3>
+              <p class="panel-caption" data-caption="sched"></p>
+            </div>
+            <button type="button" class="tip-btn" data-tip="sched" aria-label="Schedule tip"><span class="tip-bulb" aria-hidden="true">💡</span></button>
+          </div>
+          <div class="widget" id="w-sched"></div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <script src="scripts/pipeline_demo.js"></script>
+  <script src="scripts/app.js"></script>
+</body>
+</html>

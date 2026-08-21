@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DroPE (local placeholder)</title>
+  <style>
+    body{margin:0;font-family:"Segoe UI",sans-serif;background:#10141c;color:#eef2f8;padding:1.25rem;line-height:1.5}
+    .badge{display:inline-block;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:#e0b06a;border:1px solid #5a4a2e;padding:.2rem .55rem;border-radius:4px}
+    h1{font-size:1.25rem;margin:.6rem 0 .4rem}p{color:#9aa8bc;max-width:40rem}
+    .formula{background:#0c1018;border-radius:8px;padding:.9rem 1rem;margin:1rem 0;font-family:Consolas,monospace;white-space:pre-wrap}
+    .grid{display:grid;gap:.75rem;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr))}
+    .card{background:#1a2230;border-radius:8px;padding:.75rem .9rem}.card strong{display:block;margin-bottom:.25rem}.card span{color:#9aa8bc;font-size:.9rem}
+  </style>
+</head>
+<body>
+  <span class="badge">Phase 2 local placeholder — source Web_files empty</span>
+  <h1>DroPE stretch (pedagogical)</h1>
+  <p>Teaching board: train / demonstrate at 8K relative positions, then stretch the same relative story toward 256K (≈32×). Do not allocate 256K tensors in smoke code.</p>
+  <div class="formula">8K → 256K
+ratio ≈ 32×
+PEDAGOGICAL_CTX = 256000 (boards only)</div>
+  <div class="grid">
+    <div class="card"><strong>Buys</strong><span>Longer relative reach without full retrain story</span></div>
+    <div class="card"><strong>Gives up</strong><span>Not a free lunch on quality / calibration</span></div>
+    <div class="card"><strong>Choose when</strong><span>Road-1 position extension cousins (YaRN/NTK)</span></div>
+  </div>
+</body>
+</html>

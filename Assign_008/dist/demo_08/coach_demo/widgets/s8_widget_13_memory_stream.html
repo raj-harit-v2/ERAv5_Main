@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 8 Widget 13 - One Memory Across a Chunk Boundary</title>
+<style>
+:root{--ink:#152033;--muted:#65758b;--line:#d9e2ef;--cyan:#0891b2;--violet:#7c3aed;--green:#159447;--amber:#d97706;--red:#dc2626;--paper:#fff;--wash:#f4f8fc}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#f8fbff,#eef5fb);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px}
+button,input{font:inherit}
+.wrap{max-width:1280px;margin:0 auto;padding:22px}
+.kicker{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan)}
+h1{font-size:27px;line-height:1.15;margin:5px 0 7px}
+.sub{color:var(--muted);max-width:900px;margin:0 0 15px;line-height:1.55}
+.shell{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 34px rgba(20,42,75,.09);padding:16px}
+.controls{display:grid;grid-template-columns:240px minmax(280px,1fr) auto;gap:14px;align-items:end;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.control label,.control-title{display:block;font-size:12px;font-weight:800;margin-bottom:6px}
+.seg{display:flex;gap:6px}
+.seg button,.next{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 13px;color:var(--muted);font-weight:800;cursor:pointer}
+.seg button{flex:1}
+.seg button.on{border-color:var(--cyan);background:#ecfeff;color:#0e7490}
+.range-line{display:flex;justify-content:space-between;gap:10px;font-size:12px;font-weight:800;margin-bottom:3px}
+.range-line output{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--violet)}
+input[type=range]{width:100%;accent-color:var(--violet);display:block}
+.hint{color:var(--muted);font-size:10.5px;line-height:1.4;margin-top:2px}
+.next{background:var(--cyan);border-color:var(--cyan);color:#fff;min-width:146px}
+.stage{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--muted);font-size:11px;text-align:center;margin-top:5px}
+.flow{display:grid;grid-template-columns:minmax(220px,1fr) 230px minmax(220px,1fr);gap:12px;align-items:stretch;margin-top:14px}
+.chunk,.bridge{border:1px solid var(--line);border-radius:11px;background:var(--wash);padding:13px;min-height:238px;transition:.25s ease}
+.chunk.active,.bridge.active{border-color:#67e8f9;box-shadow:0 0 0 3px rgba(8,145,178,.08)}
+.chunk h2,.bridge h2{font-size:12px;text-transform:uppercase;letter-spacing:.055em;color:var(--muted);margin:0 0 10px}
+.sentence{background:#fff;border:1px solid var(--line);border-radius:8px;padding:11px;line-height:1.55;min-height:73px}
+.fact{display:inline-block;background:#ede9fe;color:#5b21b6;border-radius:5px;padding:1px 5px;font-weight:800}
+.token{margin-top:10px;border-left:3px solid var(--cyan);padding:7px 9px;background:#ecfeff;color:#0e7490;font-size:12px;line-height:1.45}
+.answer{margin-top:10px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:10px;font-size:12px;line-height:1.45;min-height:58px}
+.answer.good{border-color:#bbf7d0;background:#f0fdf4;color:#166534}.answer.bad{border-color:#fecaca;background:#fef2f2;color:#991b1b}.answer.wait{color:var(--muted)}
+.bridge{background:#fff;text-align:center}
+.write{font-size:11px;color:var(--muted);line-height:1.4}
+.memory{margin:11px auto 9px;border:2px solid var(--violet);background:#f5f3ff;color:#5b21b6;border-radius:999px;padding:10px 12px;font-weight:800;min-height:44px;display:flex;align-items:center;justify-content:center;transition:.25s ease}
+.memory.empty{border-style:dashed;border-color:#cbd5e1;background:#f8fafc;color:#94a3b8}
+.forward{color:var(--cyan);font-weight:800;font-size:12px;margin:8px 0}
+.backward{border-top:1px solid var(--line);margin-top:10px;padding-top:9px;color:var(--red);font-size:11px;line-height:1.4;font-weight:700}
+.backward b{display:inline-block;border:2px solid var(--red);border-radius:50%;width:20px;height:20px;line-height:15px;margin-right:4px}
+.gate-readout{margin-top:10px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px;font-size:11px;line-height:1.45}
+.gate-readout strong{color:var(--violet)}
+.formula{margin-top:14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+.formula div{border:1px solid var(--line);background:#fff;border-radius:9px;padding:10px;font-size:11.5px;line-height:1.45}
+.formula b{display:block;color:var(--ink);margin-bottom:3px}
+.formula code{color:var(--cyan);font-weight:800}
+.evidence{margin-top:11px;border:1px solid #fde68a;background:#fffbeb;color:#92400e;border-radius:9px;padding:10px 12px;font-size:11px;line-height:1.5}
+.evidence b{color:#78350f}
+@media(max-width:850px){.controls{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.chunk,.bridge{min-height:0}.formula{grid-template-columns:1fr}.next{width:100%}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="kicker">ERA V5 Session 8</div>
+  <h1>What survives when a chunk ends?</h1>
+  <p class="sub">The model carries one fixed-size summary vector into the next chunk. A small learned gate decides how much one token uses it; stop-gradient prevents training from stretching backward through the whole document.</p>
+
+  <section class="shell">
+    <div class="controls">
+      <div class="control">
+        <span class="control-title">Memory stream</span>
+        <div class="seg" id="stream" aria-label="Memory stream">
+          <button type="button" data-value="0" class="">OFF</button>
+          <button type="button" data-value="1" class="on">ON</button>
+        </div>
+      </div>
+
+      <div class="control">
+        <div class="range-line"><label for="gate">Learned gate for this token</label><output id="gate-out">0.15</output></div>
+        <input id="gate" type="range" min="0" max="100" value="15" step="1">
+        <div class="hint">The slider exposes what the model learns: closed ignores the past; a small opening gives a nudge.</div>
+      </div>
+
+      <div class="control">
+        <button class="next" id="next" type="button">Cross the boundary</button>
+        <div class="stage" id="stage">step 1 of 3</div>
+      </div>
+    </div>
+
+    <div class="flow">
+      <article class="chunk active" id="chunk-one">
+        <h2>Chunk 1 · the fact appears</h2>
+        <div class="sentence">The shipment belongs in bay 3. Its invoice number is <span class="fact">4471</span>.</div>
+        <div class="token">Inside this chunk, attention can still read the fact normally.</div>
+      </article>
+
+      <article class="bridge" id="bridge">
+        <h2>The chunk boundary</h2>
+        <div class="write" id="write">Nothing has been written yet.</div>
+        <div class="memory empty" id="memory">one empty vector</div>
+        <div class="forward" id="forward">forward: waiting →</div>
+        <div class="backward"><b>×</b> backward gradient stops here<br>The next chunk can read the vector, but its loss does not backpropagate into chunk 1.</div>
+      </article>
+
+      <article class="chunk" id="chunk-two">
+        <h2>Chunk 2 · the question arrives</h2>
+        <div class="sentence">Several paragraphs later…<br><strong>What was the invoice number?</strong></div>
+        <div class="gate-readout" id="gate-readout">Waiting for the boundary.</div>
+        <div class="answer wait" id="answer">Ask the question after crossing the boundary.</div>
+      </article>
+    </div>
+
+    <div class="formula">
+      <div><b>1. Write one summary</b><code>m = final hidden state</code><br>It is one model-width vector, however many old chunks exist.</div>
+      <div><b>2. Cut the training graph</b><code>m = stop_gradient(m)</code><br>The signal moves forward; gradients do not move backward across chunks.</div>
+      <div><b>3. Add a small nudge</b><code>x′ = x + α · gate · m</code><br>Each token learns whether the old summary is useful.</div>
+    </div>
+
+    <div class="evidence"><b>Reported V4 scale:</b> α starts near <b>0.078</b> and reaches about <b>0.391</b> by the 2B stage. With the default gate, the injected memory is about <b>6% of the current embedding magnitude</b>—a nudge, not a replacement. This visual demonstrates the mechanism; it is not a trained retrieval benchmark.</div>
+  </section>
+</main>
+
+<script>
+(function(){
+  var streamOn=true, gate=15, step=0;
+  var scale=0.391;
+  function byId(id){return document.getElementById(id);}
+  var stream=byId('stream'), gateInput=byId('gate'), gateOut=byId('gate-out');
+  var next=byId('next'), stage=byId('stage'), c1=byId('chunk-one'), bridge=byId('bridge'), c2=byId('chunk-two');
+  var memory=byId('memory'), write=byId('write'), forward=byId('forward'), readout=byId('gate-readout'), answer=byId('answer');
+
+  function render(){
+    var injection=streamOn ? scale*(gate/100) : 0;
+    var buttons=stream.querySelectorAll('button');
+    for(var i=0;i<buttons.length;i++) buttons[i].className=(Number(buttons[i].dataset.value)===Number(streamOn))?'on':'';
+    gateOut.textContent=(gate/100).toFixed(2);
+    gateInput.disabled=!streamOn;
+    c1.className='chunk'+(step===0?' active':'');
+    bridge.className='bridge'+(step===1?' active':'');
+    c2.className='chunk'+(step===2?' active':'');
+
+    if(step===0){
+      write.textContent='Nothing has been written yet.';
+      memory.className='memory empty';
+      memory.textContent='one empty vector';
+      forward.textContent='forward: waiting →';
+      readout.textContent='Waiting for the boundary.';
+      answer.className='answer wait';
+      answer.textContent='Ask the question after crossing the boundary.';
+      next.textContent='Cross the boundary';
+      stage.textContent='step 1 of 3';
+      return;
+    }
+
+    write.textContent=streamOn?'Chunk 1 writes its final hidden state.':'The chunk ends with no cross-chunk stream.';
+    memory.className='memory'+(streamOn?'':' empty');
+    memory.textContent=streamOn?'invoice 4471 · one vector':'nothing carried';
+    forward.textContent=streamOn?'forward: one fixed vector →':'forward: no memory →';
+
+    if(step===1){
+      readout.textContent='The next chunk has not used the vector yet.';
+      answer.className='answer wait';
+      answer.textContent='The fact is now either inside the one vector—or gone.';
+      next.textContent='Ask in chunk 2';
+      stage.textContent='step 2 of 3';
+      return;
+    }
+
+    readout.innerHTML=streamOn
+      ?'Current token + <strong>'+((injection)*100).toFixed(1)+'% memory nudge</strong><br>α 0.391 × gate '+(gate/100).toFixed(2)
+      :'Current token only. No cross-chunk state was supplied.';
+    if(!streamOn || injection<0.01){
+      answer.className='answer bad';
+      answer.innerHTML='<strong>Invoice number: unavailable.</strong><br>'+(!streamOn?'Nothing crossed the boundary.':'The gate is effectively closed, so this token ignores the memory.');
+    }else if(injection>0.18){
+      answer.className='answer bad';
+      answer.innerHTML='<strong>4471 survives, but the old chunk is too loud.</strong><br>The past now contributes '+(injection*100).toFixed(1)+'% of the token representation.';
+    }else{
+      answer.className='answer good';
+      answer.innerHTML='<strong>Invoice number: 4471.</strong><br>A small nudge carried the summary across the boundary.';
+    }
+    next.textContent='Replay';
+    stage.textContent='step 3 of 3';
+  }
+
+  stream.addEventListener('click',function(event){
+    var button=event.target.closest('button');
+    if(!button)return;
+    streamOn=Number(button.dataset.value)===1;
+    render();
+  });
+  gateInput.addEventListener('input',function(){gate=Number(this.value);render();});
+  next.addEventListener('click',function(){step=step===2?0:step+1;render();});
+  render();
+})();
+</script>
+
+
+</body></html>

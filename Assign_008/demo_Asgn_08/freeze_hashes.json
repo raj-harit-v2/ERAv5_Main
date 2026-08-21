@@ -1,0 +1,11 @@
+{
+  "label": "frozen-pre-chrono-wall",
+  "frozen_at": "2026-08-17",
+  "revision": 1,
+  "files": {
+    "demo_Asgn_08/index.html": "535679bbeaaa00c40835e02a19843f72fb8b2a2b1d22e141dffd0b9f50daa61b",
+    "demo_Asgn_08/styles.css": "3ea0fc38492b48717d5f690eec37b363e798dede0fd6f824cf351bcd28e4e5c7",
+    "demo_Asgn_08/scripts/app.js": "633e416b96f254f133699749d167138793eb03d2c2683b327d15687f99ba204a",
+    "demo_Asgn_08/scripts/pipeline_demo.js": "a9dc955fcfb174ac2d80eff250d62971edec254b3751abc09b5ad4afe3106b83"
+  }
+}

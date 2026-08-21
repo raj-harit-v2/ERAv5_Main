@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1480 980" width="1480" height="980" role="img" aria-labelledby="title desc">
+  <title id="title">demo_Asgn_08_V1 teaching flow -- cards 0 to 14</title>
+  <desc id="desc">Curriculum grid from Backups_08/demo_Asgn_08_V1: tokens, attention, bills, then later mechanisms. Not a Qwen/Llama encoder block.</desc>
+  <defs>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+    <style type="text/css"><![CDATA[
+      .bg { fill: #0f141c; }
+      .page-title { fill: #eef2f8; font: 700 22px 'Segoe UI', system-ui, sans-serif; }
+      .page-sub { fill: #9aa8bc; font: 400 13px 'Segoe UI', system-ui, sans-serif; }
+      .card { rx: 10; ry: 10; stroke-width: 1.5; filter: url(#shadow); }
+      .num { fill: #0c1018; font: 700 11px 'Segoe UI', system-ui, sans-serif; }
+      .htitle { fill: #f8fafc; font: 700 14px 'Segoe UI', system-ui, sans-serif; }
+      .body { fill: #d6deea; font: 400 12px 'Segoe UI', system-ui, sans-serif; }
+      .legend-t { fill: #eef2f8; font: 700 12px 'Segoe UI', system-ui, sans-serif; }
+      .legend-s { fill: #9aa8bc; font: 400 11px 'Segoe UI', system-ui, sans-serif; }
+      .arrow { fill: none; stroke: #6b7c93; stroke-width: 1.6; marker-end: url(#arr); }
+    ]]></style>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#6b7c93"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1480" height="980"/>
+  <text class="page-title" x="40" y="38">demo_Asgn_08_V1 -- A. Simple texts (teaching flow 0-14)</text>
+  <text class="page-sub" x="40" y="58">From data/steps.json. Cards 1-3 sit inside a Qwen/Llama block; 4-14 are bills and later papers, not FFN internals.</text>
+  <g transform="translate(40,80)">
+    <rect class="card" width="268" height="198" fill="#134e4a" stroke="#5eead4"/>
+    <rect x="12" y="12" width="28" height="18" rx="4" fill="#5eead4"/>
+    <text class="num" x="21" y="25">0</text>
+    <text class="htitle" x="48" y="26">What this page is</text>
+    <text class="body" x="16" y="56">Type below; widgets update</text>
+    <text class="body" x="16" y="74">from your text. Curriculum,</text>
+    <text class="body" x="16" y="92">not one model's encoder.</text>
+  </g>
+  <g transform="translate(328,80)">
+    <rect class="card" width="268" height="198" fill="#0c4a6e" stroke="#38bdf8"/>
+    <rect x="12" y="12" width="28" height="18" rx="4" fill="#38bdf8"/>
+    <text class="num" x="21" y="25">1</text>
+    <text class="htitle" x="48" y="26">Tokens</text>
+    <text class="body" x="16" y="56">Text is chopped into pieces</text>
+    <text class="body" x="16" y="74">with IDs. Vocab trained once</text>
+    <text class="body" x="16" y="92">offline; each request looks up.</text>
+  </g>
+  <g transform="translate(616,80)">
+    <rect class="card" width="268" height="198" fill="#0c4a6e" stroke="#38bdf8"/>
+    <rect x="12" y="12" width="28" height="18" rx="4" fill="#38bdf8"/>
+    <text class="num" x="21" y="25">2</text>
+    <text class="htitle" x="48" y="26">[B, T, D]</text>
+    <text class="body" x="16" y="56">Each token becomes a vector</text>
+    <text class="body" x="16" y="74">of width D. Stack T tokens -&gt;</text>
+    <text class="body" x="16" y="92">batch x time x width grid.</text>
+  </g>
+  <g transform="translate(904,80)">
+    <rect class="card" width="268" height="198" fill="#0c4a6e" stroke="#38bdf8"/>
+    <rect x="12" y="12" width="28" height="18" rx="4" fill="#38bdf8"/>
+    <text class="num" x="21" y="25">3</text>
+    <text class="htitle" x="48" y="26">Attention</text>
+    <text class="body" x="16" y="56">Q x K -&gt; scale -&gt; mask -&gt;</text>
+    <text class="body" x="16" y="74">softmax -&gt; V. Standard scaled</text>
+    <text class="body" x="16" y="92">dot-product (causal).</text>
+  </g>
+  <g transform="translate(1192,80)">
+    <rect class="card" width="248" height="198" fill="#713f12" stroke="#fde047"/>
+    <rect x="12" y="12" width="28" height="18" rx="4" fill="#fde047"/>
+    <text class="num" x="21" y="25">4</text>
+    <text class="htitle" x="48" y="26">Bills</text>
+    <text class="body" x="16" y="56">Compute ~ T^2.</text>
+    <text class="body" x="16" y="74">KV ~ T x users.</text>
+    <text class="body" x="16" y="92">Later papers attack one bill.</text>
+  </g>
+  <g transform="translate(40,300)">
+    <rect class="card" width="268" height="198" fill="#713f12" stroke="#fde047"/>
+    <rect x="12" y="12" width="28" height="18" rx="4" fill="#fde047"/>
+    <text class="num" x="21" y="25">5</text>
+    <text class="htitle" x="48" y="26">Chunk gate</text>
+    <text class="body" x="16" y="56">Summary vector m crosses</text>
+    <text class="body" x="16" y="74">the boundary; gate mixes it in.</text>
+    <text class="body" x="16" y="92">stop_gradient on train path.</text>
+  </g>
+  <g transform="translate(328,300)">
+    <rect class="card" width="268" height="198" fill="#713f12" stroke="#fde047"/>
+    <rect x="12" y="12" width="28" height="18" rx="4" fill="#fde047"/>
+    <text class="num" x="21" y="25">6</text>
+    <text class="htitle" x="48" y="26">KV cache bytes</text>
+    <text class="body" x="16" y="56">2 * L * H_KV * d_head * T * B * P_b</text>
+    <text class="body" x="16" y="74">Sentence sets T; 32K contexts</text>
+    <text class="body" x="16" y="92">get expensive fast.</text>
+  </g>
+  <g transform="translate(616,300)">
+    <rect class="card" width="268" height="198" fill="#7c2d12" stroke="#fb923c"/>
+    <rect x="12" y="12" width="28" height="18" rx="4" fill="#fb923c"/>
+    <text class="num" x="21" y="25">7</text>
+    <text class="htitle" x="48" y="26">GQA</text>
+    <text class="body" x="16" y="56">Share KV heads to shrink cache.</text>
+    <text class="body" x="16" y="74">Compute bill still ~ T^2.</text>
+    <text class="body" x="16" y="92">(Also inside Llama/Qwen.)</text>
+  </g>
+  <g transform="translate(904,300)">
+    <rect class="card" width="268" height="198" fill="#7c2d12" stroke="#fb923c"/>
+    <rect x="12" y="12" width="28" height="18" rx="4" fill="#fb923c"/>
+    <text class="num" x="21" y="25">8</text>
+    <text class="htitle" x="48" y="26">Softmax off</text>
+    <text class="body" x="16" y="56">Without softmax, history folds</text>
+    <text class="body" x="16" y="74">into fixed-size S. Door to</text>
+    <text class="body" x="16" y="92">linear / DeltaNet layers.</text>
+  </g>
+  <g transform="translate(1192,300)">
+    <rect class="card" width="248" height="198" fill="#7c2d12" stroke="#fb923c"/>
+    <rect x="12" y="12" width="28" height="18" rx="4" fill="#fb923c"/>
+    <text class="num" x="21" y="25">9</text>
+    <text class="htitle" x="48" y="26">Delta rule</text>
+    <text class="body" x="16" y="56">Write only the correction d</text>
+    <text class="body" x="16" y="74">so a key can overwrite.</text>
+    <text class="body" x="16" y="92">d = v - S k.</text>
+  </g>
+  <g transform="translate(40,520)">
+    <rect class="card" width="268" height="198" fill="#7c2d12" stroke="#fb923c"/>
+    <rect x="12" y="12" width="28" height="18" rx="4" fill="#fb923c"/>
+    <text class="num" x="21" y="25">10</text>
+    <text class="htitle" x="52" y="26">Sparse top-k</text>
+    <text class="body" x="16" y="56">Keep softmax; attend only to</text>
+    <text class="body" x="16" y="74">k past keys. Compute ~ T*k</text>
+    <text class="body" x="16" y="92">instead of T^2.</text>
+  </g>
+  <g transform="translate(328,520)">
+    <rect class="card" width="268" height="198" fill="#4c1d95" stroke="#c084fc"/>
+    <rect x="12" y="12" width="28" height="18" rx="4" fill="#c084fc"/>
+    <text class="num" x="21" y="25">11</text>
+    <text class="htitle" x="48" y="26">RoPE</text>
+    <text class="body" x="16" y="56">Rotate Q/K so relative distance</text>
+    <text class="body" x="16" y="74">enters the score. Also inside</text>
+    <text class="body" x="16" y="92">Llama / Qwen blocks.</text>
+  </g>
+  <g transform="translate(616,520)">
+    <rect class="card" width="268" height="198" fill="#4c1d95" stroke="#c084fc"/>
+    <rect x="12" y="12" width="28" height="18" rx="4" fill="#c084fc"/>
+    <text class="num" x="21" y="25">12</text>
+    <text class="htitle" x="48" y="26">DroPE</text>
+    <text class="body" x="16" y="56">ExtensionFactor = serve/train</text>
+    <text class="body" x="16" y="74">(8K -&gt; 256K = 32x). Stretch</text>
+    <text class="body" x="16" y="92">road, not a new FFN box.</text>
+  </g>
+  <g transform="translate(904,520)">
+    <rect class="card" width="268" height="198" fill="#4c1d95" stroke="#c084fc"/>
+    <rect x="12" y="12" width="28" height="18" rx="4" fill="#c084fc"/>
+    <text class="num" x="21" y="25">13</text>
+    <text class="htitle" x="48" y="26">Compression</text>
+    <text class="body" x="16" y="56">Store T/m block summaries;</text>
+    <text class="body" x="16" y="74">optional top-k reads via a</text>
+    <text class="body" x="16" y="92">cheap indexer.</text>
+  </g>
+  <g transform="translate(1192,520)">
+    <rect class="card" width="248" height="198" fill="#831843" stroke="#f472b6"/>
+    <rect x="12" y="12" width="28" height="18" rx="4" fill="#f472b6"/>
+    <text class="num" x="21" y="25">14</text>
+    <text class="htitle" x="48" y="26">Schedule + fork</text>
+    <text class="body" x="16" y="56">DDDG D DG motif.</text>
+    <text class="body" x="16" y="74">Road 1 stretch vs</text>
+    <text class="body" x="16" y="92">Road 2 native length.</text>
+  </g>
+  <path class="arrow" d="M308,179 H328"/>
+  <path class="arrow" d="M596,179 H616"/>
+  <path class="arrow" d="M884,179 H904"/>
+  <path class="arrow" d="M1172,179 H1192"/>
+  <path class="arrow" d="M308,399 H328"/>
+  <path class="arrow" d="M596,399 H616"/>
+  <path class="arrow" d="M884,399 H904"/>
+  <path class="arrow" d="M1172,399 H1192"/>
+  <path class="arrow" d="M308,619 H328"/>
+  <path class="arrow" d="M596,619 H616"/>
+  <path class="arrow" d="M884,619 H904"/>
+  <path class="arrow" d="M1172,619 H1192"/>
+  <path class="arrow" d="M1316,278 V290 H174 V300"/>
+  <path class="arrow" d="M1316,498 V510 H174 V520"/>
+  <g transform="translate(40,750)">
+    <text class="legend-t" x="0" y="0">Color = bill family (not one encoder)</text>
+    <rect x="0" y="16" width="16" height="16" rx="3" fill="#134e4a" stroke="#5eead4"/>
+    <text class="legend-s" x="24" y="28">0 intro</text>
+    <rect x="120" y="16" width="16" height="16" rx="3" fill="#0c4a6e" stroke="#38bdf8"/>
+    <text class="legend-s" x="144" y="28">1-3 forward pass (maps onto Qwen/Llama core)</text>
+    <rect x="470" y="16" width="16" height="16" rx="3" fill="#713f12" stroke="#fde047"/>
+    <text class="legend-s" x="494" y="28">4-6 two bills + chunk m</text>
+    <rect x="700" y="16" width="16" height="16" rx="3" fill="#7c2d12" stroke="#fb923c"/>
+    <text class="legend-s" x="724" y="28">7-10 compute forks (7 GQA is also in Qwen)</text>
+    <rect x="0" y="48" width="16" height="16" rx="3" fill="#4c1d95" stroke="#c084fc"/>
+    <text class="legend-s" x="24" y="60">11-13 position / length (11 RoPE is also in Qwen)</text>
+    <rect x="400" y="48" width="16" height="16" rx="3" fill="#831843" stroke="#f472b6"/>
+    <text class="legend-s" x="424" y="60">14 system schedule + two roads</text>
+    <text class="legend-s" x="0" y="96">Live widgets C1-C14 in index.html follow the same order after you type a sentence and click Update.</text>
+    <text class="legend-s" x="0" y="116">See FLOW.md for the mermaid source and why this is not a Qwen3 internal-encoder figure.</text>
+  </g>
+</svg>
