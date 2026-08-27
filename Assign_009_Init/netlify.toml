@@ -1,7 +1,7 @@
-# Netlify reads this file at repo root (not dist/netlify.toml).
-# Site settings → Build → Install command: leave empty OR use:
-#   pip install -r requirements-netlify.txt
-# Do NOT auto-install root requirements.txt (torch not needed for build_dist).
+# MONOREPO (ERAv5_Main): Netlify UI → Base directory OR Package directory = Assign_009_Init
+# Branch: All_ERAV5 | Install command: empty (or pip install -r requirements-netlify.txt)
+# dist/ is gitignored — build command creates it at deploy time (do not commit dist/).
+# Netlify reads this file from Assign_009_Init/ when base/package dir is set (not dist/netlify.toml).
 
 [build]
   command = "python tests/build_dist.py"
