@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 9 Widget 3 — MTP Dual Heads</title>
+<style>
+:root{--ink:#152033;--muted:#65758b;--line:#d9e2ef;--cyan:#0891b2;--violet:#7c3aed;--gap:#64748b}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#f8fbff,#eef5fb);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,sans-serif;font-size:13px}
+.wrap{max-width:1480px;margin:0 auto;padding:10px 6px}
+.kicker{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--violet)}
+h1{font-size:19px;margin:2px 0 3px}.sub{color:var(--muted);font-size:11.5px;margin:0 0 8px}
+.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:8px}
+.chart-card{padding:8px 10px 6px}
+.chart-wrap{position:relative;width:85%;max-width:612px;margin:0 auto}
+.svg{width:100%;height:auto;display:block}
+.chart-legend{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:center;align-items:flex-start;margin-top:8px;font-size:10px;color:var(--muted)}
+.legend-series{display:flex;flex-direction:column;gap:6px}
+.legend-item{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;border:1px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+.legend-dot.l1{background:var(--cyan)}
+.legend-dot.l2{background:var(--violet)}
+.legend-bridge{display:inline-flex;flex-direction:column;align-items:center;gap:2px;margin:0 2px}
+.legend-bridge .legend-dot{width:7px;height:7px}
+.legend-gap-line{width:3px;height:18px;background:var(--gap);border-radius:2px;opacity:.9;flex-shrink:0}
+.chart-tip{position:absolute;z-index:5;pointer-events:none;background:#152033;color:#f8fafc;font-size:10px;line-height:1.45;padding:6px 8px;border-radius:6px;box-shadow:0 4px 14px rgba(15,23,42,.25);font-family:ui-monospace,Consolas,monospace;white-space:nowrap}
+.chart-tip[hidden]{display:none}
+.say{border:1px solid #ddd6fe;background:#f5f3ff;color:#5b21b6;border-radius:8px;padding:8px;font-size:11.5px;line-height:1.45}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{border:1px solid var(--line);border-radius:8px;padding:8px;font-size:11px}
+.stat b{display:block;font-size:10px;color:var(--muted)}
+.stat span{font-family:ui-monospace,Consolas,monospace;font-weight:700;color:var(--violet)}
+.mtp-hit{cursor:crosshair;fill:rgba(8,145,178,0.001)}
+.mtp-hit:hover,.mtp-hit.mtp-active{fill:rgba(8,145,178,0.08)}
+.mtp-highlight{pointer-events:none}
+</style>
+<script src="s9_boot.js"></script>
+</head>
+<body>
+<main class="wrap">
+  <div class="kicker">ERA V5 Session 9 Part 2</div>
+  <h1>Multi-Token Prediction — L1 vs L2</h1>
+  <p class="sub">Split lanes for L1 vs L2. Grey vertical bar links the two heads at each step; point size ∝ |L2−L1|. Hover for values.</p>
+  <div class="card grid" id="finalStats"></div>
+  <div class="card chart-card">
+    <div class="chart-wrap" id="chartWrap">
+      <svg class="svg" id="mtpSvg" viewBox="0 0 612 268"></svg>
+      <div id="chartTip" class="chart-tip" hidden></div>
+    </div>
+    <div class="chart-legend">
+      <div class="legend-series">
+        <span class="legend-item"><span class="legend-dot l2"></span>L2 (t+2) — top lane</span>
+        <span class="legend-item"><span class="legend-dot l1"></span>L1 (t+1) — bottom lane</span>
+      </div>
+      <span class="legend-item">
+        <span class="legend-bridge" aria-hidden="true">
+          <span class="legend-dot l2"></span>
+          <span class="legend-gap-line"></span>
+          <span class="legend-dot l1"></span>
+        </span>
+        grey bar · point size ∝ |L2−L1|
+      </span>
+    </div>
+  </div>
+  <div class="say" id="explain">Loading…</div>
+</main>
+<script>
+(function(){
+  var chartHistory=[];
+  var chartMeta={svg:null,wrap:null,xs:[],pad:null,l2Top:0,l1Top:0,laneH:0,iw:0,threshold:12};
+
+  function showTip(i, clientX, clientY){
+    var tip=document.getElementById("chartTip");
+    var h=chartHistory[i];
+    if(!h) return;
+    var delta=Math.abs(h.L2-h.L1);
+    tip.innerHTML="step "+h.step+"<br>L1: "+h.L1.toFixed(4)+"<br>L2: "+h.L2.toFixed(4)+"<br>Δ: "+delta.toFixed(4);
+    tip.hidden=false;
+    var rect=chartMeta.wrap.getBoundingClientRect();
+    tip.style.left=(clientX-rect.left+12)+"px";
+    tip.style.top=(clientY-rect.top-28)+"px";
+    chartMeta.svg.querySelectorAll(".mtp-hit").forEach(function(el,j){
+      el.classList.toggle("mtp-active", j===i);
+    });
+    var hi=chartMeta.svg.querySelector(".mtp-highlight");
+    if(hi && chartMeta.xs[i]!=null){
+      var m=chartMeta;
+      hi.setAttribute("x", chartMeta.xs[i]-m.threshold);
+      hi.setAttribute("width", m.threshold*2);
+      hi.setAttribute("y", m.l2Top);
+      hi.setAttribute("height", m.laneH*2+m.laneGap);
+      hi.setAttribute("opacity","1");
+    }
+  }
+
+  function hideTip(){
+    document.getElementById("chartTip").hidden=true;
+    if(chartMeta.svg){
+      chartMeta.svg.querySelectorAll(".mtp-hit").forEach(function(el){ el.classList.remove("mtp-active"); });
+      var hi=chartMeta.svg.querySelector(".mtp-highlight");
+      if(hi) hi.setAttribute("opacity","0");
+    }
+  }
+
+  function clientToSvg(svg, clientX, clientY){
+    var pt=svg.createSVGPoint();
+    pt.x=clientX; pt.y=clientY;
+    var ctm=svg.getScreenCTM();
+    if(!ctm) return null;
+    return pt.matrixTransform(ctm.inverse());
+  }
+
+  function nearestStep(svgX){
+    var best=-1, bestDist=Infinity;
+    for(var i=0;i<chartMeta.xs.length;i++){
+      var dx=Math.abs(svgX-chartMeta.xs[i]);
+      if(dx<bestDist){ bestDist=dx; best=i; }
+    }
+    return bestDist<=chartMeta.threshold?best:-1;
+  }
+
+  function bindChartTips(svg, wrap){
+    chartMeta.svg=svg;
+    chartMeta.wrap=wrap;
+    svg.addEventListener("mousemove",function(e){
+      var p=clientToSvg(svg,e.clientX,e.clientY);
+      if(!p) return;
+      var i=nearestStep(p.x);
+      if(i>=0) showTip(i,e.clientX,e.clientY);
+      else hideTip();
+    });
+    svg.addEventListener("mouseleave",hideTip);
+    svg.querySelectorAll(".mtp-hit").forEach(function(el){
+      el.addEventListener("mouseenter",function(e){
+        showTip(+el.getAttribute("data-i"),e.clientX,e.clientY);
+      });
+    });
+  }
+
+  function pointRadius(delta){
+    return 3+Math.min(6, delta*140);
+  }
+
+  function laneScale(vals, top, height){
+    var lo=Math.min.apply(null,vals), hi=Math.max.apply(null,vals);
+    var padV=(hi-lo)*0.08||0.01;
+    lo-=padV; hi+=padV;
+    return function(v){
+      return top+height*(1-(v-lo)/(hi-lo||1));
+    };
+  }
+
+  function renderChart(history){
+    if(!history.length) return;
+    chartHistory=history;
+    var pad={l:52,r:14,t:24,b:28}, W=612, H=268, iw=W-pad.l-pad.r, ih=H-pad.t-pad.b;
+    var laneGap=14, laneH=(ih-laneGap)/2;
+    var l2Top=pad.t, l1Top=pad.t+laneH+laneGap;
+    var l1vals=history.map(function(h){return h.L1;});
+    var l2vals=history.map(function(h){return h.L2;});
+    var yL2=laneScale(l2vals,l2Top,laneH);
+    var yL1=laneScale(l1vals,l1Top,laneH);
+    var maxDelta=0, maxDeltaIdx=0;
+    for(var j=0;j<history.length;j++){
+      var dj=Math.abs(history[j].L2-history[j].L1);
+      if(dj>maxDelta){ maxDelta=dj; maxDeltaIdx=j; }
+    }
+    function x(i){return pad.l+iw*(i/(history.length-1||1));}
+    chartMeta.xs=[];
+    chartMeta.pad=pad;
+    chartMeta.l2Top=l2Top;
+    chartMeta.l1Top=l1Top;
+    chartMeta.laneH=laneH;
+    chartMeta.laneGap=laneGap;
+    chartMeta.iw=iw;
+    chartMeta.threshold=Math.max(8, iw/(history.length-1||1)*0.48);
+    function lanePath(key,yFn,col){
+      var d="M"+x(0)+","+yFn(history[0][key]);
+      for(var i=1;i<history.length;i++) d+=" L"+x(i)+","+yFn(history[i][key]);
+      return '<path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="2" pointer-events="none"/>';
+    }
+
+    var midLane=l2Top+laneH+laneGap/2;
+    var s='<text x="'+(W/2)+'" y="14" text-anchor="middle" font-size="11" font-weight="bold">MTP loss history</text>';
+    s+='<rect x="'+pad.l+'" y="'+l2Top+'" width="'+iw+'" height="'+laneH+'" fill="#f5f3ff" rx="4" opacity="0.55" pointer-events="none"/>';
+    s+='<rect x="'+pad.l+'" y="'+l1Top+'" width="'+iw+'" height="'+laneH+'" fill="#ecfeff" rx="4" opacity="0.55" pointer-events="none"/>';
+    s+='<line x1="'+pad.l+'" y1="'+midLane+'" x2="'+(pad.l+iw)+'" y2="'+midLane+'" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4,3" pointer-events="none"/>';
+    s+='<text x="'+(pad.l-6)+'" y="'+(l2Top+laneH/2)+'" text-anchor="end" font-size="8" fill="#7c3aed" pointer-events="none">L2</text>';
+    s+='<text x="'+(pad.l-6)+'" y="'+(l1Top+laneH/2)+'" text-anchor="end" font-size="8" fill="#0891b2" pointer-events="none">L1</text>';
+    s+='<text x="'+(W/2)+'" y="'+(H-6)+'" text-anchor="middle" font-size="9" fill="#65748b" pointer-events="none">training step</text>';
+    s+=lanePath("L2",yL2,"#7c3aed")+lanePath("L1",yL1,"#0891b2");
+
+    for(var i=0;i<history.length;i++){
+      var l1=history[i].L1, l2=history[i].L2, delta=Math.abs(l2-l1);
+      var y1=yL1(l1), y2=yL2(l2), xc=x(i), r=pointRadius(delta);
+      chartMeta.xs.push(xc);
+      s+='<line x1="'+xc+'" y1="'+y2+'" x2="'+xc+'" y2="'+y1+'" stroke="#64748b" stroke-width="4" stroke-opacity="0.85" stroke-linecap="round" pointer-events="none"/>';
+      s+='<circle cx="'+xc+'" cy="'+y2+'" r="'+r+'" fill="#7c3aed" stroke="#fff" stroke-width="1.4" pointer-events="none"/>';
+      s+='<circle cx="'+xc+'" cy="'+y1+'" r="'+r+'" fill="#0891b2" stroke="#fff" stroke-width="1.4" pointer-events="none"/>';
+      if(i===maxDeltaIdx||i===history.length-1){
+        s+='<text x="'+xc+'" y="'+(midLane-3)+'" text-anchor="middle" font-size="7" fill="#475569" pointer-events="none">Δ'+delta.toFixed(3)+'</text>';
+      }
+    }
+
+    var colW=chartMeta.threshold*2;
+    var hitTop=l2Top, hitH=laneH*2+laneGap;
+    s+='<rect class="mtp-highlight" x="0" y="'+hitTop+'" width="'+colW+'" height="'+hitH+'" fill="#0891b2" opacity="0" rx="3"/>';
+    s+='<g class="mtp-hit-layer">';
+    for(var k=0;k<history.length;k++){
+      var hx=chartMeta.xs[k];
+      s+='<rect class="mtp-hit" data-i="'+k+'" x="'+(hx-chartMeta.threshold)+'" y="'+hitTop+'" width="'+colW+'" height="'+hitH+'" rx="2"/>';
+    }
+    s+='</g>';
+
+    var svg=document.getElementById("mtpSvg");
+    svg.innerHTML=s;
+    bindChartTips(svg, document.getElementById("chartWrap"));
+  }
+
+  function boldFinalsInExplain(text, d){
+    var t=String(text||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    var l1=d.L1_final.toFixed(3), l2=d.L2_final.toFixed(3);
+    t=t.split(l1).join("<strong>"+l1+"</strong>");
+    t=t.split(l2).join("<strong>"+l2+"</strong>");
+    return t;
+  }
+
+  S9Boot.showFileWarning();
+  fetch(S9Boot.dataUrl("part2_losses.json")).then(function(r){return r.json();}).then(function(d){
+    document.getElementById("finalStats").innerHTML=
+      '<div class="stat"><b>L1 final</b><span><strong>'+d.L1_final.toFixed(4)+'</strong></span></div>'+
+      '<div class="stat"><b>L2 final</b><span><strong>'+d.L2_final.toFixed(4)+'</strong></span></div>'+
+      '<div class="stat"><b>Sum final</b><span><strong>'+d.sum_final.toFixed(4)+'</strong></span></div>';
+    renderChart(d.history||[]);
+    document.getElementById("explain").innerHTML=boldFinalsInExplain(d.explanation,d);
+  }).catch(function(e){
+    document.getElementById("explain").textContent="Load part2_losses.json after run_all: "+e.message;
+  });
+})();
+</script>
+</body>
+</html>

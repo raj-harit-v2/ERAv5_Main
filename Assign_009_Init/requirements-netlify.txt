@@ -1,0 +1,3 @@
+# Static dist build only — tests/build_dist.py uses Python stdlib (no pip deps).
+# Set Netlify Install command to: pip install -r requirements-netlify.txt
+# Or clear Install command entirely.

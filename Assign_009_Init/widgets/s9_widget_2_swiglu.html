@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 9 Widget 2 — SwiGLU Compare</title>
+<style>
+:root{--ink:#0f172a;--muted:#64748b;--line:#d9e2ef;--cyan:#0891b2;--hl:#ecfeff}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#f8fbff,#eef5fb);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,sans-serif;font-size:13px}
+.wrap{max-width:1480px;margin:0 auto;padding:10px 6px}
+.kicker{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan)}
+h1{font-size:19px;margin:2px 0 3px}.sub{color:var(--muted);font-size:11.5px;margin:0 0 8px;line-height:1.45}
+.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px;margin-bottom:8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:800px){.grid{grid-template-columns:1fr}}
+.panel{border:1px solid var(--line);border-radius:8px;padding:4px 2px;background:#fafcff;min-height:300px}
+.panel h2{font-size:12px;margin:2px 6px 2px;font-weight:800;color:var(--muted)}
+.s9-swiglu-svg{width:100%;height:auto;display:block;max-height:520px}
+.s9-node{cursor:pointer;outline:none}
+.s9-node polygon,.s9-node rect,.s9-node circle{transition:fill .12s,stroke .12s}
+.s9-node:hover polygon,.s9-node:hover rect,.s9-node:hover circle,
+.s9-node.hl-local polygon,.s9-node.hl-local rect,.s9-node.hl-local circle,
+.s9-node.hl-sync polygon,.s9-node.hl-sync rect,.s9-node.hl-sync circle{
+  stroke:#0891b2;stroke-width:2;fill:var(--hl)
+}
+.s9-node:hover text,.s9-node.hl-sync text{fill:#0e7490}
+.s9-arrow{pointer-events:none}
+.s9-tip{position:absolute;z-index:9999;max-width:300px;padding:8px 10px;background:#0f172a;color:#fff;
+  font-size:11px;line-height:1.4;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.2);pointer-events:none}
+.s9-tip-sample{margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.2)}
+.s9-tip-sample code{font-family:ui-monospace,Consolas,monospace;color:#a5f3fc}
+.s9-tip-note{opacity:.85;font-size:10.5px}
+.s9-walk-note{font-size:10.5px;color:var(--muted);margin:6px 6px 4px;line-height:1.4}
+.s9-walk-table{width:calc(100% - 12px);margin:0 6px 8px;border-collapse:collapse;font-size:11px}
+.s9-walk-table th,.s9-walk-table td{border:1px solid var(--line);padding:5px 6px;text-align:left;vertical-align:top}
+.s9-walk-table th{background:#f1f5f9;font-weight:700}
+.s9-walk-table code{font-family:ui-monospace,Consolas,monospace;font-size:10.5px}
+.s9-walk-table tr[data-node]{cursor:pointer;transition:background .12s}
+.s9-walk-table tr[data-node]:hover,
+.s9-walk-table tr.hl-row{background:var(--hl)}
+.s9-walk-table tr.hl-row td{border-color:#a5f3fc}
+.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:11.5px;margin-bottom:8px}
+.bar input[type=range]{width:160px;accent-color:var(--cyan)}
+.bar .val{font-family:ui-monospace,Consolas,monospace;font-weight:700;color:var(--cyan)}
+.s9-param-table{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:4px}
+.s9-param-table th,.s9-param-table td{border:1px solid var(--line);padding:6px 8px;text-align:left}
+.s9-param-table th{background:#f1f5f9}
+.s9-param-note{font-size:11px;color:var(--muted);margin:8px 0 0;line-height:1.45}
+table.naming{width:100%;border-collapse:collapse;font-size:11.5px}
+table.naming th,table.naming td{border:1px solid var(--line);padding:6px 8px;text-align:left}
+table.naming th{background:#f1f5f9}
+.formula{font-family:ui-monospace,Consolas,monospace;font-size:12px;background:#f8fafc;border:1px solid var(--line);border-radius:8px;padding:8px;margin:6px 0}
+.note{font-size:11px;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:8px;margin-top:8px}
+details summary{cursor:pointer;font-weight:700;font-size:12px;color:var(--cyan);padding:4px 0}
+.export-block{margin-top:8px}
+.export-block .grid{margin-top:6px}
+.export-sub{font-size:11px;color:var(--muted);margin:4px 0 0;line-height:1.45}
+.export-header{margin:8px 4px 4px;padding:10px 12px;background:#f8fafc;border:1px solid var(--line);border-radius:8px}
+.export-header h3{margin:0 0 4px;font-size:13px;font-weight:800;color:var(--ink)}
+.export-header .naming-map{margin:0 0 8px;font-size:11.5px;color:var(--muted);line-height:1.45}
+.export-header .formula-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:800px){.export-header .formula-row{grid-template-columns:1fr}}
+.export-header .formula-pill{font-family:ui-monospace,Consolas,monospace;font-size:12px;font-style:italic;background:#fff;border:1px solid var(--line);border-radius:6px;padding:8px 10px;text-align:center}
+.s9-static .s9-node{cursor:default;pointer-events:none}
+.s9-static .s9-node polygon,.s9-static .s9-node rect,.s9-static .s9-node circle{stroke-width:1.25}
+.panel-static{background:#fafcff;border:1px solid var(--line);border-radius:8px;padding:4px 2px}
+.hint{font-size:11px;color:var(--muted);margin:0 6px 4px}
+</style>
+<script src="s9_boot.js"></script>
+<script src="s9_swiglu_diagram.js"></script>
+</head>
+<body>
+<main class="wrap">
+  <div class="kicker">ERA V5 Session 9</div>
+  <h1>SwiGLU — Interactive Architecture Compare</h1>
+  <p class="sub">Hover any block (or table row) for a brief explanation plus a toy numeric sample at that step (D=2). Hover classic W₁ to highlight SwiGLU W₁ + Swish. Arrows show bottom-to-top data flow. NanoLM harness uses GELU FFN — SwiGLU is upstream curriculum reference.</p>
+
+  <div class="card grid">
+    <div class="panel">
+      <h2>Classic ReLU FFN (interactive)</h2>
+      <p class="hint">Reference layout — hover nodes or walkthrough rows</p>
+      <div id="swiglu-classic"></div>
+      <div id="swiglu-walk-classic"></div>
+    </div>
+    <div class="panel">
+      <h2>SwiGLU FFN (interactive)</h2>
+      <p class="hint">Same geometry as plot_stats export — note the ⊗ gate vs ReLU</p>
+      <div id="swiglu-gated"></div>
+      <div id="swiglu-walk-swiglu"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="bar">
+      <label>d_model (D) <input id="dmodel-slider" type="range" min="512" max="4096" step="512" value="4096">
+      <span class="val" id="dmodel-val">4096</span></label>
+    </div>
+    <div id="swiglu-params"></div>
+  </div>
+
+  <div class="card">
+    <div class="formula">Classic: ReLU(xW₁)W₂</div>
+    <div class="formula">SwiGLU (paper): (Swish(xW₁) ⊗ xV)W₂</div>
+    <div class="formula">Llama/docs: down(SiLU(gate(h)) ⊙ up(h))</div>
+    <table class="naming">
+      <thead><tr><th>Reference</th><th>Llama naming</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>W₁ + Swish</td><td>W_gate + SiLU</td><td>Swish(β=1) = SiLU</td></tr>
+        <tr><td>V</td><td>W_up</td><td>Value / up-projection branch</td></tr>
+        <tr><td>W₂</td><td>W_down</td><td>Down-projection to d_model</td></tr>
+        <tr><td>d_ff</td><td>intermediate</td><td>SwiGLU: round₂₅₆(8/3·D); classic: 4·D</td></tr>
+      </tbody>
+    </table>
+    <p class="note">NanoLM in this assignment uses a classic GELU FFN for harness simplicity. SwiGLU is documented as upstream modern stack context (Llama-class models).</p>
+  </div>
+
+  <div class="card">
+    <details id="swiglu-export-details">
+      <summary>Curriculum PNG export (plot_stats) — static preview</summary>
+      <div class="export-block">
+        <div class="export-header">
+          <h3>Curriculum figure: Classic ReLU FFN vs SwiGLU</h3>
+          <p class="naming-map">Naming map: W_gate↔W₁, W_up↔V, W_down↔W₂, SiLU↔Swish (β=1)</p>
+          <div class="formula-row">
+            <div class="formula-pill">ReLU(xW₁)W₂</div>
+            <div class="formula-pill">(Swish(xW₁) ⊗ xV)W₂</div>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="panel-static">
+            <p class="hint">Original Feed Forward Layer</p>
+            <div id="swiglu-export-classic"></div>
+          </div>
+          <div class="panel-static">
+            <p class="hint">Feed Forward with SwiGLU</p>
+            <div id="swiglu-export-gated"></div>
+          </div>
+        </div>
+      </div>
+    </details>
+  </div>
+</main>
+<script>
+  S9Boot.showFileWarning();
+  S9SwigluDiagram.initWidget({ dModel: 4096 });
+  S9SwigluDiagram.initExportPreview();
+</script>
+</body>
+</html>

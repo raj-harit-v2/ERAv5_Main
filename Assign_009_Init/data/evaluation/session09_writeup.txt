@@ -1,0 +1,19 @@
+## Session 9 numbers
+Part1:
+  shapes_ok: True
+  shift_strings_ok: True
+  pad_count_before/after: 28/17
+  boundary contrib: 13->12  sum: 68.549->63.276 (d=-5.273)
+  boundary_note: masked cross-doc next-token; sum drops, mean stays ~ln(V) at init
+  ppl0 / loss0: 195.00 / 5.2730
+  tied_params / untied_params: 12480 / 24960
+  peak_full / peak_chunked / ratio: 3.0469 / 0.7617 / 4.0000
+Part2:
+  L1 / L2 / sum: 4.0755 / 4.1171 / 8.1927
+  L2_vs_L1_note: Head1 (t+1) started at L1=5.273 and ended at 4.076; Head2 (t+2) started at L2=5.273 and ended at 4.117. Typically L2 stays higher / falls slower than L1 because t+2 is a harder longer-range target from the same trunk state (less local evidence).
+Part3:
+  Part 3 = Curriculum_Required_stats long-context demonstration.
+  peak_vram: reports/Curriculum_Required_stats_01_peak_vram.png
+  chunk_frontier: reports/Curriculum_Required_stats_02_chunk_frontier.png
+  swiglu: reports/Curriculum_Required_stats_03_swiglu.png
+Long_context takeaway: full CE scales with T; chunked flattens peak VRAM so 64K+ is feasible.

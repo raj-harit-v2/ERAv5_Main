@@ -1,0 +1,317 @@
+{
+  "ok": true,
+  "n_pass": 31,
+  "n_fail": 0,
+  "cases": [
+    {
+      "id": "ENV-01",
+      "name": "torch_device",
+      "ok": true,
+      "detail": "torch=2.13.0+cpu device=cpu",
+      "provenance": {
+        "file": "runtime",
+        "what": "torch importable; device reported"
+      }
+    },
+    {
+      "id": "IMP-01",
+      "name": "import_WordTokenizer",
+      "ok": true,
+      "detail": "ok src.llm.tokenizer.WordTokenizer",
+      "provenance": {
+        "file": "src/llm/tokenizer.py",
+        "what": "import WordTokenizer"
+      }
+    },
+    {
+      "id": "IMP-02",
+      "name": "import_NanoLM",
+      "ok": true,
+      "detail": "ok src.llm.nano_lm.NanoLM",
+      "provenance": {
+        "file": "src/llm/nano_lm.py",
+        "what": "import NanoLM"
+      }
+    },
+    {
+      "id": "IMP-03",
+      "name": "import_compare_tied_untied_counts",
+      "ok": true,
+      "detail": "ok src.llm.output_head.compare_tied_untied_counts",
+      "provenance": {
+        "file": "src/llm/output_head.py",
+        "what": "import DenseOutputHead / LowRank / compare"
+      }
+    },
+    {
+      "id": "IMP-04",
+      "name": "import_ChunkedCrossEntropy",
+      "ok": true,
+      "detail": "ok src.llm.chunked_ce.ChunkedCrossEntropy",
+      "provenance": {
+        "file": "src/llm/chunked_ce.py",
+        "what": "import ChunkedCrossEntropy"
+      }
+    },
+    {
+      "id": "IMP-05",
+      "name": "import_MTPDualHeads",
+      "ok": true,
+      "detail": "ok src.llm.mtp_heads.MTPDualHeads",
+      "provenance": {
+        "file": "src/llm/mtp_heads.py",
+        "what": "import MTPDualHeads"
+      }
+    },
+    {
+      "id": "IMP-06",
+      "name": "import_soft_cap",
+      "ok": true,
+      "detail": "ok src.llm.stability.soft_cap",
+      "provenance": {
+        "file": "src/llm/stability.py",
+        "what": "import soft_cap / z_loss / centering"
+      }
+    },
+    {
+      "id": "IMP-07",
+      "name": "import_dump_batch_shapes",
+      "ok": true,
+      "detail": "ok src.utils.shapes.dump_batch_shapes",
+      "provenance": {
+        "file": "src/utils/shapes.py",
+        "what": "import dump_batch_shapes"
+      }
+    },
+    {
+      "id": "IMP-08",
+      "name": "import_verify_shift_strings",
+      "ok": true,
+      "detail": "ok src.utils.decode_strings.verify_shift_strings",
+      "provenance": {
+        "file": "src/utils/decode_strings.py",
+        "what": "import print_shift_table"
+      }
+    },
+    {
+      "id": "IMP-09",
+      "name": "import_estimate_logits_bytes",
+      "ok": true,
+      "detail": "ok src.utils.peak_vram.estimate_logits_bytes",
+      "provenance": {
+        "file": "src/utils/peak_vram.py",
+        "what": "import estimate_logits_bytes"
+      }
+    },
+    {
+      "id": "IMP-10",
+      "name": "import_run_harness",
+      "ok": true,
+      "detail": "ok src.pipeline.harness.run_harness",
+      "provenance": {
+        "file": "src/pipeline/harness.py",
+        "what": "import run_harness"
+      }
+    },
+    {
+      "id": "IMP-11",
+      "name": "import_measure_full_vs_chunked",
+      "ok": true,
+      "detail": "ok src.pipeline.memory_profile.measure_full_vs_chunked",
+      "provenance": {
+        "file": "src/pipeline/memory_profile.py",
+        "what": "import measure_full_vs_chunked"
+      }
+    },
+    {
+      "id": "IMP-12",
+      "name": "import_run_mtp_smoke",
+      "ok": true,
+      "detail": "ok src.pipeline.train_smoke.run_mtp_smoke",
+      "provenance": {
+        "file": "src/pipeline/train_smoke.py",
+        "what": "import run_mtp_smoke"
+      }
+    },
+    {
+      "id": "IMP-13",
+      "name": "import_run_plots",
+      "ok": true,
+      "detail": "ok src.pipeline.plot_stats.run_plots",
+      "provenance": {
+        "file": "src/pipeline/plot_stats.py",
+        "what": "import run_plots"
+      }
+    },
+    {
+      "id": "IMP-14",
+      "name": "import_main",
+      "ok": true,
+      "detail": "ok src.pipeline.run_all.main",
+      "provenance": {
+        "file": "src/pipeline/run_all.py",
+        "what": "import run_all main"
+      }
+    },
+    {
+      "id": "TOK-01",
+      "name": "tokenizer_vocab",
+      "ok": true,
+      "detail": "V=195 pad_id=0",
+      "provenance": {
+        "file": "src/llm/tokenizer.py",
+        "what": "build vocab from shakespeare_tiny.txt; V>1"
+      }
+    },
+    {
+      "id": "SHF-01",
+      "name": "shift_strings",
+      "ok": true,
+      "detail": "pairs_sample=[('<BOS>', 'First'), ('First', 'Citizen'), ('Citizen', ':')]",
+      "provenance": {
+        "file": "src/utils/decode_strings.py",
+        "what": "shift string pairs consecutive"
+      }
+    },
+    {
+      "id": "SHF-02",
+      "name": "shift_shapes",
+      "ok": true,
+      "detail": "logits_shift=[1, 6, 195] targets=[1, 6]",
+      "provenance": {
+        "file": "src/llm/chunked_ce.py",
+        "what": "logits[:,:-1] vs tokens[:,1:] shapes"
+      }
+    },
+    {
+      "id": "PAD-01",
+      "name": "pad_count_decreases",
+      "ok": true,
+      "detail": "before=14 after=9",
+      "provenance": {
+        "file": "src/pipeline/harness.py",
+        "what": "pad mask reduces contributing count"
+      }
+    },
+    {
+      "id": "BND-01",
+      "name": "boundary_mask_sum",
+      "ok": true,
+      "detail": "contrib=13->12 sum=68.548988->63.275990",
+      "provenance": {
+        "file": "src/pipeline/harness.py",
+        "what": "boundary mask drops contrib; loss sum changes"
+      }
+    },
+    {
+      "id": "PPL-01",
+      "name": "untrained_ppl_near_v",
+      "ok": true,
+      "detail": "L=5.2730 lnV=5.2730 rel=0.0000 ppl=195.00",
+      "provenance": {
+        "file": "src/llm/nano_lm.py",
+        "what": "untrained |L-ln(V)|/ln(V) < 0.35"
+      }
+    },
+    {
+      "id": "CE-01",
+      "name": "chunked_ce_parity",
+      "ok": true,
+      "detail": "abs_diff=9.54e-07",
+      "provenance": {
+        "file": "src/llm/chunked_ce.py",
+        "what": "chunked vs full CE abs diff < 1e-5"
+      }
+    },
+    {
+      "id": "MEM-01",
+      "name": "memory_ratio_estimate",
+      "ok": true,
+      "detail": "N=4096 C=1024 V=195 ratio=4.0000 full_MiB=3.0469 chunk_MiB=0.7617",
+      "provenance": {
+        "file": "src/pipeline/memory_profile.py",
+        "what": "full/chunked activation ratio >= 1.5 @ N=4096 C=1024"
+      }
+    },
+    {
+      "id": "TIE-01",
+      "name": "tied_vs_untied_counts",
+      "ok": true,
+      "detail": "tied=12480 untied=24960",
+      "provenance": {
+        "file": "src/llm/output_head.py",
+        "what": "untied_params == 2 * tied_params"
+      }
+    },
+    {
+      "id": "MTP-01",
+      "name": "mtp_k2_losses",
+      "ok": true,
+      "detail": "L1=5.2730 L2=5.2730 sum=10.5460 logits2_T=5",
+      "provenance": {
+        "file": "src/llm/mtp_heads.py",
+        "what": "Head2 targets tokens[:,2:]; losses finite"
+      }
+    },
+    {
+      "id": "STB-01",
+      "name": "stability_helpers",
+      "ok": true,
+      "detail": "cap_ok=True center_mean_abs=2.93e-08 zloss=2.200787",
+      "provenance": {
+        "file": "src/llm/stability.py",
+        "what": "soft-cap bound; centering helper documented"
+      }
+    },
+    {
+      "id": "ART-01",
+      "name": "seven_numbers_json",
+      "ok": true,
+      "detail": "missing=[] ratio=4.0",
+      "provenance": {
+        "file": "data/evaluation/seven_numbers.json",
+        "what": "required Part-1 keys present"
+      }
+    },
+    {
+      "id": "ART-02",
+      "name": "curriculum_pngs",
+      "ok": true,
+      "detail": "Curriculum_Required_stats_01_peak_vram.png:87193; Curriculum_Required_stats_02_chunk_frontier.png:67655; Curriculum_Required_stats_03_swiglu.png:75926",
+      "provenance": {
+        "file": "reports/Curriculum_Required_stats_*.png",
+        "what": "three PNGs exist size>0"
+      }
+    },
+    {
+      "id": "ART-03",
+      "name": "part2_losses_json",
+      "ok": true,
+      "detail": "L1=4.07553768157959 L2=4.117144584655762",
+      "provenance": {
+        "file": "data/evaluation/part2_losses.json",
+        "what": "optional MTP artifact when --full"
+      }
+    },
+    {
+      "id": "WID-01",
+      "name": "dist_widget_suite",
+      "ok": true,
+      "detail": "missing=[] widget_weights_bytes=3137470",
+      "provenance": {
+        "file": "dist/",
+        "what": "landing + 5 widgets + engine + JSON + PNGs after build_dist"
+      }
+    },
+    {
+      "id": "PYT-01",
+      "name": "pytest_suite",
+      "ok": true,
+      "detail": "skipped (--no-pytest)",
+      "provenance": {
+        "file": "tests/",
+        "what": "pytest -q exit code 0"
+      }
+    }
+  ]
+}

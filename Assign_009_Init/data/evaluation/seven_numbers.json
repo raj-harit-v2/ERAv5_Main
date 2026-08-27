@@ -1,0 +1,112 @@
+{
+  "shapes_ok": true,
+  "shapes": [
+    {
+      "name": "tokens",
+      "shape": [
+        1,
+        15
+      ],
+      "dtype": "torch.int64",
+      "legend": "B=batch, T=sequence length (token ids)"
+    },
+    {
+      "name": "hidden",
+      "shape": [
+        1,
+        15,
+        64
+      ],
+      "dtype": "torch.float32",
+      "legend": "B=batch, T=seq, D=model width"
+    },
+    {
+      "name": "logits",
+      "shape": [
+        1,
+        15,
+        195
+      ],
+      "dtype": "torch.float32",
+      "legend": "B=batch, T=seq, V=vocab (pre-softmax scores)"
+    },
+    {
+      "name": "targets",
+      "shape": [
+        1,
+        14
+      ],
+      "dtype": "torch.int64",
+      "legend": "B=batch, T-1=next-token ids after shift"
+    },
+    {
+      "name": "mask",
+      "shape": [
+        1,
+        14
+      ],
+      "dtype": "torch.float32",
+      "legend": "B=batch, T-1=1 contribute / 0 ignore"
+    }
+  ],
+  "shift_strings_ok": true,
+  "shift_pairs_sample": [
+    [
+      "<BOS>",
+      "First"
+    ],
+    [
+      "First",
+      "Citizen"
+    ],
+    [
+      "Citizen",
+      ":"
+    ],
+    [
+      ":",
+      "Let"
+    ],
+    [
+      "Let",
+      "us"
+    ],
+    [
+      "us",
+      "kill"
+    ],
+    [
+      "kill",
+      "him"
+    ],
+    [
+      "him",
+      ","
+    ]
+  ],
+  "pad_count_before": 28,
+  "pad_count_after": 17,
+  "boundary_loss_before": 5.272999103252705,
+  "boundary_loss_after": 5.272999127705892,
+  "boundary_loss_delta": 2.4453187030815116e-08,
+  "boundary_loss_sum_before": 68.54898834228516,
+  "boundary_loss_sum_after": 63.2759895324707,
+  "boundary_contrib_before": 13,
+  "boundary_contrib_after": 12,
+  "boundary_index": 6,
+  "vocab_size": 195,
+  "loss0": 5.272999286651611,
+  "ppl0": 194.99994697714078,
+  "ln_v": 5.272999558563747,
+  "tied_params": 12480,
+  "untied_params": 24960,
+  "peak_full_mib": 3.046875,
+  "peak_chunked_mib": 0.76171875,
+  "peak_full_bytes": 3194880,
+  "peak_chunked_bytes": 798720,
+  "ratio_full_over_chunked": 4.0,
+  "memory_backend": "cpu_proxy",
+  "chunk_size": 1024,
+  "user_sentence": "First Citizen: Let us kill him, and we'll have corn.",
+  "device": "cpu"
+}

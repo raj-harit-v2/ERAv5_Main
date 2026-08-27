@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 9 Widget 0 — Loss Pipeline</title>
+<style>
+:root{--ink:#152033;--muted:#65758b;--line:#d9e2ef;--cyan:#0891b2;--amber:#d97706;--green:#159447}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#f8fbff,#eef5fb);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,sans-serif;font-size:13px}
+.wrap{max-width:1480px;margin:0 auto;padding:10px 6px}
+.kicker{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan)}
+h1{font-size:19px;margin:2px 0 3px}.sub{color:var(--muted);font-size:11.5px;line-height:1.4;margin:0 0 8px}
+.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.bar select,.bar input[type=text]{font:inherit;font-size:11.5px;border:1px solid var(--line);border-radius:7px;padding:4px 7px;height:26px}
+.bar input[type=text]{width:320px;font-weight:600}
+.bar input[type=range]{width:96px;accent-color:var(--cyan)}
+.bar button{border:1px solid var(--cyan);background:var(--cyan);color:#fff;border-radius:7px;padding:5px 12px;font:inherit;font-size:11.5px;font-weight:800;cursor:pointer;height:26px}
+.bar button.ghost{background:#fff;color:var(--cyan)}
+.card{background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 30px rgba(20,42,75,.07);padding:9px 10px;margin-bottom:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.stat{border:1px solid var(--line);border-radius:8px;padding:8px;background:#fff}
+.stat b{display:block;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.stat span{font-family:ui-monospace,Consolas,monospace;font-size:14px;font-weight:700;color:var(--cyan)}
+.svg{display:block;width:100%;height:auto}
+.say{border:1px solid #a5f3fc;background:#ecfeff;color:#155e75;border-radius:8px;padding:6px 9px;font-size:11.5px;line-height:1.42;margin-top:6px}
+.say b{font-family:ui-monospace,Consolas,monospace;color:#0e7490}
+table.shift{width:100%;border-collapse:collapse;font-size:11px}
+table.shift th,table.shift td{border:1px solid var(--line);padding:4px 6px;text-align:left}
+.ppl-ok{color:var(--green)}.ppl-warn{color:var(--amber)}
+</style>
+<script src="s9_boot.js"></script>
+<script src="s9_engine.js"></script>
+</head>
+<body>
+<main class="wrap">
+  <div class="kicker">ERA V5 Session 9</div>
+  <h1>Loss Pipeline — Live Harness Mirror</h1>
+  <p class="sub">Exported NanoLM weights (seed=0) run in-browser: tokenize → forward → shift → masked CE → PPL. Chunk C splits the CE positions for this sentence (CE value stays the same; chunk count and peak logit MiB change).</p>
+  <div class="bar">
+    <select id="preset" aria-label="Preset sentences">
+      <option value="0">First Citizen: Let us kill him...</option>
+      <option value="1">Come away, come away.</option>
+      <option value="2">All: Before the sun sets.</option>
+    </select>
+    <input id="txt" type="text" spellcheck="false" aria-label="User sentence">
+    <label>Chunk C <input id="chunk" type="range" min="1" max="32" step="1" value="8"><span id="chunkV">8</span></label>
+    <button id="go" type="button">Run</button>
+    <button id="reset" class="ghost" type="button">Reset</button>
+  </div>
+  <div class="card">
+    <div class="grid" id="stats"></div>
+  </div>
+  <div class="card">
+    <svg class="svg" id="pipeSvg" viewBox="0 0 900 120" role="img" aria-label="Token pipeline"></svg>
+  </div>
+  <div class="card">
+    <table class="shift"><thead><tr><th>From token</th><th>→ Next target</th></tr></thead><tbody id="shiftBody"></tbody></table>
+  </div>
+  <div class="say" id="say">Loading weights…</div>
+</main>
+<script>
+(function(){
+  var PRESETS=[
+    "First Citizen: Let us kill him, and we'll have corn.",
+    "Come away, come away.",
+    "All: Before the sun sets."
+  ];
+  var S={txt:PRESETS[0],chunk:8,seven:null};
+  var presetEl=document.getElementById("preset");
+  var txtEl=document.getElementById("txt");
+  var chunkEl=document.getElementById("chunk");
+  var chunkV=document.getElementById("chunkV");
+
+  function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+
+  function syncChunkSlider(nValid){
+    var maxC=Math.max(1, nValid||1);
+    chunkEl.min="1";
+    chunkEl.max=String(maxC);
+    chunkEl.step="1";
+    if(S.chunk>maxC) S.chunk=maxC;
+    if(S.chunk<1) S.chunk=1;
+    chunkEl.value=String(S.chunk);
+    chunkV.textContent=String(S.chunk)+" / "+maxC;
+  }
+
+  function renderStats(r){
+    var pplClass=Math.abs(r.ppl0-r.vocab_size)/r.vocab_size<0.35?"ppl-ok":"ppl-warn";
+    var keys=[
+      ["loss0", r.loss0.toFixed(4)],
+      ["ppl0", r.ppl0.toFixed(2)],
+      ["ce_chunked", r.ce_chunked.toFixed(4)],
+      ["chunk_size C", r.chunk_size],
+      ["n_chunks", r.n_chunks],
+      ["mask_count", r.mask_count],
+      ["peak_full_MiB", r.peak_full_mib.toFixed(4)],
+      ["peak_chunk_MiB", r.peak_chunk_mib.toFixed(4)],
+      ["vocab_size", r.vocab_size],
+      ["tied_params", r.tied_params],
+      ["untied_params", r.untied_params]
+    ];
+    document.getElementById("stats").innerHTML=
+      keys.map(function(kv){
+        var cls=kv[0]==="ppl0"?pplClass:"";
+        return '<div class="stat"><b>'+kv[0]+'</b><span class="'+cls+'">'+kv[1]+'</span></div>';
+      }).join("")+
+      Object.keys(r.shapes).map(function(k){
+        return '<div class="stat"><b>'+k+'</b><span>['+r.shapes[k].join(", ")+']</span></div>';
+      }).join("");
+  }
+
+  function renderShift(pairs){
+    document.getElementById("shiftBody").innerHTML=pairs.map(function(p){
+      return "<tr><td>"+esc(p[0])+"</td><td>"+esc(p[1])+"</td></tr>";
+    }).join("");
+  }
+
+  function renderPipe(tokens, chunkSize){
+    var n=tokens.length, w=Math.min(820/Math.max(n,1),72), x0=40;
+    var s='<text x="10" y="18" font-size="11" fill="#65758b">tokens [B,T] — CE chunks of C='+chunkSize+' over shift positions</text>';
+    var CHUNK_COLS=["#bfdbfe","#a7f3d0","#fde68a","#fbcfe8","#ddd6fe"];
+    for(var i=0;i<n;i++){
+      var x=x0+i*(w+4);
+      var shiftIdx=i; /* token i contributes to CE at position i for predicting i+1; last has no CE */
+      var col;
+      if(tokens[i]==="<PAD>") col="#fecaca";
+      else if(tokens[i]==="<BOS>"||tokens[i]==="<EOS>") col="#93c5fd";
+      else if(i>=n-1) col="#e2e8f0";
+      else col=CHUNK_COLS[Math.floor(shiftIdx/Math.max(chunkSize,1))%CHUNK_COLS.length];
+      s+='<rect x="'+x+'" y="28" width="'+w+'" height="36" rx="6" fill="'+col+'" stroke="#94a3b8"/>';
+      s+='<text x="'+(x+w/2)+'" y="50" text-anchor="middle" font-size="9" fill="#152033">'+esc(tokens[i].slice(0,8))+'</text>';
+      if(i<n-1) s+='<text x="'+(x+w+2)+'" y="50" font-size="10" fill="#94a3b8">→</text>';
+    }
+    s+='<text x="40" y="95" font-size="11" fill="#65758b">shift: predict token[t+1] from logits[t] · colors = CE chunk groups</text>';
+    document.getElementById("pipeSvg").innerHTML=s;
+  }
+
+  function render(){
+    try{
+      var r=S9Engine.runPipeline(S.txt,{chunkSize:S.chunk,pairLimit:12});
+      syncChunkSlider(r.mask_count);
+      /* re-run if slider clamped C */
+      if(r.chunk_size!==S.chunk){
+        r=S9Engine.runPipeline(S.txt,{chunkSize:S.chunk,pairLimit:12});
+      }
+      renderStats(r); renderShift(r.shift_pairs); renderPipe(r.token_strings, r.chunk_size);
+      var parity="";
+      if(S.seven){
+        var dl=Math.abs(r.loss0-S.seven.loss0), dp=Math.abs(r.ppl0-S.seven.ppl0);
+        parity=dl<0.01&&dp<1?" <b>✓ matches seven_numbers.json</b>":" (harness loss0="+S.seven.loss0.toFixed(4)+")";
+      }
+      var same=Math.abs(r.loss0-r.ce_chunked)<1e-9;
+      document.getElementById("say").innerHTML=
+        'CE=<b>'+r.loss0.toFixed(4)+'</b> PPL=<b>'+r.ppl0.toFixed(2)+'</b> (ln V='+r.ln_v.toFixed(4)+') · '+
+        'chunked CE=<b>'+r.ce_chunked.toFixed(4)+'</b> at C=<b>'+S.chunk+'</b> → <b>'+r.n_chunks+'</b> chunk(s)'+
+        (same?" (equal ✓)":"")+' · peak logits <b>'+r.peak_chunk_mib.toFixed(4)+'</b> / '+
+        r.peak_full_mib.toFixed(4)+' MiB.'+parity;
+      window._s9last=r;
+    }catch(e){
+      document.getElementById("say").textContent="Error: "+e.message;
+    }
+  }
+
+  presetEl.onchange=function(){S.txt=PRESETS[+presetEl.value];txtEl.value=S.txt;render();};
+  txtEl.oninput=function(){S.txt=txtEl.value;};
+  chunkEl.oninput=function(){S.chunk=+chunkEl.value;chunkV.textContent=S.chunk;render();};
+  document.getElementById("go").onclick=function(){S.txt=txtEl.value;S.chunk=+chunkEl.value;render();};
+  document.getElementById("reset").onclick=function(){
+    presetEl.value="0";S.txt=PRESETS[0];S.chunk=8;txtEl.value=S.txt;chunkEl.value="8";chunkV.textContent="8";render();
+  };
+
+  S9Boot.showFileWarning();
+
+  Promise.all([
+    S9Engine.loadBundle(S9Boot.dataUrl("widget_weights.json")),
+    fetch(S9Boot.dataUrl("seven_numbers.json")).then(function(r){return r.json();}).catch(function(){return null;})
+  ]).then(function(res){
+    S.seven=res[1]; txtEl.value=S.txt; render();
+  }).catch(function(e){
+    S9Boot.showFileWarning();
+    document.getElementById("say").textContent="Load failed: "+e.message;
+  });
+
+  window.s9w0=function(){
+    var r=window._s9last||S9Engine.runPipeline(S.txt,{chunkSize:S.chunk});
+    return {loss0:r.loss0,ppl0:r.ppl0,vocab_size:r.vocab_size,shift_pairs:r.shift_pairs,
+      n_chunks:r.n_chunks,chunk_size:r.chunk_size,
+      peak_ratio_proxy:r.peak_full_mib/Math.max(r.peak_chunk_mib,1e-12)};
+  };
+})();
+</script>
+<script>
+(function(){var fe;try{fe=window.frameElement;}catch(e){return;}if(!fe)return;var last=0;
+function fit(){var h=Math.ceil(document.body.scrollHeight)+8;if(Math.abs(h-last)>2){last=h;fe.style.height=h+"px";}}
+if(window.ResizeObserver)new ResizeObserver(fit).observe(document.body);
+window.addEventListener("load",fit);document.addEventListener("input",function(){setTimeout(fit,60);},true);
+})();
+</script>
+</body>
+</html>

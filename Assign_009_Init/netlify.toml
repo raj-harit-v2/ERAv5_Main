@@ -1,0 +1,11 @@
+# Netlify reads this file at repo root (not dist/netlify.toml).
+# Site settings → Build → Install command: leave empty OR use:
+#   pip install -r requirements-netlify.txt
+# Do NOT auto-install root requirements.txt (torch not needed for build_dist).
+
+[build]
+  command = "python tests/build_dist.py"
+  publish = "dist"
+
+[build.environment]
+  PYTHON_VERSION = "3.11"

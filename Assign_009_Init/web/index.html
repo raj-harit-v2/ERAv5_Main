@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Session 9 — Loss Functions &amp; Output Heads</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f0f6fc;
+      --panel: #ffffff;
+      --text: #152033;
+      --muted: #65758b;
+      --accent: #0891b2;
+      --border: #d9e2ef;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, "Segoe UI", system-ui, sans-serif;
+      background: linear-gradient(180deg, var(--bg), #e8f0fa);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    main { max-width: 56rem; margin: 0 auto; padding: 1.5rem 0.5rem 2.5rem; }
+    h1 { font-size: 1.75rem; margin: 0 0 0.5rem; }
+    .lede { color: var(--muted); margin: 0 0 2rem; font-size: 0.95rem; }
+    .cards { display: grid; gap: 1rem; }
+    a.card {
+      display: block;
+      padding: 1.25rem 1.35rem;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: inherit;
+      text-decoration: none;
+      transition: border-color 0.15s;
+      box-shadow: 0 8px 24px rgba(20, 42, 75, 0.06);
+    }
+    a.card:hover { border-color: var(--accent); }
+    a.card.primary { border-color: #7dd3e8; }
+    a.card strong { display: block; font-size: 1.05rem; margin-bottom: 0.35rem; color: var(--accent); }
+    a.card span { color: var(--muted); font-size: 0.92rem; }
+    footer { margin-top: 2rem; font-size: 0.85rem; color: var(--muted); }
+    code { font-size: 0.88em; }
+    #ts { font-family: ui-monospace, Consolas, monospace; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Session 9 — Loss Functions &amp; Output Heads</h1>
+    <p class="lede">
+      Interactive widgets mirroring the Part-1 harness, chunked CE memory story, MTP losses,
+      SwiGLU curriculum figure, and evaluation stats. Built from <code>data/evaluation/*.json</code>
+      and exported NanoLM weights.
+    </p>
+    <p class="lede" id="serve-note" style="background:#ecfeff;border:1px solid #a5f3fc;border-radius:8px;padding:10px 12px;">
+      <strong>Do not double-click HTML.</strong> Widgets load JSON via HTTP. From project root run:
+      <code>python -m src.pipeline.serve_dist</code> then open
+      <a href="http://127.0.0.1:8765/">http://127.0.0.1:8765/</a>
+    </p>
+    <p class="lede">Last artifact run: <span id="ts">(loading…)</span></p>
+
+    <div class="cards">
+      <a class="card primary" href="widgets/s9_widget_0_loss_flow.html">
+        <strong>Widget 0 — Loss pipeline (live)</strong>
+        <span>User sentence → tokenize → forward → shift → masked CE → PPL. S8-style dynamic SVG.</span>
+      </a>
+      <a class="card" href="widgets/s9_widget_1_chunk_ce.html">
+        <strong>Widget 1 — Chunked CE memory</strong>
+        <span>Chunk-size slider, peak MiB estimate, harness ratio, chunk frontier plot.</span>
+      </a>
+      <a class="card" href="widgets/s9_widget_2_swiglu.html">
+        <strong>Widget 2 — SwiGLU compare</strong>
+        <span>Curriculum reference SVG vs generated PNG; W₁/V/W₂ naming map.</span>
+      </a>
+      <a class="card" href="widgets/s9_widget_3_mtp.html">
+        <strong>Widget 3 — MTP dual heads</strong>
+        <span>L1 (t+1) vs L2 (t+2) training curve from part2_losses.json.</span>
+      </a>
+      <a class="card" href="widgets/s9_widget_4_stats_board.html">
+        <strong>Widget 4 — Stats board</strong>
+        <span>Seven Part-1 numbers, diagnostics ledger, VRAM/chunk plots + SwiGLU SVG preview.</span>
+      </a>
+    </div>
+
+    <footer>
+      <p>Build: <code>python -m src.pipeline.run_all</code></p>
+      <p>View: <code>python -m src.pipeline.serve_dist</code> → <code>http://127.0.0.1:8765/</code></p>
+    </footer>
+  </main>
+  <script src="widgets/s9_boot.js"></script>
+  <script>
+    if (window.S9Boot) S9Boot.showFileWarning("serve-note");
+    fetch("data/seven_numbers.json").then(function (r) { return r.json(); }).then(function (d) {
+      document.getElementById("ts").textContent = "ppl0=" + d.ppl0.toFixed(2) + ", device=" + d.device;
+    }).catch(function () {
+      document.getElementById("ts").textContent = "run: python -m src.pipeline.run_all && python tests/build_dist.py";
+    });
+  </script>
+</body>
+</html>
