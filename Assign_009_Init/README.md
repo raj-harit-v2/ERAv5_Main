@@ -119,6 +119,9 @@ Toy contrast (same `x = [0.60, −0.40]`, D=2) — intermediate before W₂:
 
 **Takeaway:** full CE scales with T; chunked CE flattens peak VRAM so 64K+ context is feasible. SwiGLU figure is architecture context.
 
+<img width="1800" height="1050" alt="SwiGLU Interactive" src="https://github.com/user-attachments/assets/e824b6ad-87e3-45b6-bc4e-38558c67cea1" />
+
+
 ---
 
 ## Execution Guide & Ablation Suite
