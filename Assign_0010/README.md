@@ -134,6 +134,11 @@ python tests/assgn010_training_loop_lab.py
 | Accumulation gap | [`reports/assgn010_accumulation_bug.png`](reports/assgn010_accumulation_bug.png) | 2.6000 vs 3.0000 (~15.38%) |
 | Grad norm vs loss | [`reports/assgn010_gradnorm_vs_loss.png`](reports/assgn010_gradnorm_vs_loss.png) | Norm can lead loss (flagged step **15**) |
 
+<img width="1036" height="673" alt="assgn010_accumulation_bug" src="https://github.com/user-attachments/assets/3f6e3ba8-7f71-4559-bb14-e40122263a6b" />
+
+<img width="1483" height="731" alt="assgn010_gradnorm_vs_loss" src="https://github.com/user-attachments/assets/4fb2cc8f-0658-41b0-9959-9a0a70f2d70d" />
+
+
 ### Gradient verification
 
 | Metric | Value |
