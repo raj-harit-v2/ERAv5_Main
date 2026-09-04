@@ -1,0 +1,76 @@
+{
+  "task1_shapes": {
+    "path": "reports/assgn010_tensor_shapes.log",
+    "n_lines": 17,
+    "ok": true
+  },
+  "task2_gradient": {
+    "path": "reports/assgn010_gradient_check.txt",
+    "analytical": 64.0,
+    "numerical": 64.00000000805761,
+    "diff": 8.057611466938397e-09,
+    "passed": true
+  },
+  "task3_accumulation": {
+    "path": "reports/assgn010_accumulation_bug.png",
+    "correct": 2.5999999046325684,
+    "buggy": 3.0,
+    "discrepancy_pct": 15.38461961689801,
+    "ok": true
+  },
+  "task4_grad_norm": {
+    "csv_path": "reports/assgn010_step_metrics.csv",
+    "png_path": "reports/assgn010_gradnorm_vs_loss.png",
+    "n_rows": 120,
+    "flagged_step": 15,
+    "ok": true
+  },
+  "task5_mfu": {
+    "path": "reports/assgn010_mfu_report.md",
+    "device": "cpu",
+    "gpu_name": "CPU",
+    "n_params": 478720,
+    "tokens_per_sec": 11380.18995780861,
+    "achieved_tflops": 0.032687547219612825,
+    "peak_tflops": 0.5,
+    "peak_source": "Conservative CPU estimate (0.5 TFLOP/s)",
+    "mfu_pct": 6.537509443922565,
+    "target_pct": 40.0,
+    "industry_band": "35-50%",
+    "gap_to_target": 33.462490556077434,
+    "ok": true
+  },
+  "task6_precision": {
+    "path": "reports/assgn010_precision_bits.md",
+    "bf16_bits_01": "0 01111011 1001100",
+    "bf16_stored_01": 0.099609375,
+    "bf16_error_pct": -0.39062500000000555,
+    "fp8_bits_01": "0 0011 101"
+  },
+  "task6_fp_tables": {
+    "path": "reports/assgn010_fp_format_table.md",
+    "mbs_oas_path": "reports/assgn010_mbs_oas_table.md",
+    "ascii_table1": "+-------------------+------------------------------+-----------------+-------------+-------------------+\n| Format Name       | Bit Layout                   | Quantized Value | Abs Error % | Simulation Case   |\n+-------------------+------------------------------+-----------------+-------------+-------------------+\n| fp32              | 1+8+23                       | 0.1             | 0.0000      | Normal            |\n| fp16              | 1+5+10                       | 0.099975586     | 0.0244      | Normal            |\n| bf16              | 1+8+7                        | 0.099609375     | 0.3906      | Normal            |\n| fp8 E4M3          | 1+4+3                        | 0.1015625       | 1.5625      | Normal            |\n| fp8 E5M2          | 1+5+2                        | 0.09375         | 6.2500      | Normal            |\n| fp4 E2M1          | 1+2+1                        | 0               | 100.0000    | Underflow to zero |\n| Custom            | 1+6+9                        | 0.099975586     | 0.0244      | Normal            |\n| int8              | 8b + shared scale max/127    | 0.11811024      | 18.1102     | Clamped/Scaled    |\n| MXFP4             | 32-el E2M1 + E8M0            | 0               | 100.0000    | Underflow to zero |\n| NVFP4             | 16-el E2M1 + E4M3            | 0               | 100.0000    | Underflow to zero |\n| MXFP4 + MBS       | 128-el MBS + 32-el E2M1/E8M0 | 0.096191406     | 3.8086      | Rescued!          |\n| MXFP4 + MBS + OAS | MBS + 16-el OAS              | 0.096191406     | 3.8086      | Rescued!          |\n+-------------------+------------------------------+-----------------+-------------+-------------------+",
+    "ascii_table2": "+---------------------+------------------+----------+-------------------+\n| Quantization Method | Reads Back (0.1) | Error %  | Status            |\n+---------------------+------------------+----------+-------------------+\n| fp32 (Reference)    | 0.1              | 0.0000   | Normal            |\n| Standard MXFP4      | 0                | 100.0000 | Underflow to zero |\n| MXFP4 + MBS         | 0.096191406      | 3.8086   | Rescued!          |\n| MXFP4 + MBS + OAS   | 0.096191406      | 3.8086   | Rescued!          |\n+---------------------+------------------+----------+-------------------+",
+    "format_names": [
+      "fp32",
+      "fp16",
+      "bf16",
+      "fp8 E4M3",
+      "fp8 E5M2",
+      "fp4 E2M1",
+      "Custom",
+      "int8",
+      "MXFP4",
+      "NVFP4",
+      "MXFP4 + MBS",
+      "MXFP4 + MBS + OAS"
+    ],
+    "mxfp4_underflow": true,
+    "mbs_reads_back": 0.09619140625,
+    "oas_reads_back": 0.09619140625,
+    "oas_status": "Rescued!",
+    "ok": true
+  },
+  "summary_path": "reports/Assgn010_Summary.md"
+}

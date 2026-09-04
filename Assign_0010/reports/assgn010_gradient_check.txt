@@ -1,0 +1,13 @@
+--- Analytical Backpropagation (PyTorch) ---
+Loss: 16.0000
+y: 24.0000
+Analytical gradient dL/dw1: 64.00000000
+
+--- Numerical Gradient (Manual Nudge) ---
+Nudge size (central diff): 1e-06
+Loss at w1+eps: 16.000064
+Loss at w1-eps: 15.999936
+Numerical gradient dL/dw1: 64.00000001
+
+Absolute difference: 0.00000001
+RESULT: PASS (tolerance 1e-4)

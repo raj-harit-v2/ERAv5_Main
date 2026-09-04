@@ -1,0 +1,23 @@
+# Tensor shape log — Session 10 Assignment Task 1
+# Dimension legend:
+#   B = batch size (number of sequences)
+#   T = time / sequence length (context tokens)
+#   D / C = model hidden dimension (n_embd)
+#   V = vocabulary size (logits last dim)
+token_emb: shape=(2, 128, 128) | B=2 T=128 D=128
+pos_emb: shape=(2, 128, 128) | B=2 T=128 D=128
+blocks.0.ln1: shape=(2, 128, 128) | B=2 T=128 D=128
+blocks.0.attn: shape=(2, 128, 128) | B=2 T=128 D=128
+blocks.0.ln2: shape=(2, 128, 128) | B=2 T=128 D=128
+blocks.0.mlp.0: shape=(2, 128, 512) | B=2 T=128 D=512
+blocks.0.mlp.2: shape=(2, 128, 128) | B=2 T=128 D=128
+blocks.0: shape=(2, 128, 128) | B=2 T=128 D=128
+blocks.1.ln1: shape=(2, 128, 128) | B=2 T=128 D=128
+blocks.1.attn: shape=(2, 128, 128) | B=2 T=128 D=128
+blocks.1.ln2: shape=(2, 128, 128) | B=2 T=128 D=128
+blocks.1.mlp.0: shape=(2, 128, 512) | B=2 T=128 D=512
+blocks.1.mlp.2: shape=(2, 128, 128) | B=2 T=128 D=128
+blocks.1: shape=(2, 128, 128) | B=2 T=128 D=128
+ln_f: shape=(2, 128, 128) | B=2 T=128 D=128
+lm_head: shape=(2, 128, 256) | B=2 T=128 D=256
+lm_head_output: shape=(2, 128, 256) | B=2 T=128 V=256

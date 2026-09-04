@@ -1,0 +1,22 @@
+# Local / ephemeral
+.venv/
+.env
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+*.egg-info/
+dist/
+build/
+reports_v0/
+
+# IDE / OS
+.cursor/
+.obsidian/
+*.canvas
+Untitled*
+.DS_Store
+Thumbs.db
+
+
