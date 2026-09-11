@@ -1,0 +1,35 @@
+Assgn011 Adam hand vs torch.optim.Adam
+tolerance: 1e-06
+max_abs_err: 1.110e-16
+result: PASS
+
+t=1 m: hand=0.0500000000 torch=0.0500000000 abs_err=0.000e+00 PASS
+t=1 v: hand=0.0002500000 torch=0.0002500000 abs_err=0.000e+00 PASS
+t=1 m_hat: hand=0.5000000000 torch=0.5000000000 abs_err=0.000e+00 PASS
+t=1 v_hat: hand=0.2500000000 torch=0.2500000000 abs_err=0.000e+00 PASS
+t=1 step: hand=0.0010000000 torch=0.0010000000 abs_err=0.000e+00 PASS
+t=1 w: hand=0.9990000000 torch=0.9990000000 abs_err=0.000e+00 PASS
+t=2 m: hand=0.0850000000 torch=0.0850000000 abs_err=1.388e-17 PASS
+t=2 v: hand=0.0004097500 torch=0.0004097500 abs_err=0.000e+00 PASS
+t=2 m_hat: hand=0.4473684211 torch=0.4473684211 abs_err=5.551e-17 PASS
+t=2 v_hat: hand=0.2049774887 torch=0.2049774887 abs_err=0.000e+00 PASS
+t=2 step: hand=0.0009881258 torch=0.0009881258 abs_err=2.168e-19 PASS
+t=2 w: hand=0.9980118742 torch=0.9980118742 abs_err=0.000e+00 PASS
+t=3 m: hand=0.1365000000 torch=0.1365000000 abs_err=2.776e-17 PASS
+t=3 v: hand=0.0007693403 torch=0.0007693403 abs_err=0.000e+00 PASS
+t=3 m_hat: hand=0.5036900369 torch=0.5036900369 abs_err=1.110e-16 PASS
+t=3 v_hat: hand=0.2567033678 torch=0.2567033678 abs_err=0.000e+00 PASS
+t=3 step: hand=0.0009941400 torch=0.0009941400 abs_err=2.168e-19 PASS
+t=3 w: hand=0.9970177342 torch=0.9970177342 abs_err=0.000e+00 PASS
+t=4 m: hand=0.1678500000 torch=0.1678500000 abs_err=2.776e-17 PASS
+t=4 v: hand=0.0009710709 torch=0.0009710709 abs_err=0.000e+00 PASS
+t=4 m_hat: hand=0.4880779296 torch=0.4880779296 abs_err=1.110e-16 PASS
+t=4 v_hat: hand=0.2431321826 torch=0.2431321826 abs_err=0.000e+00 PASS
+t=4 step: hand=0.0009898467 torch=0.0009898467 abs_err=2.168e-19 PASS
+t=4 w: hand=0.9960278875 torch=0.9960278875 abs_err=0.000e+00 PASS
+t=5 m: hand=0.2060650000 torch=0.2060650000 abs_err=2.776e-17 PASS
+t=5 v: hand=0.0012725998 torch=0.0012725998 abs_err=0.000e+00 PASS
+t=5 m_hat: hand=0.5031989451 torch=0.5031989451 abs_err=0.000e+00 PASS
+t=5 v_hat: hand=0.2550295170 torch=0.2550295170 abs_err=0.000e+00 PASS
+t=5 step: hand=0.0009964247 torch=0.0009964247 abs_err=0.000e+00 PASS
+t=5 w: hand=0.9950314628 torch=0.9950314628 abs_err=0.000e+00 PASS

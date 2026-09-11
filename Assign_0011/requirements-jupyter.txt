@@ -1,0 +1,5 @@
+# Local Jupyter only (do NOT install on Google Colab — conflicts with Colab's pins)
+-r requirements.txt
+notebook>=7.0.0
+ipykernel>=6.25.0
+jupyter>=1.0.0

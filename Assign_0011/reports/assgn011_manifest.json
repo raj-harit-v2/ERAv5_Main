@@ -1,0 +1,77 @@
+{
+  "task1_adam_hand": {
+    "ok": true,
+    "max_abs_err": 1.1102230246251565e-16,
+    "n_steps": 5,
+    "final_w": 0.9950314627872701,
+    "table_path": "reports/assgn011_adam_hand_table.md",
+    "check_path": "reports/assgn011_adam_hand_check.txt",
+    "hand_rows": [
+      "AdamStepRecord(t=1, g=0.5, m=0.04999999999999999, v=0.0002500000000000002, m_hat=0.5, v_hat=0.25, step=0.0009999999800000003, w=0.99900000002)",
+      "AdamStepRecord(t=2, g=0.4, m=0.08499999999999999, v=0.0004097500000000004, m_hat=0.44736842105263164, v_hat=0.20497748874437516, step=0.0009881257822978214, w=0.9980118742377022)",
+      "AdamStepRecord(t=3, g=0.6, m=0.13649999999999998, v=0.0007693402500000006, m_hat=0.5036900369003691, v_hat=0.256703367800011, step=0.0009941400467038547, w=0.9970177341909984)",
+      "AdamStepRecord(t=4, g=0.45, m=0.16784999999999997, v=0.0009710709097500008, m_hat=0.48807792963070656, v_hat=0.243132182640063, step=0.0009898466931330028, w=0.9960278874978654)",
+      "AdamStepRecord(t=5, g=0.55, m=0.20606499999999997, v=0.001272599838840251, m_hat=0.5031989450807062, v_hat=0.2550295169979913, step=0.0009964247105953082, w=0.9950314627872701)"
+    ]
+  },
+  "task2_bias": {
+    "ok": true,
+    "measured_ratio_t1": 3.1622757234151555,
+    "theory_ratio_t1": 3.1622776601683773,
+    "crossover_t": null,
+    "png_path": "reports/assgn011_bias_correction_20.png",
+    "report_path": "reports/assgn011_bias_correction_report.md"
+  },
+  "task3_ratio": {
+    "ok": true,
+    "t_star": 50,
+    "warmup_steps": 50,
+    "n_rows": 8700,
+    "late_median_ratio": 0.00767094230486686,
+    "csv_path": "reports/assgn011_update_weight_ratio.csv",
+    "png_path": "reports/assgn011_update_weight_ratio.png",
+    "report_path": "reports/assgn011_warmup_end.md"
+  },
+  "task4_schedules": {
+    "ok": true,
+    "cosine_loss_200": 5.558470726013184,
+    "wsd_loss_200": 5.561608791351318,
+    "cosine_loss_300": 5.554020404815674,
+    "wsd_loss_300": 5.556404113769531,
+    "keep": "WSD",
+    "png_path": "reports/assgn011_cosine_vs_wsd.png",
+    "report_path": "reports/assgn011_schedule_compare.md"
+  },
+  "task5_lr_sweep": {
+    "ok": true,
+    "etas": [
+      0.00010000000000000009,
+      0.0001930697728883253,
+      0.0003727593720314941,
+      0.0007196856730011526,
+      0.0013894954943731383,
+      0.0026826957952797263,
+      0.005179474679231215,
+      0.010000000000000004
+    ],
+    "minima": {
+      "256": {
+        "eta": 0.00010000000000000009,
+        "loss": 5.0044814348220825
+      },
+      "512": {
+        "eta": 0.0007196856730011526,
+        "loss": 4.936011254787445
+      },
+      "1024": {
+        "eta": 0.0007196856730011526,
+        "loss": 2.013629324734211
+      }
+    },
+    "eta_4096_sp": 0.00017992141825028815,
+    "png_path": "reports/assgn011_lr_width_sweep.png",
+    "report_path": "reports/assgn011_lr_sweep_table.md",
+    "n_steps": 40
+  },
+  "summary_path": "reports/Assgn011_Summary.md"
+}
