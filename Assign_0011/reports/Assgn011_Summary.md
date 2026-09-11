@@ -27,10 +27,12 @@ Inherited from Session 10: when scaling context length, keep **global batch toke
 
 ## 7. Gate snapshot
 
-| Task | OK |
-| :--- | :---: |
-| 1 Hand Adam | True |
-| 2 Bias plot | True |
-| 3 Ratio / warmup | True |
-| 4 Cosine vs WSD | True |
-| 5 LR sweep | True |
+Each row is the comparison behind that task's `ok`. `all_ok` is the AND of these flags plus both PRIMARY PNGs (bias ablation + LR width sweep) non-empty.
+
+| Task | Measured | Other side | Criterion | OK |
+| :--- | :--- | :--- | :--- | :---: |
+| 1 Hand Adam | 1.110e-16 | tol=1e-6 | max_abs_err < tol | True |
+| 2 Bias plot | 3.162276 | 3.162278 | abs(measured - theory) < 1e-2 + PRIMARY PNG | True |
+| 3 Ratio / warmup | T*=50 | W=50 | T* not None + CSV/PNG | True |
+| 4 Cosine vs WSD | 5.558471 | 5.561609; keep=WSD | both Loss@200 present + PNG | True |
+| 5 LR sweep | 0.000719686 | 0.000179921; conf=LOW | 3 minima + PRIMARY PNG; SP eta_4096 = eta_1024/4 | True |

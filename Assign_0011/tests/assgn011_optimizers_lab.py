@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from src.pipeline.optimizers_lab import run_all
+from src.pipeline.optimizers_lab import format_gate_print, run_all
 
 
 def main() -> int:
@@ -45,6 +45,11 @@ def main() -> int:
             or ""
         )
         print(f"  {key}: {'PASS' if status else 'FAIL'} — {path}")
+
+    print("\n--- Gate operands ---")
+    print(f"all_ok: {results.get('all_ok')}")
+    for line in format_gate_print(results):
+        print(line)
 
     print(f"\nSummary: {results.get('summary_path')}")
     print(f"Manifest: {results.get('manifest_path')}")

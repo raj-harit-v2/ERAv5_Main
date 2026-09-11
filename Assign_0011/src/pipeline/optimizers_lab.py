@@ -83,12 +83,124 @@ def _verification_gate(results: dict[str, Any], root: Path) -> bool:
     return all(bool(c) for c in checks) and plots_ok
 
 
-def _write_summary(path: Path, results: dict[str, Any]) -> None:
+def _fmt_sci_tol(tol: float) -> str:
+    """Format small tolerances as 1e-6 rather than 1e-06."""
+    return f"{tol:.0e}".replace("e-0", "e-").replace("e+0", "e+")
+
+
+def _gate_operands(results: dict[str, Any]) -> list[dict[str, Any]]:
+    """Measured vs other-side operands for each task gate row."""
     t1 = results["task1_adam_hand"]
     t2 = results["task2_bias"]
     t3 = results["task3_ratio"]
     t4 = results["task4_schedules"]
     t5 = results["task5_lr_sweep"]
+
+    max_err = t1.get("max_abs_err")
+    tol = t1.get("tol", 1e-6)
+    measured = t2.get("measured_ratio_t1")
+    theory = t2.get("theory_ratio_t1")
+    t_star = t3.get("t_star")
+    warmup = t3.get("warmup_steps")
+    c200 = t4.get("cosine_loss_200")
+    w200 = t4.get("wsd_loss_200")
+    keep = t4.get("keep")
+    minima = t5.get("minima") or {}
+    eta_1024 = None
+    if isinstance(minima, dict):
+        m1024 = minima.get(1024) or minima.get("1024")
+        if isinstance(m1024, dict):
+            eta_1024 = m1024.get("eta")
+    eta_4096 = t5.get("eta_4096_sp")
+    tol_s = _fmt_sci_tol(float(tol)) if tol is not None else "n/a"
+
+    return [
+        {
+            "key": "task1_adam_hand",
+            "label": "1 Hand Adam",
+            "ok": t1.get("ok"),
+            "measured": f"{max_err:.3e}" if max_err is not None else "n/a",
+            "other": f"tol={tol_s}",
+            "criterion": "max_abs_err < tol",
+            "print_extra": (
+                f"max_abs_err={max_err:.3e}  vs  tol={tol_s}"
+                if max_err is not None
+                else f"max_abs_err=n/a  vs  tol={tol_s}"
+            ),
+        },
+        {
+            "key": "task2_bias",
+            "label": "2 Bias plot",
+            "ok": t2.get("ok"),
+            "measured": f"{measured:.6f}" if measured is not None else "n/a",
+            "other": f"{theory:.6f}" if theory is not None else "n/a",
+            "criterion": "abs(measured - theory) < 1e-2 + PRIMARY PNG",
+            "print_extra": (
+                f"measured={measured:.6f}  vs  theory={theory:.6f}"
+                if measured is not None and theory is not None
+                else "measured=n/a  vs  theory=n/a"
+            ),
+        },
+        {
+            "key": "task3_ratio",
+            "label": "3 Ratio / warmup",
+            "ok": t3.get("ok"),
+            "measured": f"T*={t_star}" if t_star is not None else "T*=None",
+            "other": f"W={warmup}" if warmup is not None else "W=n/a",
+            "criterion": "T* not None + CSV/PNG",
+            "print_extra": f"T*={t_star}  vs  W={warmup}",
+        },
+        {
+            "key": "task4_schedules",
+            "label": "4 Cosine vs WSD",
+            "ok": t4.get("ok"),
+            "measured": f"{c200:.6f}" if c200 is not None else "n/a",
+            "other": (
+                f"{w200:.6f}; keep={keep}"
+                if w200 is not None
+                else f"n/a; keep={keep}"
+            ),
+            "criterion": "both Loss@200 present + PNG",
+            "print_extra": (
+                f"cosine@200={c200:.6f}  vs  WSD@200={w200:.6f}  keep={keep}"
+                if c200 is not None and w200 is not None
+                else f"cosine@200={c200}  vs  WSD@200={w200}  keep={keep}"
+            ),
+        },
+        {
+            "key": "task5_lr_sweep",
+            "label": "5 LR sweep",
+            "ok": t5.get("ok"),
+            "measured": f"{eta_1024:.6g}" if eta_1024 is not None else "n/a",
+            "other": (
+                f"{eta_4096:.6g}; conf=LOW"
+                if eta_4096 is not None
+                else "n/a; conf=LOW"
+            ),
+            "criterion": "3 minima + PRIMARY PNG; SP eta_4096 = eta_1024/4",
+            "print_extra": (
+                f"eta_1024={eta_1024:.6g}  vs  eta_4096_sp={eta_4096:.6g}  conf=LOW"
+                if eta_1024 is not None and eta_4096 is not None
+                else f"eta_1024={eta_1024}  vs  eta_4096_sp={eta_4096}  conf=LOW"
+            ),
+        },
+    ]
+
+
+def format_gate_print(results: dict[str, Any]) -> list[str]:
+    """Colab/CLI lines: task key -> ok plus both-side operands."""
+    lines: list[str] = []
+    for row in _gate_operands(results):
+        ok = bool(row["ok"])
+        lines.append(f"{row['key']} -> {ok}  {row['print_extra']}")
+    return lines
+
+
+def _write_summary(path: Path, results: dict[str, Any]) -> None:
+    t2 = results["task2_bias"]
+    t4 = results["task4_schedules"]
+    t5 = results["task5_lr_sweep"]
+    gate_rows = _gate_operands(results)
 
     lines = [
         "# Assgn011 Summary — Session 11 Optimizers and Schedules",
@@ -128,13 +240,16 @@ def _write_summary(path: Path, results: dict[str, Any]) -> None:
         "",
         "## 7. Gate snapshot",
         "",
-        "| Task | OK |",
-        "| :--- | :---: |",
-        f"| 1 Hand Adam | {t1.get('ok')} |",
-        f"| 2 Bias plot | {t2.get('ok')} |",
-        f"| 3 Ratio / warmup | {t3.get('ok')} |",
-        f"| 4 Cosine vs WSD | {t4.get('ok')} |",
-        f"| 5 LR sweep | {t5.get('ok')} |",
+        "Each row is the comparison behind that task's `ok`. `all_ok` is the AND of these flags "
+        "plus both PRIMARY PNGs (bias ablation + LR width sweep) non-empty.",
         "",
+        "| Task | Measured | Other side | Criterion | OK |",
+        "| :--- | :--- | :--- | :--- | :---: |",
     ]
+    for row in gate_rows:
+        lines.append(
+            f"| {row['label']} | {row['measured']} | {row['other']} | "
+            f"{row['criterion']} | {row['ok']} |"
+        )
+    lines.append("")
     path.write_text("\n".join(lines), encoding="utf-8")

@@ -148,13 +148,15 @@ A PASS lab writes **13** artifacts under `reports/` (9 text/csv/json + 4 PNGs). 
 
 ### Gate snapshot
 
-| Task | OK |
-| :--- | :---: |
-| 1 Hand Adam | True |
-| 2 Bias plot | True |
-| 3 Ratio / warmup | True |
-| 4 Cosine vs WSD | True |
-| 5 LR sweep | True |
+Each row is the comparison behind that task's `ok`. `all_ok` is the AND of these flags plus both PRIMARY PNGs (bias ablation + LR width sweep) non-empty.
+
+| Task | Measured | Other side | Criterion | OK |
+| :--- | :--- | :--- | :--- | :---: |
+| 1 Hand Adam | 1.110e-16 | tol=1e-6 | max_abs_err < tol | True |
+| 2 Bias plot | 3.162276 | 3.162278 | abs(measured - theory) < 1e-2 + PRIMARY PNG | True |
+| 3 Ratio / warmup | T*=50 | W=50 | T* not None + CSV/PNG | True |
+| 4 Cosine vs WSD | 5.558471 | 5.561609; keep=WSD | both Loss@200 present + PNG | True |
+| 5 LR sweep | 0.000719686 | 0.000179921; conf=LOW | 3 minima + PRIMARY PNG; SP eta_4096 = eta_1024/4 | True |
 
 ### Primary plots (what each PNG shows)
 
@@ -175,11 +177,11 @@ A successful Colab lab cell prints:
 
 ```text
 all_ok: True
-task1_adam_hand -> True
-task2_bias -> True
-task3_ratio -> True
-task4_schedules -> True
-task5_lr_sweep -> True
+task1_adam_hand -> True  max_abs_err=1.110e-16  vs  tol=1e-6
+task2_bias -> True  measured=3.162276  vs  theory=3.162278
+task3_ratio -> True  T*=50  vs  W=50
+task4_schedules -> True  cosine@200=5.558471  vs  WSD@200=5.561609  keep=WSD
+task5_lr_sweep -> True  eta_1024=0.000719686  vs  eta_4096_sp=0.000179921  conf=LOW
 ```
 
 Same numeric conclusions as local `reports/`: Adam hand PASS (sub-`1e-15` abs err), bias t=1 ≈ 3.162, keep **WSD** with the Loss@200 pair above, SP `eta_4096 ≈ 0.000180` with confidence **LOW**, and the full **13-file** `reports/` set including both PRIMARY PNGs. Twin local gate:

@@ -78,6 +78,59 @@ def test_verification_gate(lab_results):
     assert (REPORTS / "assgn011_manifest.json").is_file()
 
 
+def test_format_gate_print_both_sides():
+    """Stub-dict check: gate print and summary show measured vs other side (no run_all)."""
+    if str(ROOT) not in __import__("sys").path:
+        __import__("sys").path.insert(0, str(ROOT))
+    from src.pipeline.optimizers_lab import _write_summary, format_gate_print
+
+    stub = {
+        "task1_adam_hand": {"ok": True, "max_abs_err": 1.1102230246251565e-16, "tol": 1e-6},
+        "task2_bias": {
+            "ok": True,
+            "measured_ratio_t1": 3.1622757234151555,
+            "theory_ratio_t1": 3.1622776601683773,
+            "png_path": "reports/assgn011_bias_correction_20.png",
+        },
+        "task3_ratio": {"ok": True, "t_star": 50, "warmup_steps": 50},
+        "task4_schedules": {
+            "ok": True,
+            "cosine_loss_200": 5.558470726013184,
+            "wsd_loss_200": 5.561608791351318,
+            "keep": "WSD",
+        },
+        "task5_lr_sweep": {
+            "ok": True,
+            "minima": {1024: {"eta": 0.0007196856730011526, "loss": 2.0}},
+            "eta_4096_sp": 0.00017992141825028815,
+            "png_path": "reports/assgn011_lr_width_sweep.png",
+        },
+    }
+
+    lines = format_gate_print(stub)
+    assert len(lines) == 5
+    joined = "\n".join(lines)
+    assert "task1_adam_hand -> True  max_abs_err=1.110e-16  vs  tol=1e-6" in joined
+    assert "measured=3.162276  vs  theory=3.162278" in joined
+    assert "T*=50  vs  W=50" in joined
+    assert "cosine@200=5.558471  vs  WSD@200=5.561609  keep=WSD" in joined
+    assert "eta_1024=0.000719686  vs  eta_4096_sp=0.000179921  conf=LOW" in joined
+
+    out = ROOT / "reports" / "_gate_format_unit_test.md"
+    try:
+        _write_summary(out, stub)
+        text = out.read_text(encoding="utf-8")
+    finally:
+        if out.is_file():
+            out.unlink()
+
+    assert "| Task | Measured | Other side | Criterion | OK |" in text
+    assert "max_abs_err < tol" in text
+    assert "T*=50" in text
+    assert "keep=WSD" in text
+    assert "eta_4096" in text or "0.000179921" in text
+
+
 def test_mini_gpt_forward():
     from src.llm.mini_gpt import MiniGPT, MiniGPTConfig
 

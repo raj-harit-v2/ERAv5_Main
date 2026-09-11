@@ -195,6 +195,7 @@ def write_adam_hand_artifacts(reports: Path) -> dict[str, Any]:
     return {
         "ok": cmp["ok"],
         "max_abs_err": cmp["max_abs_err"],
+        "tol": cmp["tol"],
         "n_steps": len(hand),
         "final_w": hand[-1].w if hand else None,
         "table_path": str(table_path),
