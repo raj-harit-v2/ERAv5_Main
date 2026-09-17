@@ -1,0 +1,18 @@
+# Local / cache
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+.ipynb_checkpoints/
+*.egg-info/
+dist/
+build/
+
+# IDE / vault (optional local)
+.obsidian/
+
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store

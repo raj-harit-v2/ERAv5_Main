@@ -1,0 +1,9 @@
+hostname=DESKTOP-QFRU5OI
+rank=0
+world_size=1
+backend=none
+is_distributed=False
+smoke_all_reduce_sum=1.0
+smoke_ok=True
+overlay_world_size=32
+note=Analytic overlay always uses W=32 even if process group is smaller.

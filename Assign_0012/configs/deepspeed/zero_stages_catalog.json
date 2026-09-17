@@ -1,0 +1,45 @@
+{
+  "description": "Catalog of DeepSpeed-style ZeRO example configs for Assign_0012. Overlay expectations at N=30e9, W=32 (FULL §6–§7). JSON selects stage only; GiB is computed by lab formulas.",
+  "n_params": 30000000000,
+  "world_size": 32,
+  "card_gib": 74.5,
+  "configs": [
+    {
+      "stage": 1,
+      "name": "ZeRO-1",
+      "path": "configs/deepspeed/ds_zero1.json",
+      "expected": {
+        "bytes_per_param": 4.375,
+        "gib_per_gpu": 122.2,
+        "comm": "2P",
+        "fit": "NEVER_FIT"
+      }
+    },
+    {
+      "stage": 2,
+      "name": "ZeRO-2",
+      "path": "configs/deepspeed/ds_zero2.json",
+      "expected": {
+        "bytes_per_param": 2.4375,
+        "gib_per_gpu": 68.1,
+        "comm": "2P",
+        "fit": "FITS"
+      }
+    },
+    {
+      "stage": 3,
+      "name": "ZeRO-3",
+      "path": "configs/deepspeed/ds_zero3.json",
+      "expected": {
+        "bytes_per_param": 0.5,
+        "gib_per_gpu": 14.0,
+        "comm": "3P",
+        "fit": "FITS"
+      }
+    }
+  ],
+  "notes": [
+    "Root GPU_example.json is a ZeRO-3+CPU-offload sketch — not the compare baseline.",
+    "Agreement means config stage maps to accounting row, not DeepSpeed measured VRAM."
+  ]
+}

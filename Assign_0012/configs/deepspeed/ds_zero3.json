@@ -1,0 +1,23 @@
+{
+  "train_micro_batch_size_per_gpu": 2,
+  "gradient_accumulation_steps": 2,
+  "bf16": {
+    "enabled": true
+  },
+  "zero_optimization": {
+    "stage": 3,
+    "overlap_comm": true,
+    "contiguous_gradients": true,
+    "reduce_bucket_size": 2e8,
+    "allgather_bucket_size": 2e8,
+    "reduce_scatter": true,
+    "stage3_prefetch_bucket_size": 2e8,
+    "stage3_param_persistence_threshold": 1e5,
+    "stage3_max_live_parameters": 1e9,
+    "stage3_max_reuse_distance": 1e9,
+    "stage3_gather_16bit_weights_on_model_save": true
+  },
+  "gradient_clipping": 1.0,
+  "wall_clock_breakdown": false,
+  "_comment": "ZeRO-3: shard params+grads+optimizer. GPU-resident (no CPU offload) to match static ladder. Comm 3P."
+}

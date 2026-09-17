@@ -1,0 +1,36 @@
+{
+  "all_ok": true,
+  "task1_smoke": {
+    "ok": true,
+    "smoke_sum": 1.0,
+    "world_size": 1,
+    "backend": "none",
+    "is_distributed": false
+  },
+  "task2_dp": {
+    "ok": true,
+    "n_params": 49920,
+    "max_abs_param_diff_vs_rank0": 0.0,
+    "world_size": 1,
+    "peak_rss_mb": 329.56640625
+  },
+  "task3_zero": {
+    "ok": true,
+    "mismatches": 0,
+    "floor_gib": 111.75870895385742,
+    "w32_gib": "447.0/122.2/68.1/14.0"
+  },
+  "task4_graphics": {
+    "ok": true,
+    "primary_pngs": 3
+  },
+  "card_gib": 74.50580596923828,
+  "n_30b": 30000000000.0,
+  "overlay_world_size": 32,
+  "task_json_compare": {
+    "ok": true,
+    "report_path": "reports/assgn012_zero_json_compare.md",
+    "n_pass": 3,
+    "n_total": 3
+  }
+}
