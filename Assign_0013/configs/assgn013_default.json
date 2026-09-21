@@ -1,0 +1,11 @@
+{
+  "seq_len": 512,
+  "h": 0.25,
+  "lr": 0.0003,
+  "dropout": 0.0,
+  "weight_decay": 0.0,
+  "optimizer": "AdamW",
+  "full_tokens": 50000000,
+  "smoke_tokens": 4096,
+  "note": "B_fixed and B_max are written by the lab into assgn013_batches.json"
+}

@@ -1,0 +1,19 @@
+{
+  "B_fixed": 2,
+  "B_max": 4,
+  "seq_len": 128,
+  "winner": "midpoint",
+  "h": 0.25,
+  "n_params": 20856576,
+  "token_budget": 2048,
+  "smoke": true,
+  "device": "cpu",
+  "gpu_name": "cpu",
+  "B_fixed_note": "cpu_or_mps_no_oom_probe; B_fixed protocol default",
+  "B_max_note": "cpu_or_mps_no_oom_probe; B_max = 2 * B_fixed protocol",
+  "optimizer": "AdamW",
+  "version": "v001_local_cpu_smoke",
+  "usd_per_hour": 0.12,
+  "rate_source": "ASSGN013_USD_PER_HOUR=0.12",
+  "shadow_usd_per_hour": 0.12
+}

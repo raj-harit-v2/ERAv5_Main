@@ -1,0 +1,48 @@
+# Local / cache
+.venv/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+*.pyc
+*.py[cod]
+.ipynb_checkpoints/
+*.egg-info/
+dist/
+build/
+
+# Secrets and local run config (keep .env.example if added later)
+.env
+.env.local
+.env.*
+!.env.example
+
+# Training checkpoints and large shards (reports/ JSON+PNG stay tracked)
+checkpoints/
+**/checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.bin
+*.safetensors
+data/raw/
+data/processed/
+wandb/
+# only ignore a top-level /runs (not reports/**/runs/)
+/runs/
+
+# IDE / vault (optional local)
+.obsidian/
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Colab / Drive download dumps (multi-part zip folders)
+*.zip
+A13_All_Colab_zip/
+*_ALL_Zip/
+v008_colab_t4_full_ALL_Zip/
+
+# Cursor / agent local (not assignment deliverable)
+.cursor/

@@ -1,0 +1,19 @@
+{
+  "B_fixed": 8,
+  "B_max": 16,
+  "seq_len": 512,
+  "winner": "midpoint",
+  "h": 0.25,
+  "n_params": 20856576,
+  "token_budget": 50000000,
+  "smoke": false,
+  "device": "cuda",
+  "gpu_name": "Tesla T4",
+  "B_fixed_note": ".env ASSGN013_B_FIXED",
+  "B_max_note": ".env ASSGN013_B_MAX",
+  "optimizer": "AdamW",
+  "version": "v008_colab_t4_full",
+  "usd_per_hour": 0.12,
+  "rate_source": "ASSGN013_USD_PER_HOUR=0.12",
+  "shadow_usd_per_hour": 0.12
+}

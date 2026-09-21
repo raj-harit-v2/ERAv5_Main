@@ -1,0 +1,75 @@
+{
+  "variant": "standard",
+  "n_params": 20856576,
+  "seq_len": 128,
+  "batch": 2,
+  "tokens_seen": 2048,
+  "steps": 8,
+  "final_loss": 9.072389602661133,
+  "tokens_per_s": 1116.1733739900128,
+  "peak_mem_bytes": 760033280,
+  "gpu_name": "cpu",
+  "host": "local",
+  "wall_s": 1.8348403999989387,
+  "usd": 6.116134666663128e-05,
+  "usd_per_hour": 0.12,
+  "rate_source": "ASSGN013_USD_PER_HOUR=0.12",
+  "usd_shadow": 6.116134666663128e-05,
+  "version": "v001_local_cpu_smoke",
+  "h": 0.25,
+  "dropout": 0.0,
+  "weight_decay": 0.0,
+  "optimizer": "AdamW",
+  "smoke": true,
+  "winner": null,
+  "history": [
+    {
+      "step": 1.0,
+      "tokens_seen": 256.0,
+      "loss": 9.052486419677734,
+      "tokens_per_s": 863.4151441579818
+    },
+    {
+      "step": 2.0,
+      "tokens_seen": 512.0,
+      "loss": 9.08647632598877,
+      "tokens_per_s": 978.7242176598281
+    },
+    {
+      "step": 3.0,
+      "tokens_seen": 768.0,
+      "loss": 9.072582244873047,
+      "tokens_per_s": 1027.0013086021413
+    },
+    {
+      "step": 4.0,
+      "tokens_seen": 1024.0,
+      "loss": 9.033659934997559,
+      "tokens_per_s": 1066.537126837486
+    },
+    {
+      "step": 5.0,
+      "tokens_seen": 1280.0,
+      "loss": 9.076187133789062,
+      "tokens_per_s": 1085.8482667788035
+    },
+    {
+      "step": 6.0,
+      "tokens_seen": 1536.0,
+      "loss": 9.074406623840332,
+      "tokens_per_s": 1100.9346332902699
+    },
+    {
+      "step": 7.0,
+      "tokens_seen": 1792.0,
+      "loss": 9.122940063476562,
+      "tokens_per_s": 1107.4888370400663
+    },
+    {
+      "step": 8.0,
+      "tokens_seen": 2048.0,
+      "loss": 9.072389602661133,
+      "tokens_per_s": 1116.1761722808087
+    }
+  ]
+}

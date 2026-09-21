@@ -1,0 +1,30 @@
+{
+  "n_params": 20856576,
+  "smoke": false,
+  "token_budget": 50000000,
+  "B_fixed": 8,
+  "B_max": 16,
+  "winner": "midpoint",
+  "reversible_dropout": 0.0,
+  "primary_pngs": 3,
+  "all_ok": true,
+  "device": "cuda",
+  "gpu_name": "Tesla T4",
+  "png_paths": {
+    "loss": "/content/drive/MyDrive/Assign_0013/reports/v008_colab_t4_full/assgn013_loss_trajectories.png",
+    "memory": "/content/drive/MyDrive/Assign_0013/reports/v008_colab_t4_full/assgn013_memory_vs_seq_batch.png",
+    "speed": "/content/drive/MyDrive/Assign_0013/reports/v008_colab_t4_full/assgn013_speed_cost_dashboard.png",
+    "manifest": "/content/drive/MyDrive/Assign_0013/reports/v008_colab_t4_full/assgn013_graphics_manifest.md"
+  },
+  "standard_loss": 9.010968208312988,
+  "euler_loss": 9.011260986328125,
+  "midpoint_loss": 9.011147499084473,
+  "max_loss": 9.01140308380127,
+  "host": "colab",
+  "version": "v008_colab_t4_full",
+  "reports_dir": "/content/drive/MyDrive/Assign_0013/reports/v008_colab_t4_full",
+  "reports_root": "/content/drive/MyDrive/Assign_0013/reports",
+  "usd_per_hour": 0.12,
+  "rate_source": "ASSGN013_USD_PER_HOUR=0.12",
+  "shadow_usd_per_hour": 0.12
+}

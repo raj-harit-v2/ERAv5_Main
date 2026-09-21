@@ -1,0 +1,30 @@
+{
+  "n_params": 20856576,
+  "smoke": true,
+  "token_budget": 2048,
+  "B_fixed": 2,
+  "B_max": 4,
+  "winner": "midpoint",
+  "reversible_dropout": 0.0,
+  "primary_pngs": 3,
+  "all_ok": true,
+  "device": "cpu",
+  "gpu_name": "cpu",
+  "png_paths": {
+    "loss": "D:\\A1_School_ai_25\\ERA_V5\\Assign_0013\\reports\\v001_local_cpu_smoke\\assgn013_loss_trajectories.png",
+    "memory": "D:\\A1_School_ai_25\\ERA_V5\\Assign_0013\\reports\\v001_local_cpu_smoke\\assgn013_memory_vs_seq_batch.png",
+    "speed": "D:\\A1_School_ai_25\\ERA_V5\\Assign_0013\\reports\\v001_local_cpu_smoke\\assgn013_speed_cost_dashboard.png",
+    "manifest": "D:\\A1_School_ai_25\\ERA_V5\\Assign_0013\\reports\\v001_local_cpu_smoke\\assgn013_graphics_manifest.md"
+  },
+  "standard_loss": 9.072389602661133,
+  "euler_loss": 9.076136589050293,
+  "midpoint_loss": 9.062539100646973,
+  "max_loss": 9.084590911865234,
+  "host": "local",
+  "version": "v001_local_cpu_smoke",
+  "reports_dir": "D:\\A1_School_ai_25\\ERA_V5\\Assign_0013\\reports\\v001_local_cpu_smoke",
+  "reports_root": "D:\\A1_School_ai_25\\ERA_V5\\Assign_0013\\reports",
+  "usd_per_hour": 0.12,
+  "rate_source": "ASSGN013_USD_PER_HOUR=0.12",
+  "shadow_usd_per_hour": 0.12
+}
