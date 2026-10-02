@@ -1,0 +1,2483 @@
+{
+  "variant": "moe",
+  "n_params": 79869696,
+  "n_active": 26785536,
+  "seq_len": 512,
+  "batch": 8,
+  "tokens_seen": 1003520,
+  "steps": 245,
+  "final_loss": 9.02043628692627,
+  "tokens_per_s": 12701.704400256232,
+  "peak_mem_bytes": 3656337408,
+  "gpu_name": "Tesla T4",
+  "host": "colab",
+  "wall_s": 79.00671975800003,
+  "usd": 0.0026335573252666677,
+  "usd_per_hour": 0.12,
+  "rate_source": "ASSGN014_USD_PER_HOUR=0.12",
+  "usd_shadow": 0.0026335573252666677,
+  "version": "v007_colab_t4_smoke",
+  "dropout": 0.0,
+  "weight_decay": 0.0,
+  "optimizer": "AdamW",
+  "smoke": true,
+  "max_vio": 3.0,
+  "dead_experts": 6.0,
+  "loss_at_convert": 9.025167465209961,
+  "use_ce_aux": false,
+  "router_dtype": "float32",
+  "n_experts": 8,
+  "top_k": 2,
+  "history": [
+    {
+      "step": 1.0,
+      "tokens_seen": 1007616.0,
+      "loss": 9.027923583984375,
+      "tokens_per_s": 12448.342304615024,
+      "max_vio": 0.7822265625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 2.0,
+      "tokens_seen": 1011712.0,
+      "loss": 9.033027648925781,
+      "tokens_per_s": 12721.886246865,
+      "max_vio": 0.7236328125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 3.0,
+      "tokens_seen": 1015808.0,
+      "loss": 9.0350341796875,
+      "tokens_per_s": 12785.095920925572,
+      "max_vio": 0.7939453125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 4.0,
+      "tokens_seen": 1019904.0,
+      "loss": 9.035593032836914,
+      "tokens_per_s": 12861.725480466243,
+      "max_vio": 0.7587890625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 5.0,
+      "tokens_seen": 1024000.0,
+      "loss": 9.036423683166504,
+      "tokens_per_s": 12924.414697086208,
+      "max_vio": 0.80078125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 6.0,
+      "tokens_seen": 1028096.0,
+      "loss": 9.037626266479492,
+      "tokens_per_s": 12919.515619581096,
+      "max_vio": 0.736328125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 7.0,
+      "tokens_seen": 1032192.0,
+      "loss": 9.032098770141602,
+      "tokens_per_s": 12949.042092872003,
+      "max_vio": 0.77734375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 8.0,
+      "tokens_seen": 1036288.0,
+      "loss": 9.026830673217773,
+      "tokens_per_s": 12966.297783382499,
+      "max_vio": 0.73828125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 9.0,
+      "tokens_seen": 1040384.0,
+      "loss": 9.033559799194336,
+      "tokens_per_s": 12961.1523254235,
+      "max_vio": 0.7236328125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 10.0,
+      "tokens_seen": 1044480.0,
+      "loss": 9.028762817382812,
+      "tokens_per_s": 12946.68489604546,
+      "max_vio": 0.8251953125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 11.0,
+      "tokens_seen": 1048576.0,
+      "loss": 9.027204513549805,
+      "tokens_per_s": 12951.459045948954,
+      "max_vio": 0.8603515625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 12.0,
+      "tokens_seen": 1052672.0,
+      "loss": 9.031200408935547,
+      "tokens_per_s": 12962.685634021122,
+      "max_vio": 0.927734375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 13.0,
+      "tokens_seen": 1056768.0,
+      "loss": 9.0331392288208,
+      "tokens_per_s": 12951.71234524934,
+      "max_vio": 0.966796875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 14.0,
+      "tokens_seen": 1060864.0,
+      "loss": 9.035896301269531,
+      "tokens_per_s": 12948.397385770097,
+      "max_vio": 0.951171875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 15.0,
+      "tokens_seen": 1064960.0,
+      "loss": 9.028923034667969,
+      "tokens_per_s": 12951.583951671579,
+      "max_vio": 0.958984375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 16.0,
+      "tokens_seen": 1069056.0,
+      "loss": 9.035944938659668,
+      "tokens_per_s": 12954.943090435958,
+      "max_vio": 1.0341796875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 17.0,
+      "tokens_seen": 1073152.0,
+      "loss": 9.033367156982422,
+      "tokens_per_s": 12959.322571572184,
+      "max_vio": 0.994140625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 18.0,
+      "tokens_seen": 1077248.0,
+      "loss": 9.033458709716797,
+      "tokens_per_s": 12957.97886861633,
+      "max_vio": 1.0283203125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 19.0,
+      "tokens_seen": 1081344.0,
+      "loss": 9.036250114440918,
+      "tokens_per_s": 12962.389649417528,
+      "max_vio": 0.974609375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 20.0,
+      "tokens_seen": 1085440.0,
+      "loss": 9.030472755432129,
+      "tokens_per_s": 12957.791907425948,
+      "max_vio": 1.017578125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 21.0,
+      "tokens_seen": 1089536.0,
+      "loss": 9.032520294189453,
+      "tokens_per_s": 12939.994914664338,
+      "max_vio": 0.9560546875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 22.0,
+      "tokens_seen": 1093632.0,
+      "loss": 9.037278175354004,
+      "tokens_per_s": 12923.81755194114,
+      "max_vio": 0.8193359375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 23.0,
+      "tokens_seen": 1097728.0,
+      "loss": 9.025192260742188,
+      "tokens_per_s": 12912.930955259273,
+      "max_vio": 0.841796875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 24.0,
+      "tokens_seen": 1101824.0,
+      "loss": 9.0300931930542,
+      "tokens_per_s": 12901.36875215005,
+      "max_vio": 0.712890625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 25.0,
+      "tokens_seen": 1105920.0,
+      "loss": 9.029025077819824,
+      "tokens_per_s": 12902.508920554583,
+      "max_vio": 0.7265625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 26.0,
+      "tokens_seen": 1110016.0,
+      "loss": 9.027791976928711,
+      "tokens_per_s": 12900.07078584361,
+      "max_vio": 0.7392578125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 27.0,
+      "tokens_seen": 1114112.0,
+      "loss": 9.028849601745605,
+      "tokens_per_s": 12893.075005499084,
+      "max_vio": 0.7548828125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 28.0,
+      "tokens_seen": 1118208.0,
+      "loss": 9.030499458312988,
+      "tokens_per_s": 12886.032899702544,
+      "max_vio": 0.7861328125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 29.0,
+      "tokens_seen": 1122304.0,
+      "loss": 9.029070854187012,
+      "tokens_per_s": 12877.42314068435,
+      "max_vio": 0.9755859375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 30.0,
+      "tokens_seen": 1126400.0,
+      "loss": 9.029247283935547,
+      "tokens_per_s": 12850.172008127509,
+      "max_vio": 1.01953125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 31.0,
+      "tokens_seen": 1130496.0,
+      "loss": 9.03267765045166,
+      "tokens_per_s": 12848.890048654357,
+      "max_vio": 1.0126953125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 32.0,
+      "tokens_seen": 1134592.0,
+      "loss": 9.027505874633789,
+      "tokens_per_s": 12839.96486838979,
+      "max_vio": 1.1181640625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 33.0,
+      "tokens_seen": 1138688.0,
+      "loss": 9.025121688842773,
+      "tokens_per_s": 12830.459389089152,
+      "max_vio": 1.119140625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 34.0,
+      "tokens_seen": 1142784.0,
+      "loss": 9.027629852294922,
+      "tokens_per_s": 12836.47777283403,
+      "max_vio": 1.107421875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 35.0,
+      "tokens_seen": 1146880.0,
+      "loss": 9.025318145751953,
+      "tokens_per_s": 12838.70166090368,
+      "max_vio": 1.072265625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 36.0,
+      "tokens_seen": 1150976.0,
+      "loss": 9.02888298034668,
+      "tokens_per_s": 12843.027430688855,
+      "max_vio": 1.0751953125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 37.0,
+      "tokens_seen": 1155072.0,
+      "loss": 9.026793479919434,
+      "tokens_per_s": 12849.510035804326,
+      "max_vio": 1.0458984375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 38.0,
+      "tokens_seen": 1159168.0,
+      "loss": 9.02142333984375,
+      "tokens_per_s": 12854.325088224898,
+      "max_vio": 1.0673828125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 39.0,
+      "tokens_seen": 1163264.0,
+      "loss": 9.022806167602539,
+      "tokens_per_s": 12856.384098488275,
+      "max_vio": 1.0537109375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 40.0,
+      "tokens_seen": 1167360.0,
+      "loss": 9.02609634399414,
+      "tokens_per_s": 12856.800668361915,
+      "max_vio": 0.986328125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 41.0,
+      "tokens_seen": 1171456.0,
+      "loss": 9.028251647949219,
+      "tokens_per_s": 12861.482637521402,
+      "max_vio": 1.0517578125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 42.0,
+      "tokens_seen": 1175552.0,
+      "loss": 9.023775100708008,
+      "tokens_per_s": 12863.16383383936,
+      "max_vio": 0.9716796875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 43.0,
+      "tokens_seen": 1179648.0,
+      "loss": 9.02928352355957,
+      "tokens_per_s": 12862.287335160416,
+      "max_vio": 0.990234375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 44.0,
+      "tokens_seen": 1183744.0,
+      "loss": 9.023748397827148,
+      "tokens_per_s": 12865.606583639898,
+      "max_vio": 0.978515625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 45.0,
+      "tokens_seen": 1187840.0,
+      "loss": 9.029807090759277,
+      "tokens_per_s": 12868.015137021237,
+      "max_vio": 1.1357421875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 46.0,
+      "tokens_seen": 1191936.0,
+      "loss": 9.02609634399414,
+      "tokens_per_s": 12869.32117025915,
+      "max_vio": 1.1728515625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 47.0,
+      "tokens_seen": 1196032.0,
+      "loss": 9.03019905090332,
+      "tokens_per_s": 12868.768540309205,
+      "max_vio": 1.1201171875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 48.0,
+      "tokens_seen": 1200128.0,
+      "loss": 9.028434753417969,
+      "tokens_per_s": 12871.72914532379,
+      "max_vio": 1.1328125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 49.0,
+      "tokens_seen": 1204224.0,
+      "loss": 9.026609420776367,
+      "tokens_per_s": 12870.696388494105,
+      "max_vio": 1.109375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 50.0,
+      "tokens_seen": 1208320.0,
+      "loss": 9.01776123046875,
+      "tokens_per_s": 12865.226833522693,
+      "max_vio": 0.9873046875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 51.0,
+      "tokens_seen": 1212416.0,
+      "loss": 9.027774810791016,
+      "tokens_per_s": 12864.834648620652,
+      "max_vio": 1.0048828125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 52.0,
+      "tokens_seen": 1216512.0,
+      "loss": 9.028639793395996,
+      "tokens_per_s": 12866.003346395175,
+      "max_vio": 0.98046875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 53.0,
+      "tokens_seen": 1220608.0,
+      "loss": 9.028299331665039,
+      "tokens_per_s": 12867.806649174687,
+      "max_vio": 1.03515625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 54.0,
+      "tokens_seen": 1224704.0,
+      "loss": 9.031249046325684,
+      "tokens_per_s": 12859.56222972956,
+      "max_vio": 1.0224609375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 55.0,
+      "tokens_seen": 1228800.0,
+      "loss": 9.022686004638672,
+      "tokens_per_s": 12859.29642601186,
+      "max_vio": 1.0380859375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 56.0,
+      "tokens_seen": 1232896.0,
+      "loss": 9.026579856872559,
+      "tokens_per_s": 12854.95934282341,
+      "max_vio": 1.0185546875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 57.0,
+      "tokens_seen": 1236992.0,
+      "loss": 9.022794723510742,
+      "tokens_per_s": 12856.11391421622,
+      "max_vio": 1.0458984375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 58.0,
+      "tokens_seen": 1241088.0,
+      "loss": 9.027999877929688,
+      "tokens_per_s": 12859.356893696115,
+      "max_vio": 1.0693359375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 59.0,
+      "tokens_seen": 1245184.0,
+      "loss": 9.029159545898438,
+      "tokens_per_s": 12862.245798252032,
+      "max_vio": 1.13671875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 60.0,
+      "tokens_seen": 1249280.0,
+      "loss": 9.028501510620117,
+      "tokens_per_s": 12865.156927379217,
+      "max_vio": 1.1611328125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 61.0,
+      "tokens_seen": 1253376.0,
+      "loss": 9.028047561645508,
+      "tokens_per_s": 12865.743354025746,
+      "max_vio": 1.2119140625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 62.0,
+      "tokens_seen": 1257472.0,
+      "loss": 9.026884078979492,
+      "tokens_per_s": 12867.865606401689,
+      "max_vio": 1.212890625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 63.0,
+      "tokens_seen": 1261568.0,
+      "loss": 9.022771835327148,
+      "tokens_per_s": 12867.92019872377,
+      "max_vio": 1.369140625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 64.0,
+      "tokens_seen": 1265664.0,
+      "loss": 9.02492904663086,
+      "tokens_per_s": 12862.19455960281,
+      "max_vio": 1.3408203125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 65.0,
+      "tokens_seen": 1269760.0,
+      "loss": 9.029207229614258,
+      "tokens_per_s": 12857.6216235521,
+      "max_vio": 1.3994140625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 66.0,
+      "tokens_seen": 1273856.0,
+      "loss": 9.024520874023438,
+      "tokens_per_s": 12856.139772970822,
+      "max_vio": 1.4697265625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 67.0,
+      "tokens_seen": 1277952.0,
+      "loss": 9.024961471557617,
+      "tokens_per_s": 12851.935068838382,
+      "max_vio": 1.6416015625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 68.0,
+      "tokens_seen": 1282048.0,
+      "loss": 9.024574279785156,
+      "tokens_per_s": 12849.456068919393,
+      "max_vio": 1.6279296875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 69.0,
+      "tokens_seen": 1286144.0,
+      "loss": 9.026153564453125,
+      "tokens_per_s": 12840.863124550695,
+      "max_vio": 1.6064453125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 70.0,
+      "tokens_seen": 1290240.0,
+      "loss": 9.019158363342285,
+      "tokens_per_s": 12837.534268072159,
+      "max_vio": 1.4765625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 71.0,
+      "tokens_seen": 1294336.0,
+      "loss": 9.01905632019043,
+      "tokens_per_s": 12837.541209370913,
+      "max_vio": 1.5810546875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 72.0,
+      "tokens_seen": 1298432.0,
+      "loss": 9.024480819702148,
+      "tokens_per_s": 12836.402418780943,
+      "max_vio": 1.62890625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 73.0,
+      "tokens_seen": 1302528.0,
+      "loss": 9.033190727233887,
+      "tokens_per_s": 12830.099509565307,
+      "max_vio": 1.755859375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 74.0,
+      "tokens_seen": 1306624.0,
+      "loss": 9.02451229095459,
+      "tokens_per_s": 12824.215722303412,
+      "max_vio": 1.6259765625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 75.0,
+      "tokens_seen": 1310720.0,
+      "loss": 9.022729873657227,
+      "tokens_per_s": 12815.546872581383,
+      "max_vio": 1.7080078125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 76.0,
+      "tokens_seen": 1314816.0,
+      "loss": 9.028432846069336,
+      "tokens_per_s": 12807.992035883446,
+      "max_vio": 1.9443359375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 77.0,
+      "tokens_seen": 1318912.0,
+      "loss": 9.029011726379395,
+      "tokens_per_s": 12810.716422685531,
+      "max_vio": 1.8740234375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 78.0,
+      "tokens_seen": 1323008.0,
+      "loss": 9.030967712402344,
+      "tokens_per_s": 12810.510915912539,
+      "max_vio": 2.06640625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 79.0,
+      "tokens_seen": 1327104.0,
+      "loss": 9.022747993469238,
+      "tokens_per_s": 12807.997762690915,
+      "max_vio": 1.9638671875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 80.0,
+      "tokens_seen": 1331200.0,
+      "loss": 9.028650283813477,
+      "tokens_per_s": 12807.514284198309,
+      "max_vio": 2.0810546875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 81.0,
+      "tokens_seen": 1335296.0,
+      "loss": 9.030858993530273,
+      "tokens_per_s": 12808.324691075068,
+      "max_vio": 2.1357421875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 82.0,
+      "tokens_seen": 1339392.0,
+      "loss": 9.023025512695312,
+      "tokens_per_s": 12808.80635066735,
+      "max_vio": 2.255859375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 83.0,
+      "tokens_seen": 1343488.0,
+      "loss": 9.024969100952148,
+      "tokens_per_s": 12809.701810124234,
+      "max_vio": 2.15234375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 84.0,
+      "tokens_seen": 1347584.0,
+      "loss": 9.02009105682373,
+      "tokens_per_s": 12809.223199677645,
+      "max_vio": 2.265625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 85.0,
+      "tokens_seen": 1351680.0,
+      "loss": 9.02939224243164,
+      "tokens_per_s": 12808.288421906262,
+      "max_vio": 2.1845703125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 86.0,
+      "tokens_seen": 1355776.0,
+      "loss": 9.020822525024414,
+      "tokens_per_s": 12808.768101176895,
+      "max_vio": 2.13671875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 87.0,
+      "tokens_seen": 1359872.0,
+      "loss": 9.025396347045898,
+      "tokens_per_s": 12809.711883216018,
+      "max_vio": 2.1484375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 88.0,
+      "tokens_seen": 1363968.0,
+      "loss": 9.018987655639648,
+      "tokens_per_s": 12810.491891576425,
+      "max_vio": 2.322265625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 89.0,
+      "tokens_seen": 1368064.0,
+      "loss": 9.02601146697998,
+      "tokens_per_s": 12810.856536531446,
+      "max_vio": 2.322265625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 90.0,
+      "tokens_seen": 1372160.0,
+      "loss": 9.023605346679688,
+      "tokens_per_s": 12811.696421788783,
+      "max_vio": 2.3486328125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 91.0,
+      "tokens_seen": 1376256.0,
+      "loss": 9.026113510131836,
+      "tokens_per_s": 12812.467614680967,
+      "max_vio": 2.236328125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 92.0,
+      "tokens_seen": 1380352.0,
+      "loss": 9.025299072265625,
+      "tokens_per_s": 12809.225763493214,
+      "max_vio": 2.37890625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 93.0,
+      "tokens_seen": 1384448.0,
+      "loss": 9.024086952209473,
+      "tokens_per_s": 12808.979792528,
+      "max_vio": 2.3447265625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 94.0,
+      "tokens_seen": 1388544.0,
+      "loss": 9.023811340332031,
+      "tokens_per_s": 12809.628311980368,
+      "max_vio": 2.2470703125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 95.0,
+      "tokens_seen": 1392640.0,
+      "loss": 9.024100303649902,
+      "tokens_per_s": 12809.772576341244,
+      "max_vio": 2.18359375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 96.0,
+      "tokens_seen": 1396736.0,
+      "loss": 9.025919914245605,
+      "tokens_per_s": 12810.15764395184,
+      "max_vio": 2.2607421875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 97.0,
+      "tokens_seen": 1400832.0,
+      "loss": 9.025837898254395,
+      "tokens_per_s": 12809.827555672658,
+      "max_vio": 2.19921875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 98.0,
+      "tokens_seen": 1404928.0,
+      "loss": 9.024707794189453,
+      "tokens_per_s": 12808.108042101077,
+      "max_vio": 2.1064453125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 99.0,
+      "tokens_seen": 1409024.0,
+      "loss": 9.024954795837402,
+      "tokens_per_s": 12808.532673715192,
+      "max_vio": 2.2353515625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 100.0,
+      "tokens_seen": 1413120.0,
+      "loss": 9.02935791015625,
+      "tokens_per_s": 12806.729583410579,
+      "max_vio": 2.05078125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 101.0,
+      "tokens_seen": 1417216.0,
+      "loss": 9.027886390686035,
+      "tokens_per_s": 12805.892835246212,
+      "max_vio": 2.1591796875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 102.0,
+      "tokens_seen": 1421312.0,
+      "loss": 9.026577949523926,
+      "tokens_per_s": 12803.687733125573,
+      "max_vio": 2.169921875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 103.0,
+      "tokens_seen": 1425408.0,
+      "loss": 9.024946212768555,
+      "tokens_per_s": 12801.077595954828,
+      "max_vio": 2.1015625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 104.0,
+      "tokens_seen": 1429504.0,
+      "loss": 9.024523735046387,
+      "tokens_per_s": 12799.296946310385,
+      "max_vio": 1.8681640625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 105.0,
+      "tokens_seen": 1433600.0,
+      "loss": 9.025992393493652,
+      "tokens_per_s": 12796.728843425635,
+      "max_vio": 1.8427734375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 106.0,
+      "tokens_seen": 1437696.0,
+      "loss": 9.023431777954102,
+      "tokens_per_s": 12794.893515373491,
+      "max_vio": 1.974609375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 107.0,
+      "tokens_seen": 1441792.0,
+      "loss": 9.024848937988281,
+      "tokens_per_s": 12793.990349235371,
+      "max_vio": 1.8408203125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 108.0,
+      "tokens_seen": 1445888.0,
+      "loss": 9.028000831604004,
+      "tokens_per_s": 12788.979684768456,
+      "max_vio": 1.7265625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 109.0,
+      "tokens_seen": 1449984.0,
+      "loss": 9.027851104736328,
+      "tokens_per_s": 12785.821299465932,
+      "max_vio": 1.7412109375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 110.0,
+      "tokens_seen": 1454080.0,
+      "loss": 9.02476692199707,
+      "tokens_per_s": 12779.042810160048,
+      "max_vio": 1.537109375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 111.0,
+      "tokens_seen": 1458176.0,
+      "loss": 9.023568153381348,
+      "tokens_per_s": 12777.51308315177,
+      "max_vio": 1.6484375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 112.0,
+      "tokens_seen": 1462272.0,
+      "loss": 9.023754119873047,
+      "tokens_per_s": 12775.208906171843,
+      "max_vio": 1.580078125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 113.0,
+      "tokens_seen": 1466368.0,
+      "loss": 9.021381378173828,
+      "tokens_per_s": 12770.534645711492,
+      "max_vio": 1.4853515625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 114.0,
+      "tokens_seen": 1470464.0,
+      "loss": 9.025930404663086,
+      "tokens_per_s": 12768.225000164659,
+      "max_vio": 1.5234375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 115.0,
+      "tokens_seen": 1474560.0,
+      "loss": 9.023551940917969,
+      "tokens_per_s": 12766.062207969755,
+      "max_vio": 1.5009765625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 116.0,
+      "tokens_seen": 1478656.0,
+      "loss": 9.024236679077148,
+      "tokens_per_s": 12763.2566581105,
+      "max_vio": 1.6220703125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 117.0,
+      "tokens_seen": 1482752.0,
+      "loss": 9.024850845336914,
+      "tokens_per_s": 12759.08567205176,
+      "max_vio": 1.4130859375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 118.0,
+      "tokens_seen": 1486848.0,
+      "loss": 9.025360107421875,
+      "tokens_per_s": 12753.485613925592,
+      "max_vio": 1.33984375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 119.0,
+      "tokens_seen": 1490944.0,
+      "loss": 9.027097702026367,
+      "tokens_per_s": 12751.420220558468,
+      "max_vio": 1.2822265625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 120.0,
+      "tokens_seen": 1495040.0,
+      "loss": 9.023710250854492,
+      "tokens_per_s": 12750.848097827251,
+      "max_vio": 1.208984375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 121.0,
+      "tokens_seen": 1499136.0,
+      "loss": 9.020097732543945,
+      "tokens_per_s": 12749.11547972715,
+      "max_vio": 1.2470703125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 122.0,
+      "tokens_seen": 1503232.0,
+      "loss": 9.026327133178711,
+      "tokens_per_s": 12747.703399046859,
+      "max_vio": 1.2822265625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 123.0,
+      "tokens_seen": 1507328.0,
+      "loss": 9.027478218078613,
+      "tokens_per_s": 12746.420196661626,
+      "max_vio": 1.349609375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 124.0,
+      "tokens_seen": 1511424.0,
+      "loss": 9.023605346679688,
+      "tokens_per_s": 12745.597469729886,
+      "max_vio": 1.2958984375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 125.0,
+      "tokens_seen": 1515520.0,
+      "loss": 9.02138900756836,
+      "tokens_per_s": 12745.168333904989,
+      "max_vio": 1.375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 126.0,
+      "tokens_seen": 1519616.0,
+      "loss": 9.020391464233398,
+      "tokens_per_s": 12744.943658097452,
+      "max_vio": 1.2646484375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 127.0,
+      "tokens_seen": 1523712.0,
+      "loss": 9.024147033691406,
+      "tokens_per_s": 12743.44146388186,
+      "max_vio": 1.3720703125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 128.0,
+      "tokens_seen": 1527808.0,
+      "loss": 9.024320602416992,
+      "tokens_per_s": 12742.214336718895,
+      "max_vio": 1.4033203125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 129.0,
+      "tokens_seen": 1531904.0,
+      "loss": 9.02308464050293,
+      "tokens_per_s": 12741.379063186047,
+      "max_vio": 1.404296875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 130.0,
+      "tokens_seen": 1536000.0,
+      "loss": 9.018829345703125,
+      "tokens_per_s": 12740.948619783212,
+      "max_vio": 1.388671875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 131.0,
+      "tokens_seen": 1540096.0,
+      "loss": 9.020252227783203,
+      "tokens_per_s": 12739.677054766154,
+      "max_vio": 1.416015625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 132.0,
+      "tokens_seen": 1544192.0,
+      "loss": 9.02476692199707,
+      "tokens_per_s": 12739.653535469415,
+      "max_vio": 1.37109375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 133.0,
+      "tokens_seen": 1548288.0,
+      "loss": 9.022188186645508,
+      "tokens_per_s": 12739.108336362337,
+      "max_vio": 1.33203125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 134.0,
+      "tokens_seen": 1552384.0,
+      "loss": 9.023533821105957,
+      "tokens_per_s": 12739.468426762785,
+      "max_vio": 1.3837890625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 135.0,
+      "tokens_seen": 1556480.0,
+      "loss": 9.018524169921875,
+      "tokens_per_s": 12738.86576064993,
+      "max_vio": 1.3154296875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 136.0,
+      "tokens_seen": 1560576.0,
+      "loss": 9.02407455444336,
+      "tokens_per_s": 12735.572032495658,
+      "max_vio": 1.349609375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 137.0,
+      "tokens_seen": 1564672.0,
+      "loss": 9.022048950195312,
+      "tokens_per_s": 12735.360004424081,
+      "max_vio": 1.322265625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 138.0,
+      "tokens_seen": 1568768.0,
+      "loss": 9.024038314819336,
+      "tokens_per_s": 12735.15113675622,
+      "max_vio": 1.32421875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 139.0,
+      "tokens_seen": 1572864.0,
+      "loss": 9.020751953125,
+      "tokens_per_s": 12733.84212995767,
+      "max_vio": 1.25390625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 140.0,
+      "tokens_seen": 1576960.0,
+      "loss": 9.023993492126465,
+      "tokens_per_s": 12732.640879994926,
+      "max_vio": 1.232421875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 141.0,
+      "tokens_seen": 1581056.0,
+      "loss": 9.022127151489258,
+      "tokens_per_s": 12731.678647516872,
+      "max_vio": 1.263671875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 142.0,
+      "tokens_seen": 1585152.0,
+      "loss": 9.02391529083252,
+      "tokens_per_s": 12730.755781731248,
+      "max_vio": 1.1513671875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 143.0,
+      "tokens_seen": 1589248.0,
+      "loss": 9.023151397705078,
+      "tokens_per_s": 12730.559465800374,
+      "max_vio": 1.185546875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 144.0,
+      "tokens_seen": 1593344.0,
+      "loss": 9.024002075195312,
+      "tokens_per_s": 12730.803235493042,
+      "max_vio": 1.197265625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 145.0,
+      "tokens_seen": 1597440.0,
+      "loss": 9.027345657348633,
+      "tokens_per_s": 12730.898142897431,
+      "max_vio": 1.1708984375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 146.0,
+      "tokens_seen": 1601536.0,
+      "loss": 9.019674301147461,
+      "tokens_per_s": 12729.481374115248,
+      "max_vio": 1.19140625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 147.0,
+      "tokens_seen": 1605632.0,
+      "loss": 9.015406608581543,
+      "tokens_per_s": 12728.099234487181,
+      "max_vio": 1.1865234375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 148.0,
+      "tokens_seen": 1609728.0,
+      "loss": 9.024587631225586,
+      "tokens_per_s": 12727.540696167765,
+      "max_vio": 1.1796875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 149.0,
+      "tokens_seen": 1613824.0,
+      "loss": 9.022195816040039,
+      "tokens_per_s": 12726.345081808142,
+      "max_vio": 1.16015625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 150.0,
+      "tokens_seen": 1617920.0,
+      "loss": 9.026016235351562,
+      "tokens_per_s": 12722.381280054267,
+      "max_vio": 1.0751953125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 151.0,
+      "tokens_seen": 1622016.0,
+      "loss": 9.024897575378418,
+      "tokens_per_s": 12720.869561050882,
+      "max_vio": 1.1171875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 152.0,
+      "tokens_seen": 1626112.0,
+      "loss": 9.021499633789062,
+      "tokens_per_s": 12719.301613997046,
+      "max_vio": 1.1416015625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 153.0,
+      "tokens_seen": 1630208.0,
+      "loss": 9.024656295776367,
+      "tokens_per_s": 12716.35250488317,
+      "max_vio": 1.0771484375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 154.0,
+      "tokens_seen": 1634304.0,
+      "loss": 9.02247428894043,
+      "tokens_per_s": 12713.989178232754,
+      "max_vio": 1.0810546875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 155.0,
+      "tokens_seen": 1638400.0,
+      "loss": 9.019569396972656,
+      "tokens_per_s": 12710.349251308851,
+      "max_vio": 1.1279296875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 156.0,
+      "tokens_seen": 1642496.0,
+      "loss": 9.021699905395508,
+      "tokens_per_s": 12703.814351218454,
+      "max_vio": 1.0224609375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 157.0,
+      "tokens_seen": 1646592.0,
+      "loss": 9.019646644592285,
+      "tokens_per_s": 12700.1041193687,
+      "max_vio": 1.142578125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 158.0,
+      "tokens_seen": 1650688.0,
+      "loss": 9.024139404296875,
+      "tokens_per_s": 12695.11248524624,
+      "max_vio": 1.1572265625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 159.0,
+      "tokens_seen": 1654784.0,
+      "loss": 9.018165588378906,
+      "tokens_per_s": 12692.6777547561,
+      "max_vio": 1.1923828125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 160.0,
+      "tokens_seen": 1658880.0,
+      "loss": 9.022560119628906,
+      "tokens_per_s": 12689.512384686273,
+      "max_vio": 1.2919921875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 161.0,
+      "tokens_seen": 1662976.0,
+      "loss": 9.02204418182373,
+      "tokens_per_s": 12686.826645048015,
+      "max_vio": 1.4609375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 162.0,
+      "tokens_seen": 1667072.0,
+      "loss": 9.016895294189453,
+      "tokens_per_s": 12685.253378395588,
+      "max_vio": 1.28515625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 163.0,
+      "tokens_seen": 1671168.0,
+      "loss": 9.02680492401123,
+      "tokens_per_s": 12684.023817415837,
+      "max_vio": 1.333984375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 164.0,
+      "tokens_seen": 1675264.0,
+      "loss": 9.025428771972656,
+      "tokens_per_s": 12681.953350062933,
+      "max_vio": 1.3330078125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 165.0,
+      "tokens_seen": 1679360.0,
+      "loss": 9.020294189453125,
+      "tokens_per_s": 12680.991552484738,
+      "max_vio": 1.4873046875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 166.0,
+      "tokens_seen": 1683456.0,
+      "loss": 9.026643753051758,
+      "tokens_per_s": 12679.909028916747,
+      "max_vio": 1.4580078125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 167.0,
+      "tokens_seen": 1687552.0,
+      "loss": 9.01965618133545,
+      "tokens_per_s": 12678.434148040677,
+      "max_vio": 1.537109375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 168.0,
+      "tokens_seen": 1691648.0,
+      "loss": 9.02354907989502,
+      "tokens_per_s": 12677.398536530578,
+      "max_vio": 1.3076171875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 169.0,
+      "tokens_seen": 1695744.0,
+      "loss": 9.023573875427246,
+      "tokens_per_s": 12675.592932811465,
+      "max_vio": 1.3076171875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 170.0,
+      "tokens_seen": 1699840.0,
+      "loss": 9.02340316772461,
+      "tokens_per_s": 12673.27961758112,
+      "max_vio": 1.2490234375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 171.0,
+      "tokens_seen": 1703936.0,
+      "loss": 9.019112586975098,
+      "tokens_per_s": 12670.073620959347,
+      "max_vio": 1.19140625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 172.0,
+      "tokens_seen": 1708032.0,
+      "loss": 9.022480010986328,
+      "tokens_per_s": 12668.617008064086,
+      "max_vio": 1.162109375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 173.0,
+      "tokens_seen": 1712128.0,
+      "loss": 9.020648956298828,
+      "tokens_per_s": 12666.01446338452,
+      "max_vio": 1.255859375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 174.0,
+      "tokens_seen": 1716224.0,
+      "loss": 9.024820327758789,
+      "tokens_per_s": 12663.193216871192,
+      "max_vio": 1.3408203125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 175.0,
+      "tokens_seen": 1720320.0,
+      "loss": 9.022501945495605,
+      "tokens_per_s": 12660.552334023621,
+      "max_vio": 1.37109375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 176.0,
+      "tokens_seen": 1724416.0,
+      "loss": 9.021818161010742,
+      "tokens_per_s": 12658.021837464406,
+      "max_vio": 1.4580078125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 177.0,
+      "tokens_seen": 1728512.0,
+      "loss": 9.01817512512207,
+      "tokens_per_s": 12655.766107269394,
+      "max_vio": 1.40625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 178.0,
+      "tokens_seen": 1732608.0,
+      "loss": 9.020355224609375,
+      "tokens_per_s": 12654.135034781279,
+      "max_vio": 1.40625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 179.0,
+      "tokens_seen": 1736704.0,
+      "loss": 9.021992683410645,
+      "tokens_per_s": 12651.247515401763,
+      "max_vio": 1.3544921875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 180.0,
+      "tokens_seen": 1740800.0,
+      "loss": 9.02319049835205,
+      "tokens_per_s": 12649.750378370723,
+      "max_vio": 1.2216796875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 181.0,
+      "tokens_seen": 1744896.0,
+      "loss": 9.018834114074707,
+      "tokens_per_s": 12646.804979277376,
+      "max_vio": 1.1416015625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 182.0,
+      "tokens_seen": 1748992.0,
+      "loss": 9.017387390136719,
+      "tokens_per_s": 12644.417373678916,
+      "max_vio": 1.0634765625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 183.0,
+      "tokens_seen": 1753088.0,
+      "loss": 9.024052619934082,
+      "tokens_per_s": 12643.067032959703,
+      "max_vio": 0.9873046875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 184.0,
+      "tokens_seen": 1757184.0,
+      "loss": 9.021772384643555,
+      "tokens_per_s": 12640.21843171455,
+      "max_vio": 0.9833984375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 185.0,
+      "tokens_seen": 1761280.0,
+      "loss": 9.021382331848145,
+      "tokens_per_s": 12637.59566658293,
+      "max_vio": 0.958984375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 186.0,
+      "tokens_seen": 1765376.0,
+      "loss": 9.022397994995117,
+      "tokens_per_s": 12635.771916020507,
+      "max_vio": 1.001953125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 187.0,
+      "tokens_seen": 1769472.0,
+      "loss": 9.021211624145508,
+      "tokens_per_s": 12632.981120661056,
+      "max_vio": 1.0166015625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 188.0,
+      "tokens_seen": 1773568.0,
+      "loss": 9.02069091796875,
+      "tokens_per_s": 12631.962475913466,
+      "max_vio": 1.0283203125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 189.0,
+      "tokens_seen": 1777664.0,
+      "loss": 9.020668029785156,
+      "tokens_per_s": 12630.817115556709,
+      "max_vio": 1.04296875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 190.0,
+      "tokens_seen": 1781760.0,
+      "loss": 9.023377418518066,
+      "tokens_per_s": 12628.810587420234,
+      "max_vio": 1.0458984375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 191.0,
+      "tokens_seen": 1785856.0,
+      "loss": 9.0250244140625,
+      "tokens_per_s": 12626.500282627376,
+      "max_vio": 1.0556640625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 192.0,
+      "tokens_seen": 1789952.0,
+      "loss": 9.018348693847656,
+      "tokens_per_s": 12623.38700743393,
+      "max_vio": 1.041015625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 193.0,
+      "tokens_seen": 1794048.0,
+      "loss": 9.022163391113281,
+      "tokens_per_s": 12620.589461663607,
+      "max_vio": 1.052734375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 194.0,
+      "tokens_seen": 1798144.0,
+      "loss": 9.022422790527344,
+      "tokens_per_s": 12616.989602269652,
+      "max_vio": 1.0390625,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 195.0,
+      "tokens_seen": 1802240.0,
+      "loss": 9.023595809936523,
+      "tokens_per_s": 12614.23439582125,
+      "max_vio": 1.1005859375,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 196.0,
+      "tokens_seen": 1806336.0,
+      "loss": 9.023555755615234,
+      "tokens_per_s": 12610.61047663363,
+      "max_vio": 1.1982421875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 197.0,
+      "tokens_seen": 1810432.0,
+      "loss": 9.02219295501709,
+      "tokens_per_s": 12606.725704877494,
+      "max_vio": 1.138671875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 198.0,
+      "tokens_seen": 1814528.0,
+      "loss": 9.017505645751953,
+      "tokens_per_s": 12602.806417497542,
+      "max_vio": 1.1171875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 199.0,
+      "tokens_seen": 1818624.0,
+      "loss": 9.017688751220703,
+      "tokens_per_s": 12599.48454947043,
+      "max_vio": 1.123046875,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 200.0,
+      "tokens_seen": 1822720.0,
+      "loss": 9.024229049682617,
+      "tokens_per_s": 12594.801968831749,
+      "max_vio": 1.078125,
+      "dead_experts": 0.0,
+      "phase": 1.0,
+      "probabilistic": 1.0
+    },
+    {
+      "step": 201.0,
+      "tokens_seen": 1826816.0,
+      "loss": 9.02438735961914,
+      "tokens_per_s": 12593.814101763046,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 202.0,
+      "tokens_seen": 1830912.0,
+      "loss": 9.024246215820312,
+      "tokens_per_s": 12591.272562471351,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 203.0,
+      "tokens_seen": 1835008.0,
+      "loss": 9.020757675170898,
+      "tokens_per_s": 12596.194119564056,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 204.0,
+      "tokens_seen": 1839104.0,
+      "loss": 9.020648956298828,
+      "tokens_per_s": 12599.571917339355,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 205.0,
+      "tokens_seen": 1843200.0,
+      "loss": 9.024040222167969,
+      "tokens_per_s": 12602.991008227125,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 206.0,
+      "tokens_seen": 1847296.0,
+      "loss": 9.022626876831055,
+      "tokens_per_s": 12606.567054837875,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 207.0,
+      "tokens_seen": 1851392.0,
+      "loss": 9.023048400878906,
+      "tokens_per_s": 12609.227584901104,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 208.0,
+      "tokens_seen": 1855488.0,
+      "loss": 9.019696235656738,
+      "tokens_per_s": 12612.929593445602,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 209.0,
+      "tokens_seen": 1859584.0,
+      "loss": 9.020340919494629,
+      "tokens_per_s": 12615.247336827399,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 210.0,
+      "tokens_seen": 1863680.0,
+      "loss": 9.019726753234863,
+      "tokens_per_s": 12618.77219852984,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 211.0,
+      "tokens_seen": 1867776.0,
+      "loss": 9.020750045776367,
+      "tokens_per_s": 12623.165646835943,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 212.0,
+      "tokens_seen": 1871872.0,
+      "loss": 9.02155876159668,
+      "tokens_per_s": 12627.283312476071,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 213.0,
+      "tokens_seen": 1875968.0,
+      "loss": 9.015608787536621,
+      "tokens_per_s": 12631.156654331875,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 214.0,
+      "tokens_seen": 1880064.0,
+      "loss": 9.020307540893555,
+      "tokens_per_s": 12634.372108015152,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 215.0,
+      "tokens_seen": 1884160.0,
+      "loss": 9.018686294555664,
+      "tokens_per_s": 12636.62827049915,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 216.0,
+      "tokens_seen": 1888256.0,
+      "loss": 9.02186393737793,
+      "tokens_per_s": 12639.856982829839,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 217.0,
+      "tokens_seen": 1892352.0,
+      "loss": 9.019140243530273,
+      "tokens_per_s": 12642.016010762227,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 218.0,
+      "tokens_seen": 1896448.0,
+      "loss": 9.02245807647705,
+      "tokens_per_s": 12645.632492267354,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 219.0,
+      "tokens_seen": 1900544.0,
+      "loss": 9.019283294677734,
+      "tokens_per_s": 12648.920090760106,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 220.0,
+      "tokens_seen": 1904640.0,
+      "loss": 9.019289016723633,
+      "tokens_per_s": 12651.014344801975,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 221.0,
+      "tokens_seen": 1908736.0,
+      "loss": 9.019012451171875,
+      "tokens_per_s": 12652.849650993376,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 222.0,
+      "tokens_seen": 1912832.0,
+      "loss": 9.02042007446289,
+      "tokens_per_s": 12655.729094138147,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 223.0,
+      "tokens_seen": 1916928.0,
+      "loss": 9.022374153137207,
+      "tokens_per_s": 12658.22499242723,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 224.0,
+      "tokens_seen": 1921024.0,
+      "loss": 9.022649765014648,
+      "tokens_per_s": 12659.86734691562,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 225.0,
+      "tokens_seen": 1925120.0,
+      "loss": 9.020825386047363,
+      "tokens_per_s": 12661.881993499092,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 226.0,
+      "tokens_seen": 1929216.0,
+      "loss": 9.021186828613281,
+      "tokens_per_s": 12663.545152390381,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 227.0,
+      "tokens_seen": 1933312.0,
+      "loss": 9.016165733337402,
+      "tokens_per_s": 12665.672726172303,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 228.0,
+      "tokens_seen": 1937408.0,
+      "loss": 9.016870498657227,
+      "tokens_per_s": 12667.600707036583,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 229.0,
+      "tokens_seen": 1941504.0,
+      "loss": 9.021793365478516,
+      "tokens_per_s": 12669.392805291396,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 230.0,
+      "tokens_seen": 1945600.0,
+      "loss": 9.018144607543945,
+      "tokens_per_s": 12672.025011082224,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 231.0,
+      "tokens_seen": 1949696.0,
+      "loss": 9.022153854370117,
+      "tokens_per_s": 12674.649165710489,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 232.0,
+      "tokens_seen": 1953792.0,
+      "loss": 9.023709297180176,
+      "tokens_per_s": 12676.906432572614,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 233.0,
+      "tokens_seen": 1957888.0,
+      "loss": 9.01905632019043,
+      "tokens_per_s": 12678.994333763298,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 234.0,
+      "tokens_seen": 1961984.0,
+      "loss": 9.023895263671875,
+      "tokens_per_s": 12682.305367742434,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 235.0,
+      "tokens_seen": 1966080.0,
+      "loss": 9.02346134185791,
+      "tokens_per_s": 12684.496044048274,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 236.0,
+      "tokens_seen": 1970176.0,
+      "loss": 9.018479347229004,
+      "tokens_per_s": 12686.031869257715,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 237.0,
+      "tokens_seen": 1974272.0,
+      "loss": 9.022355079650879,
+      "tokens_per_s": 12687.425923216266,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 238.0,
+      "tokens_seen": 1978368.0,
+      "loss": 9.017837524414062,
+      "tokens_per_s": 12689.95095628395,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 239.0,
+      "tokens_seen": 1982464.0,
+      "loss": 9.023839950561523,
+      "tokens_per_s": 12690.910524638095,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 240.0,
+      "tokens_seen": 1986560.0,
+      "loss": 9.021256446838379,
+      "tokens_per_s": 12693.138589997669,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 241.0,
+      "tokens_seen": 1990656.0,
+      "loss": 9.020044326782227,
+      "tokens_per_s": 12695.419787219118,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 242.0,
+      "tokens_seen": 1994752.0,
+      "loss": 9.02212142944336,
+      "tokens_per_s": 12696.705364253434,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 243.0,
+      "tokens_seen": 1998848.0,
+      "loss": 9.019439697265625,
+      "tokens_per_s": 12699.251147216855,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 244.0,
+      "tokens_seen": 2002944.0,
+      "loss": 9.021623611450195,
+      "tokens_per_s": 12700.714526379776,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    },
+    {
+      "step": 245.0,
+      "tokens_seen": 2007040.0,
+      "loss": 9.02043628692627,
+      "tokens_per_s": 12701.720189080808,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0,
+      "probabilistic": 0.0
+    }
+  ]
+}

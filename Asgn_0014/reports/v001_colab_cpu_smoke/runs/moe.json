@@ -1,0 +1,69 @@
+{
+  "variant": "moe",
+  "n_params": 79869696,
+  "n_active": 26785536,
+  "seq_len": 512,
+  "batch": 2,
+  "tokens_seen": 4096,
+  "steps": 4,
+  "final_loss": 9.085471153259277,
+  "tokens_per_s": 192.29443649388995,
+  "peak_mem_bytes": 2148151296,
+  "gpu_name": "cpu",
+  "host": "colab",
+  "wall_s": 21.300668260000066,
+  "usd": 0.0007100222753333355,
+  "usd_per_hour": 0.12,
+  "rate_source": "ASSGN014_USD_PER_HOUR=0.12",
+  "usd_shadow": 0.0007100222753333355,
+  "version": "v001_colab_cpu_smoke",
+  "dropout": 0.0,
+  "weight_decay": 0.0,
+  "optimizer": "AdamW",
+  "smoke": true,
+  "max_vio": 3.0,
+  "dead_experts": 5.0,
+  "loss_at_convert": 9.087194442749023,
+  "use_ce_aux": false,
+  "router_dtype": "float32",
+  "n_experts": 8,
+  "top_k": 2,
+  "history": [
+    {
+      "step": 1.0,
+      "tokens_seen": 5120.0,
+      "loss": 9.095368385314941,
+      "tokens_per_s": 156.28145724723666,
+      "max_vio": 3.0,
+      "dead_experts": 4.0,
+      "phase": 1.0
+    },
+    {
+      "step": 2.0,
+      "tokens_seen": 6144.0,
+      "loss": 9.077366828918457,
+      "tokens_per_s": 188.24626780233393,
+      "max_vio": 3.0,
+      "dead_experts": 5.0,
+      "phase": 1.0
+    },
+    {
+      "step": 3.0,
+      "tokens_seen": 7168.0,
+      "loss": 9.085000038146973,
+      "tokens_per_s": 202.67858310610757,
+      "max_vio": 3.0,
+      "dead_experts": 6.0,
+      "phase": 1.0
+    },
+    {
+      "step": 4.0,
+      "tokens_seen": 8192.0,
+      "loss": 9.085471153259277,
+      "tokens_per_s": 192.29449700607708,
+      "max_vio": 3.0,
+      "dead_experts": 5.0,
+      "phase": 1.0
+    }
+  ]
+}

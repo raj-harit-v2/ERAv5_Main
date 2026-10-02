@@ -1,0 +1,69 @@
+{
+  "variant": "dense",
+  "n_params": 20856576,
+  "n_active": 20856576,
+  "seq_len": 512,
+  "batch": 2,
+  "tokens_seen": 4096,
+  "steps": 4,
+  "final_loss": 9.07526969909668,
+  "tokens_per_s": 4083.2483990748583,
+  "peak_mem_bytes": 671054336,
+  "gpu_name": "Tesla T4",
+  "host": "colab",
+  "wall_s": 1.0031229060000442,
+  "usd": 3.343743020000147e-05,
+  "usd_per_hour": 0.12,
+  "rate_source": "ASSGN014_USD_PER_HOUR=0.12",
+  "usd_shadow": 3.343743020000147e-05,
+  "version": "v003_colab_t4_smoke",
+  "dropout": 0.0,
+  "weight_decay": 0.0,
+  "optimizer": "AdamW",
+  "smoke": true,
+  "max_vio": 0.0,
+  "dead_experts": 0.0,
+  "loss_at_convert": NaN,
+  "use_ce_aux": false,
+  "router_dtype": "n/a",
+  "n_experts": 0,
+  "top_k": 0,
+  "history": [
+    {
+      "step": 1.0,
+      "tokens_seen": 1024.0,
+      "loss": 9.096659660339355,
+      "tokens_per_s": 1321.182227712565,
+      "max_vio": 0.0,
+      "dead_experts": 0.0,
+      "phase": 0.0
+    },
+    {
+      "step": 2.0,
+      "tokens_seen": 2048.0,
+      "loss": 9.091873168945312,
+      "tokens_per_s": 2384.802988280591,
+      "max_vio": 0.0,
+      "dead_experts": 0.0,
+      "phase": 0.0
+    },
+    {
+      "step": 3.0,
+      "tokens_seen": 3072.0,
+      "loss": 9.089418411254883,
+      "tokens_per_s": 3260.5605546998445,
+      "max_vio": 0.0,
+      "dead_experts": 0.0,
+      "phase": 0.0
+    },
+    {
+      "step": 4.0,
+      "tokens_seen": 4096.0,
+      "loss": 9.07526969909668,
+      "tokens_per_s": 4083.2851441386083,
+      "max_vio": 0.0,
+      "dead_experts": 0.0,
+      "phase": 0.0
+    }
+  ]
+}
