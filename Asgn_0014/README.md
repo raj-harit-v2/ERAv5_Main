@@ -1,11 +1,11 @@
 # Assign_0014 — Dense → MoE Upcycling 
 
-Train a **~20.9M dense** decoder, **convert** FFNs to MoE (partition/drop), continue training with **loss-free three-tier bias** + probabilistic warm-up, and prove continued loss drop with **PRIMARY graphics**. Graded host: **Google Colab Tesla T4**.
+Train a **~20.9M dense** decoder on a **structured corpus**, **convert** FFNs to MoE (partition/drop), continue training with **loss-free three-tier bias** + probabilistic warm-up, and prove **material CE drops** (dense + post-convert) plus routing health with **PRIMARY graphics**. Graded host: **Google Colab Tesla T4**.
 
-> **Graded PASS: `v018_colab_t4_50m_full_wu_phase`** — `all_ok=True`, `dead_experts=0`, MaxVio≈0.65, effective warm-up 6104 steps.  
-> **FAIL contrast: `v015_…_wu2k`** — fixed 2000-step warm-up ended mid full MoE phase → collapse (dead=6).
+> **Graded full:** `reports/v020_colab_t4_50m_full_wu_phase_corpus` — corpus TinyStories/BPE-8192, Colab T4, 25M+25M.  
+> **Prior runs:** `v018_…_wu_phase` (synthetic routing baseline); `v015_…_wu2k` (warm-up FAIL, dead=6).
 
-**Takeaway:** On synthetic data, late CE sits near `ln(8192)≈9.011`. The MoE claim is **routing health + loss not worse after convert**, not a large absolute CE drop. Phase-scaled warm-up (`wu_phase`) is required for full 25M+25M.
+**Takeaway:** Graded claim = **structured next-token learning** (dense CE well below `ln(V)`, MoE CE drops after convert) **and** routing health (`dead=0`, MaxVio bound).
 
 ---
 
@@ -129,48 +129,57 @@ CE floor (synthetic uniform IDs, V=8192): ln(8192) ≈ 9.011
 
 ## 2. Data source
 
-**No external corpus.** Same synthetic protocol as Assign_0013:
+**Graded default:** structured corpus (`ASSGN014_DATA=corpus`).
 
 ```text
-tok = torch.randint(0, vocab_size, (batch, seq_len + 1), device=…)
-# next-token CE on synthetic IDs — src/pipeline/train_moe.py
+TinyStories (HF) or data/corpus_sample.txt fallback
+  -> BPE vocab=8192 (configs/assgn014_bpe_8192.json)
+  -> packed (B, S+1) batches  — src/utils/corpus.py
 ```
 
-Token budgets are **tokens_seen**, not unique documents. Late loss near ~9.011 is the CE floor of uniform random IDs over vocab 8192 — expected, not a failed MoE by itself.
+| Mode | Env | Use |
+| :--- | :--- | :--- |
+| **corpus** | `ASSGN014_DATA=corpus` | Graded full / learning proof |
+| synthetic | `ASSGN014_DATA=synthetic` | Fast wiring only (CE stays near `ln(8192)≈9.011`) |
+
+**Full gates (non-smoke):** `final_dense_loss <= ln(V) - 0.5` and `final_moe_loss <= loss_at_convert - 0.05`, plus prior routing/PNG gates.
 
 ---
 
-## 3. Empirical evaluation (`v018`)
+## 3. Empirical evaluation
 
 A PASS lab writes CSV/JSON under a **versioned** `reports/vNNN_*` folder plus **three PRIMARY PNGs**. Every gate prints operands (never a naked `True`).
 
-### 3.1 Graded full (25M dense + 25M MoE)
-
-| Phase | tokens_seen | N | final / convert loss | notes |
-| :--- | ---: | ---: | ---: | :--- |
-| Dense | 25,001,984 | 20,856,576 | 9.011086 | convert marker |
-| MoE (`wu_phase`) | 25,001,984 | 79,869,696 total / 26,785,536 active | 9.011027 | MaxVio 0.65, dead=0 |
+### 3.1 Graded full — `v020_colab_t4_50m_full_wu_phase_corpus`
 
 ```text
+ASSGN014_DATA=corpus  version_tag=wu_phase_corpus
 host=colab  gpu=Tesla T4  batch=8  seq_len=512
 upcycle=partition_drop  n_experts=8  top_k=2
 use_ce_aux=False  router_dtype=float32  use_three_tier=True
-warmup_steps_floor=2000  warmup_steps_effective=6104  version_tag=wu_phase
-usd_per_hour=0.12  (ASSGN014_USD_PER_HOUR)
+warmup_steps_effective=6104
+tokens_dense≈25.0M  tokens_moe≈25.0M
+data_source=cache:data/tinystories/packed_ids.pt
+ce_floor_ln_v≈9.011
+final_dense_loss≈1.283   (learn_dense_ok)
+loss_at_convert≈1.283
+final_moe_loss≈0.691     (learn_moe_ok)
+dead_experts=0  max_vio≈0.858  all_ok=True
 ```
 
-| Recipe | Warm-up | Full outcome |
-| :--- | :--- | :--- |
-| `wu2k` (v015) | stop at 2000 of ~6104 | dead=6, FAIL |
-| `wu_phase` (v018) | covers full MoE phase | dead=0, PASS |
+| Recipe | Data | Dense/convert CE | Final MoE CE | dead | Notes |
+| :--- | :--- | ---: | ---: | ---: | :--- |
+| `wu2k` (v015) | synthetic | ≈9.01 | — | 6 | FAIL (warm-up) |
+| `wu_phase` (v018) | synthetic | ≈9.011 | ≈9.011 | 0 | routing OK; CE at `ln(V)` floor |
+| `wu_phase_corpus` (**v020**) | **corpus** | **≈1.28** | **≈0.69** | **0** | graded full PASS |
 
-### 3.2 PRIMARY PNGs
+### 3.2 PRIMARY PNGs (`v020`)
 
-![Loss trajectories](reports/v018_colab_t4_50m_full_wu_phase/assgn014_loss_trajectories.png)
+![Loss trajectories](reports/v020_colab_t4_50m_full_wu_phase_corpus/assgn014_loss_trajectories.png)
 
-![Expert load health](reports/v018_colab_t4_50m_full_wu_phase/assgn014_expert_load_health.png)
+![Expert load health](reports/v020_colab_t4_50m_full_wu_phase_corpus/assgn014_expert_load_health.png)
 
-![Memory and speed](reports/v018_colab_t4_50m_full_wu_phase/assgn014_memory_speed_dashboard.png)
+![Memory / speed dashboard](reports/v020_colab_t4_50m_full_wu_phase_corpus/assgn014_memory_speed_dashboard.png)
 
 | Artifact | Role |
 | :--- | :--- |
@@ -178,23 +187,26 @@ usd_per_hour=0.12  (ASSGN014_USD_PER_HOUR)
 | `assgn014_expert_load_health.png` | MaxVio / dead / load bars |
 | `assgn014_memory_speed_dashboard.png` | Peak MiB + tok/s |
 
-Graphics are the primary proof. 
-
 ---
 
-## 4. Verification gate (`v018`)
+## 4. Verification gate (`v020`)
 
 ```text
 n_ok=True  moe_bigger=True  token_ok=True  loss_ok=True
+learn_dense_ok=True  learn_moe_ok=True
 balance_ok=True  png_ok=True  opt_ok=True  aux_off=True  router_fp32=True
-n_dense=20856576  n_moe_total=79869696  dead_experts=0.0  max_vio=0.65234375
-loss_at_convert=9.011085510253906  final_moe_loss=9.011027336120605
+n_dense=20856576  n_moe_total=79869696  dead_experts=0.0  max_vio=0.8583984375
+loss_at_convert=1.2825130224227905  final_dense_loss=1.2825130224227905
+final_moe_loss=0.6914553642272949  ce_floor_ln_v=9.010913347279288
+data_mode=corpus  data_source=cache:data/tinystories/packed_ids.pt
 smoke=False  primary_pngs=3  usd_per_hour=0.12
 n_experts=8  top_k=2  use_ce_aux=False  router_dtype=float32
 all_ok=True  (PASS if True; FAIL if False)
 ```
 
-`all_ok` (full): dense N in range, MoE bigger, token budgets, loss not worse after convert, **dead_experts==0** and MaxVio≤2, 3 PRIMARY PNGs, AdamW, CE-aux OFF, router FP32.
+`all_ok` (full): dense N in range, MoE bigger, token budgets, learning gates (`learn_dense_ok`, `learn_moe_ok`), **dead_experts==0** and MaxVio≤2, 3 PRIMARY PNGs, AdamW, CE-aux OFF, router FP32.
+
+Earlier synthetic full: `reports/v018_colab_t4_50m_full_wu_phase/`.
 
 Smoke also requires **dead_experts==0** (soft MaxVio slack). Do not climb the ladder on `all_ok` alone if dead>0.
 
@@ -241,32 +253,27 @@ python tests/assgn014_moe_lab.py --full --batch 8
 
 ---
 
-## 8. Colab (ladder)
+## 8. Colab (ladder — corpus graded path)
 
-Same pattern as Assgn_013: unzip once, optional Drive, smoke → stepped budgets → zip-after-each → graded full.
+**Runbook:** [`tests/COLAB_CORPUS_RUNBOOK.md`](tests/COLAB_CORPUS_RUNBOOK.md).
 
-1. Take all src, tests, notebook and create zip file.
-2. Upload `Assign_0014_colab.zip` to **`/content/`**.
-3. Open **`notebooks/assgn014_moe_train_ladder.ipynb`**.
-4. Run Cell 0 (unzip to `/content/Assign_0014`) then Cell 1 (Drive or local `reports/`, **BATCH=8**).
-5. Re-run **Smoke** after pulling bias/warm-up fixes — check dead_experts trending down.
-6. Ladder (each step zips `/content/<version>.zip` — download before disconnect):
+**Phase A (local):** `python tests/_make_colab_zip.py` → upload `Assign_0014_colab.zip`.
+
+**Phase B–D (Colab T4):** ladder notebook; `.env` must have `ASSGN014_DATA=corpus` and `ASSGN014_VERSION_TAG=wu_phase_corpus` (Cell 1 sets these). Smoke CE must be **below ~9.01** before full.
 
 ```text
-Smoke   4k dense + 4k MoE     smoke=True
-2M      1M + 1M               smoke=True
-5M      2.5M + 2.5M           smoke=True
-10M     5M + 5M               smoke=True
-Full    25M + 25M             smoke=False  (RESUME after disconnect only)
+Smoke   4k dense + 4k MoE     smoke=True   (corpus — verify learning)
+2M–10M  optional ladder        smoke=True
+Full    25M + 25M             smoke=False  RESUME=None first start
 ```
 
-7. Run the Diagnostics cell.
+Graded folder: `v020_colab_t4_50m_full_wu_phase_corpus`.
 
-**Zip extract:** put files in `reports/<version>/` (manifest beside PNGs). Do not nest `v00N/v00N/`.
+**Phase E (local):** `python tests/self_evaluate.py --reports reports/v020_colab_t4_50m_full_wu_phase_corpus` — need `learn_dense_ok`, `learn_moe_ok`, `all_ok`.
 
-Do **not** RESUME across different budgets. Set `RESUME` only on the Full cell after a disconnect. Do not RESUME failed `v015_…_wu2k`.
+Do **not** RESUME a synthetic `v018_…` folder into a corpus run. Zip extract flat under `reports/<version>/` (or `python tests/extract_zip.py`). Diagnostics cell after full.
 
-(notebooks/assgn014_moe_train.ipynb) is optional one-shot smoke only.
+Optional short notebook: [`assgn014_moe_train.ipynb`](notebooks/assgn014_moe_train.ipynb).
 
 ---
 
@@ -275,9 +282,10 @@ Do **not** RESUME across different budgets. Set `RESUME` only on the Full cell a
 ```text
 Asgn_0014/
   src/  tests/  notebooks/  configs/
-  reports/v018_colab_t4_50m_full_wu_phase/   # CSV JSON PRIMARY PNGs
-  reports/v015_colab_t4_50m_full_wu2k/       # FAIL contrast (optional keep)
-  .env.example                               # real .env gitignored
+  reports/v020_colab_t4_50m_full_wu_phase_corpus/  # graded corpus PRIMARY
+  reports/v018_colab_t4_50m_full_wu_phase/         # synthetic full (optional)
+  reports/v015_colab_t4_50m_full_wu2k/             # warm-up FAIL contrast
+  .env.example                                     # real .env gitignored
 ```
 
 Checkpoints under `reports/**/checkpoints/` and `*.pt` / report zips are gitignored

@@ -17,6 +17,7 @@ from src.pipeline.moe_graphics import (
     generate_all_graphics,
 )
 from src.pipeline.train_moe import OPTIMIZER_NAME, convert_dense_model, dump_run_json, train_dense, train_moe
+from src.utils.corpus import CE_FLOOR_LN_V, VOCAB_SIZE, build_batch_source
 from src.utils.env_config import env_float, env_int, env_str, load_env_file
 from src.utils.metrics import (
     DENSE_TOKEN_BUDGET,
@@ -35,6 +36,10 @@ from src.utils.versioning import (
     update_index,
     write_latest,
 )
+
+# Full-run learning bars (coach: material drop below ln(V) + post-convert drop).
+LEARN_DENSE_MARGIN = 0.5
+LEARN_MOE_DROP = 0.05
 
 
 def _write_csv(path: Path, rows: List[Dict[str, Any]]) -> None:
@@ -63,6 +68,7 @@ def evaluate_gates(manifest: Dict[str, Any], smoke: bool) -> Dict[str, Any]:
         token_ok = t_dense >= DENSE_TOKEN_BUDGET * 0.99 and t_moe >= MOE_TOKEN_BUDGET * 0.99
     loss_convert = float(manifest.get("loss_at_convert") or float("nan"))
     loss_moe = float(manifest.get("final_moe_loss") or float("nan"))
+    loss_dense = float(manifest.get("final_dense_loss") or loss_convert)
     loss_ok = (loss_moe == loss_moe) and (loss_convert == loss_convert) and (loss_moe < loss_convert)
     # allow tiny float noise: also OK if relative drop
     if not loss_ok and loss_moe == loss_moe and loss_convert == loss_convert:
@@ -71,6 +77,18 @@ def evaluate_gates(manifest: Dict[str, Any], smoke: bool) -> Dict[str, Any]:
         slope = float(manifest.get("moe_loss_slope") or 0.0)
         if smoke and slope < 0:
             loss_ok = True
+    ce_floor = float(manifest.get("ce_floor_ln_v") or CE_FLOOR_LN_V)
+    # Learning gates: full runs must leave the random-token floor (coach COMMENT).
+    learn_dense_ok = True
+    learn_moe_ok = True
+    if not smoke:
+        learn_dense_ok = loss_dense == loss_dense and loss_dense <= (ce_floor - LEARN_DENSE_MARGIN)
+        learn_moe_ok = (
+            loss_moe == loss_moe
+            and loss_convert == loss_convert
+            and loss_moe <= (loss_convert - LEARN_MOE_DROP)
+        )
+        loss_ok = loss_ok and learn_dense_ok and learn_moe_ok
     dead = float(manifest.get("dead_experts") or 0)
     max_vio = float(manifest.get("max_vio") or 0)
     # Require dead==0 always (4k smoke already clears this when routing works).
@@ -86,13 +104,27 @@ def evaluate_gates(manifest: Dict[str, Any], smoke: bool) -> Dict[str, Any]:
     aux_off = not bool(manifest.get("use_ce_aux", False))
     router_fp32 = str(manifest.get("router_dtype", "")).lower() in ("float32", "torch.float32", "fp32")
     all_ok = all(
-        [n_ok, moe_bigger, token_ok, loss_ok, balance_ok, png_ok, opt_ok, aux_off, router_fp32]
+        [
+            n_ok,
+            moe_bigger,
+            token_ok,
+            loss_ok,
+            balance_ok,
+            png_ok,
+            opt_ok,
+            aux_off,
+            router_fp32,
+            learn_dense_ok,
+            learn_moe_ok,
+        ]
     )
     return {
         "n_ok": n_ok,
         "moe_bigger": moe_bigger,
         "token_ok": token_ok,
         "loss_ok": loss_ok,
+        "learn_dense_ok": learn_dense_ok,
+        "learn_moe_ok": learn_moe_ok,
         "balance_ok": balance_ok,
         "png_ok": png_ok,
         "opt_ok": opt_ok,
@@ -105,6 +137,8 @@ def evaluate_gates(manifest: Dict[str, Any], smoke: bool) -> Dict[str, Any]:
         "max_vio": max_vio,
         "loss_at_convert": loss_convert,
         "final_moe_loss": loss_moe,
+        "final_dense_loss": loss_dense,
+        "ce_floor_ln_v": ce_floor,
     }
 
 
@@ -115,6 +149,8 @@ def format_gate_print(results: Dict[str, Any]) -> List[str]:
         f"n_moe_total={results.get('n_moe_total')}  n_moe_active={results.get('n_moe_active')}  moe_bigger={g.get('moe_bigger')}",
         f"tokens_dense={results.get('tokens_dense')}  tokens_moe={results.get('tokens_moe')}  token_ok={g.get('token_ok')}",
         f"loss_at_convert={results.get('loss_at_convert')}  final_moe_loss={results.get('final_moe_loss')}  loss_ok={g.get('loss_ok')}",
+        f"learn_dense_ok={g.get('learn_dense_ok')}  learn_moe_ok={g.get('learn_moe_ok')}  "
+        f"ce_floor_ln_v={g.get('ce_floor_ln_v')}  data_source={results.get('data_source')}",
         f"max_vio={results.get('max_vio')}  dead_experts={results.get('dead_experts')}  balance_ok={g.get('balance_ok')}",
         f"optimizer={OPTIMIZER_NAME}  use_ce_aux={results.get('use_ce_aux')}  router_dtype={results.get('router_dtype')}",
         f"aux_off={g.get('aux_off')}  router_fp32={g.get('router_fp32')}  png_ok={g.get('png_ok')}",
@@ -184,7 +220,7 @@ def run_all(
         tm = int(tokens_moe if tokens_moe is not None else env_int(env, "ASSGN014_TOKENS_MOE", MOE_TOKEN_BUDGET))
 
     override = version or env_str(env, "ASSGN014_RUN_VERSION", "") or None
-    version_tag = env_str(env, "ASSGN014_VERSION_TAG", "wu_phase") or "wu_phase"
+    version_tag = env_str(env, "ASSGN014_VERSION_TAG", "wu_phase_corpus") or "wu_phase_corpus"
     budget = budget_slug_from_tokens(td, tm)
     # Resolve reports root: explicit version dir, caller path, or ASSGN014_REPORTS_ROOT (Drive).
     if reports.name != "reports" and (reports / "assgn014_manifest.json").exists():
@@ -226,6 +262,8 @@ def run_all(
     runs_dir = vdir / "runs"
     runs_dir.mkdir(parents=True, exist_ok=True)
 
+    batch_source, data_meta = build_batch_source(root, env=env, seed=13)
+
     dense_model, dense_m, dense_hist = train_dense(
         batch=batch,
         seq_len=seq_len,
@@ -240,6 +278,8 @@ def run_all(
         rate_source=rate.rate_source,
         shadow_usd_per_hour=rate.shadow_usd_per_hour,
         version=vid,
+        batch_source=batch_source,
+        data_meta=data_meta,
     )
     dump_run_json(runs_dir / "dense.json", dense_m, dense_hist)
     loss_at_convert = dense_m.final_loss
@@ -271,6 +311,8 @@ def run_all(
         rate_source=rate.rate_source,
         shadow_usd_per_hour=rate.shadow_usd_per_hour,
         version=vid,
+        batch_source=batch_source,
+        data_meta=data_meta,
     )
     dump_run_json(runs_dir / "moe.json", moe_m, moe_hist)
 
@@ -338,6 +380,11 @@ def run_all(
         "rate_source": rate.rate_source,
         "convert_tokens": convert_tokens,
         "upcycle": "partition_drop",
+        "data_mode": data_meta.get("data_mode"),
+        "data_source": data_meta.get("data_source"),
+        "tokenizer": data_meta.get("tokenizer"),
+        "vocab_size": int(data_meta.get("vocab_size") or VOCAB_SIZE),
+        "ce_floor_ln_v": float(data_meta.get("ce_floor_ln_v") or CE_FLOOR_LN_V),
     }
     gates = evaluate_gates(manifest, smoke=smoke)
     manifest["gates"] = gates
@@ -372,7 +419,10 @@ def run_all(
         f"- Recipe tag `{version_tag}`: probabilistic warm-up auto-extends to cover the MoE phase "
         f"(floor={warmup_steps}, effective={wu_eff} steps), then hard top-k only if phase ends first; "
         "three-tier loss-free bias (gamma1=0.0005, gamma2=0.002, gamma3=0.01) with bias clamp +/-5.",
-        "- CE floor: vocab=8192 -> random-token floor ln(8192)~=9.011. Tiny late loss drops on synthetic data are expected.",
+        f"- Data: mode={data_meta.get('data_mode')} source={data_meta.get('data_source')} "
+        f"tokenizer={data_meta.get('tokenizer')}. Graded full uses structured corpus (not randint).",
+        f"- CE floor ln(V)={CE_FLOOR_LN_V:.4f} (V={VOCAB_SIZE}). Full gates require "
+        f"final_dense_loss <= floor-{LEARN_DENSE_MARGIN} and final_moe_loss <= convert-{LEARN_MOE_DROP}.",
         f"- balance_ok needs dead_experts==0. Smoke no longer forgives dead experts (MaxVio slack up to {MAX_VIO_BOUND * 1.5}). "
         f"Full also needs MaxVio<={MAX_VIO_BOUND}.",
         "- PRIMARY PNGs (graded proof): assgn014_loss_trajectories.png, assgn014_expert_load_health.png, "
@@ -380,7 +430,7 @@ def run_all(
         "- Next: if all_ok and dead==0, continue ladder. If dead>0, stop before graded full. "
         "Failed full -> new version folder; do not RESUME across different budgets.",
         f"- Folder naming: vNNN_host_gpu_budget_kind_tag (this run budget={budget}, tag={version_tag}). "
-        "Older folders without _wu_phase are pre-phase-warmup history (wu2k ladder OK but full collapsed after step 2000).",
+        "Synthetic-floor history (v018) is instrumentation-only; corpus runs prove learning.",
         "",
     ]
     (vdir / "Assgn014_Summary.md").write_text("\n".join(summary_lines), encoding="utf-8")

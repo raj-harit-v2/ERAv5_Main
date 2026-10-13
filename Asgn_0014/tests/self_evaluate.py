@@ -42,6 +42,10 @@ def evaluate(smoke_ok: bool = True, reports: Path | None = None) -> dict:
             "top_k": manifest.get("top_k"),
             "use_ce_aux": manifest.get("use_ce_aux"),
             "router_dtype": manifest.get("router_dtype"),
+            "data_source": manifest.get("data_source"),
+            "data_mode": manifest.get("data_mode"),
+            "final_dense_loss": manifest.get("final_dense_loss"),
+            "ce_floor_ln_v": manifest.get("ce_floor_ln_v"),
         }
     )
     return gates

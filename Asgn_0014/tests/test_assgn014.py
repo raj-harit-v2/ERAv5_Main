@@ -33,7 +33,9 @@ def test_upcycle_grows_total() -> None:
     assert dtype == torch.float32
 
 
-def test_smoke_lab(tmp_path: Path) -> None:
+def test_smoke_lab(tmp_path: Path, monkeypatch) -> None:
+    # Unit smoke stays on synthetic for speed; graded path uses ASSGN014_DATA=corpus.
+    monkeypatch.setenv("ASSGN014_DATA", "synthetic")
     reports = tmp_path / "reports"
     reports.mkdir()
     results = run_all(

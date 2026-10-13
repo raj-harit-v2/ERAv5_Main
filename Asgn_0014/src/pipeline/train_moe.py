@@ -13,6 +13,7 @@ import torch.nn as nn
 
 from src.llm.moe import TinyMoELM, upcycle_dense_to_moe
 from src.llm.tiny_lm import LMConfig, TinyDenseLM
+from src.utils.corpus import build_batch_source
 from src.utils.metrics import (
     RunMetrics,
     gpu_name,
@@ -58,6 +59,8 @@ def train_dense(
     shadow_usd_per_hour: float = 0.12,
     version: str = "",
     cfg: Optional[LMConfig] = None,
+    batch_source: Optional[Any] = None,
+    data_meta: Optional[Dict[str, Any]] = None,
 ) -> Tuple[TinyDenseLM, RunMetrics, List[Dict[str, float]]]:
     device = device or pick_device()
     torch.manual_seed(seed)
@@ -68,6 +71,10 @@ def train_dense(
     n_params = model.count_parameters()
     opt = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=weight_decay)
     tps = tokens_per_step(batch, seq_len)
+    if batch_source is None:
+        root = Path(__file__).resolve().parents[2]
+        batch_source, data_meta = build_batch_source(root, seed=seed)
+    data_meta = data_meta or {}
 
     reset_peak_memory(device)
     history: List[Dict[str, float]] = []
@@ -78,7 +85,7 @@ def train_dense(
     model.train()
 
     while tokens_seen < token_budget:
-        tok = torch.randint(0, model.cfg.vocab_size, (batch, seq_len + 1), device=device)
+        tok = batch_source.next_batch(batch, seq_len, device)
         x = tok[:, :-1]
         y = tok[:, 1:]
         opt.zero_grad(set_to_none=True)
@@ -147,6 +154,7 @@ def train_dense(
         use_ce_aux=False,
         router_dtype="n/a",
     )
+    _ = data_meta  # stamped by moe_lab from shared build_batch_source
     return model, metrics, history
 
 
@@ -171,6 +179,8 @@ def train_moe(
     rate_source: str = "",
     shadow_usd_per_hour: float = 0.12,
     version: str = "",
+    batch_source: Optional[Any] = None,
+    data_meta: Optional[Dict[str, Any]] = None,
 ) -> Tuple[TinyMoELM, RunMetrics, List[Dict[str, float]]]:
     device = device or pick_device()
     torch.manual_seed(seed)
@@ -186,6 +196,10 @@ def train_moe(
     n_active = model.count_active_parameters()
     opt = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=weight_decay)
     tps = tokens_per_step(batch, seq_len)
+    if batch_source is None:
+        root = Path(__file__).resolve().parents[2]
+        batch_source, data_meta = build_batch_source(root, seed=seed)
+    data_meta = data_meta or {}
 
     reset_peak_memory(device)
     history: List[Dict[str, float]] = []
@@ -204,9 +218,7 @@ def train_moe(
     while tokens_phase < token_budget:
         # Probabilistic selection for the MoE phase (covers full budget after auto-scale)
         model.set_probabilistic(step < warmup_steps)
-        tok = torch.randint(
-            0, model.dense_cfg.vocab_size, (batch, seq_len + 1), device=device
-        )
+        tok = batch_source.next_batch(batch, seq_len, device)
         x = tok[:, :-1]
         y = tok[:, 1:]
         opt.zero_grad(set_to_none=True)
