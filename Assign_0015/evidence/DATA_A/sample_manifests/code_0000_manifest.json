@@ -1,0 +1,40 @@
+{
+  "manifest_version": "1.0.0",
+  "shard_metadata": {
+    "shard_id": "code_0000",
+    "filename": "code_0000.npy",
+    "storage_format": "npy",
+    "data_type": "uint32",
+    "file_size_bytes": 256,
+    "created_at_utc": "2026-10-17T04:28:45.451217+00:00"
+  },
+  "provenance": {
+    "source_url": "file://data/data_a/raw/code",
+    "license": "Apache-2.0"
+  },
+  "reproducibility_and_hashes": {
+    "cleaning_script_git_hash": "599b01380c43a2c2464be89e0d250aebd03479a9bc6b9098d5d497a6529d9632",
+    "content_sha256": "870440ca67d670f016cc4c1cacecb398f6869feb1a23ce2f866f66f29ae4f78c"
+  },
+  "token_statistics": {
+    "token_count": 32,
+    "sequence_length": 512,
+    "full_sequences": 0,
+    "remainder_tokens": 32,
+    "vocab_size": 8192
+  },
+  "language_and_domain_distribution": {
+    "languages": {
+      "en": 1.0
+    },
+    "domains": {
+      "code": 1.0
+    }
+  },
+  "verification_and_auditing": {
+    "submitted_by_student_github": "assgn015_student",
+    "audited_by_team": "Team 1 (Data A)",
+    "audit_status": "SUBMITTED"
+  },
+  "track_a_train_tokens": 0
+}

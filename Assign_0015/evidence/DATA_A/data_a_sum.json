@@ -1,0 +1,52 @@
+{
+  "shard_dir": "D:\\A1_School_ai_25\\ERA_V5\\Assign_0015\\data\\data_a\\shards",
+  "manifest_count": 9143,
+  "token_total": 1058788805,
+  "progress": {
+    "token_total": 1058788805,
+    "capstone_min": 1000000000,
+    "fraction": 1.058788805,
+    "meets_capstone": true,
+    "note": "Synthetic smoke != Capstone 1B acceptance"
+  },
+  "hash_verify": {
+    "checked": 9143,
+    "ok": 9143,
+    "bad": [],
+    "all_ok": true
+  },
+  "mix": {
+    "token_total": 1058788805,
+    "by_domain": {
+      "code": 250000000,
+      "english": 250000000,
+      "math": 250000000,
+      "science": 308788805
+    },
+    "fractions": {
+      "code": 0.2361188546945394,
+      "english": 0.2361188546945394,
+      "math": 0.2361188546945394,
+      "science": 0.2916434359163818
+    },
+    "target_fractions": {
+      "english": 0.25,
+      "code": 0.25,
+      "math": 0.25,
+      "science": 0.25
+    },
+    "within_tolerance": {
+      "english": true,
+      "code": true,
+      "math": true,
+      "science": true
+    },
+    "mix_ok": true,
+    "tolerance_pp": 0.05,
+    "target_total": null,
+    "rung_hit": null,
+    "note": "Provisional mix until Capstone locks ratios; 50M != Capstone 1B"
+  },
+  "ta_full_eligible": true,
+  "note": "TA-FULL-01 un-SKIP only when Capstone registry is locked and shards are real volume"
+}

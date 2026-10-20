@@ -1,0 +1,5 @@
+﻿Assign_0015 coach evidence pack (no raw/shards binaries).
+Data A: token_total from data_a_sum.json; ASSGN015_CAPSTONE_READY=1 in lab .env.
+Data B: token_total=1e9; mix_ok; SHA all_ok; Check 094; audit pack_ready; ASSGN015_DATA_B_READY=1.
+Commands used (lab tree): data-a/b-sum, data-a/b-mix, data-a/b-audit-pack.
+Generated: 2026-10-19T23:03:45.0948247-04:00

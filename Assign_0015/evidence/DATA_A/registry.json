@@ -1,0 +1,70 @@
+{
+  "datasets": [
+    {
+      "id": "wikitext-english",
+      "domain": "english",
+      "source_url": "https://huggingface.co/datasets/Salesforce/wikitext",
+      "license": "CC-BY-SA-3.0",
+      "languages": [
+        "en"
+      ],
+      "status": "available",
+      "notes": "Locked Capstone released set"
+    },
+    {
+      "id": "codeparrot-clean-code",
+      "domain": "code",
+      "source_url": "https://huggingface.co/datasets/codeparrot/codeparrot-clean",
+      "license": "Apache-2.0",
+      "languages": [
+        "en"
+      ],
+      "status": "available",
+      "notes": "Locked Capstone released set"
+    },
+    {
+      "id": "openwebmath",
+      "domain": "math",
+      "source_url": "https://huggingface.co/datasets/open-web-math/open-web-math",
+      "license": "ODC-BY-1.0",
+      "languages": [
+        "en"
+      ],
+      "status": "available",
+      "notes": "Locked Capstone released set"
+    },
+    {
+      "id": "pes2o-science",
+      "domain": "science",
+      "source_url": "https://huggingface.co/datasets/ccdv/pubmed-summarization",
+      "license": "Apache-2.0",
+      "languages": [
+        "en"
+      ],
+      "status": "available",
+      "notes": "Matches science_alt.txt"
+    },
+    {
+      "id": "lab-fixture-docs",
+      "domain": "english",
+      "source_url": "file://data/fixtures/sample_docs.txt",
+      "license": "Apache-2.0",
+      "languages": [
+        "en"
+      ],
+      "status": "available",
+      "notes": "Local fixture for Track A wiring / Data A prep smoke only."
+    },
+    {
+      "id": "pubmed-summarization-science",
+      "domain": "science",
+      "source_url": "https://huggingface.co/datasets/ccdv/pubmed-summarization",
+      "license": "Apache-2.0",
+      "languages": [
+        "en"
+      ],
+      "status": "available",
+      "notes": "Replaces peS2o; matches raw/science/science_alt.txt"
+    }
+  ]
+}

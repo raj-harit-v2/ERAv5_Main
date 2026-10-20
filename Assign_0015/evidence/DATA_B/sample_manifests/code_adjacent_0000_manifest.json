@@ -1,0 +1,40 @@
+{
+  "manifest_version": "1.0.0",
+  "shard_metadata": {
+    "shard_id": "code_adjacent_0000",
+    "filename": "code_adjacent_0000.npy",
+    "storage_format": "npy",
+    "data_type": "uint32",
+    "file_size_bytes": 240,
+    "created_at_utc": "2026-10-17T05:01:49.882185+00:00"
+  },
+  "provenance": {
+    "source_url": "file://data/data_b/raw/code_adjacent",
+    "license": "Apache-2.0"
+  },
+  "reproducibility_and_hashes": {
+    "cleaning_script_git_hash": "2aa605027df49b48134b8b20ff579d26799e6e0e3542cc78f0d61763f98a20d6",
+    "content_sha256": "8c9d6d337cfebfc74119af0915ee0f1feff969ba784b96b2821e13fbe9ae2bd3"
+  },
+  "token_statistics": {
+    "token_count": 28,
+    "sequence_length": 512,
+    "full_sequences": 0,
+    "remainder_tokens": 28,
+    "vocab_size": 8192
+  },
+  "language_and_domain_distribution": {
+    "languages": {
+      "en": 1.0
+    },
+    "domains": {
+      "code_adjacent": 1.0
+    }
+  },
+  "verification_and_auditing": {
+    "submitted_by_student_github": "assgn015_student",
+    "audited_by_team": "Team 1 (Data A)",
+    "audit_status": "SUBMITTED"
+  },
+  "track_a_train_tokens": 0
+}

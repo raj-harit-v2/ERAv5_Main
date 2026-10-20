@@ -1,0 +1,44 @@
+{
+  "token_total": 1000000000,
+  "by_domain": {
+    "bn": 133333335,
+    "code_adjacent": 200000000,
+    "gu": 133333333,
+    "hi": 133333333,
+    "mr": 133333333,
+    "ta": 133333333,
+    "te": 133333333
+  },
+  "fractions": {
+    "bn": 0.133333335,
+    "code_adjacent": 0.2,
+    "gu": 0.133333333,
+    "hi": 0.133333333,
+    "mr": 0.133333333,
+    "ta": 0.133333333,
+    "te": 0.133333333
+  },
+  "target_fractions": {
+    "bn": 0.13333333333333333,
+    "gu": 0.13333333333333333,
+    "hi": 0.13333333333333333,
+    "mr": 0.13333333333333333,
+    "ta": 0.13333333333333333,
+    "te": 0.13333333333333333,
+    "code_adjacent": 0.2
+  },
+  "within_tolerance": {
+    "bn": true,
+    "gu": true,
+    "hi": true,
+    "mr": true,
+    "ta": true,
+    "te": true,
+    "code_adjacent": true
+  },
+  "mix_ok": true,
+  "tolerance_pp": 0.05,
+  "target_total": 1000000000,
+  "rung_hit": 1000000000,
+  "note": "Provisional mix until Capstone locks ratios; 50M != Capstone 1B"
+}

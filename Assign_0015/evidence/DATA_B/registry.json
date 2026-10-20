@@ -1,0 +1,256 @@
+{
+  "datasets": [
+    {
+      "id": "indiccorp-hi-planned",
+      "domain": "hi",
+      "source_url": "https://huggingface.co/datasets/ai4bharat/IndicCorp",
+      "license": "CC-BY-4.0",
+      "languages": [
+        "hi"
+      ],
+      "status": "planned",
+      "native_audit": "pending",
+      "notes": "Placeholder Indic Hindi candidate; Capstone URL/license must be re-confirmed."
+    },
+    {
+      "id": "indiccorp-bn-planned",
+      "domain": "bn",
+      "source_url": "https://huggingface.co/datasets/ai4bharat/IndicCorp",
+      "license": "CC-BY-4.0",
+      "languages": [
+        "bn"
+      ],
+      "status": "planned",
+      "native_audit": "pending",
+      "notes": "Placeholder Bengali candidate."
+    },
+    {
+      "id": "indiccorp-ta-planned",
+      "domain": "ta",
+      "source_url": "https://huggingface.co/datasets/ai4bharat/IndicCorp",
+      "license": "CC-BY-4.0",
+      "languages": [
+        "ta"
+      ],
+      "status": "planned",
+      "native_audit": "pending",
+      "notes": "Placeholder Tamil candidate."
+    },
+    {
+      "id": "indiccorp-te-planned",
+      "domain": "te",
+      "source_url": "https://huggingface.co/datasets/ai4bharat/IndicCorp",
+      "license": "CC-BY-4.0",
+      "languages": [
+        "te"
+      ],
+      "status": "planned",
+      "native_audit": "pending",
+      "notes": "Placeholder Telugu candidate."
+    },
+    {
+      "id": "indiccorp-mr-planned",
+      "domain": "mr",
+      "source_url": "https://huggingface.co/datasets/ai4bharat/IndicCorp",
+      "license": "CC-BY-4.0",
+      "languages": [
+        "mr"
+      ],
+      "status": "planned",
+      "native_audit": "pending",
+      "notes": "Placeholder Marathi candidate."
+    },
+    {
+      "id": "indiccorp-gu-planned",
+      "domain": "gu",
+      "source_url": "https://huggingface.co/datasets/ai4bharat/IndicCorp",
+      "license": "CC-BY-4.0",
+      "languages": [
+        "gu"
+      ],
+      "status": "planned",
+      "native_audit": "pending",
+      "notes": "Placeholder Gujarati candidate."
+    },
+    {
+      "id": "stack-issues-code-adjacent",
+      "domain": "code_adjacent",
+      "source_url": "https://huggingface.co/datasets/bigcode/the-stack",
+      "license": "Apache-2.0",
+      "languages": [
+        "en"
+      ],
+      "status": "available",
+      "native_audit": "n_a",
+      "notes": "license-filtered issues/PRs/commits/notebooks only"
+    },
+    {
+      "id": "lab-fixture-code-adjacent",
+      "domain": "code_adjacent",
+      "source_url": "file://data/fixtures/sample_docs.txt",
+      "license": "Apache-2.0",
+      "languages": [
+        "en"
+      ],
+      "status": "available",
+      "native_audit": "n_a",
+      "notes": "Local fixture wiring only; not Capstone Indic acceptance."
+    },
+    {
+      "id": "indiccorp-hi-capstone",
+      "domain": "hi",
+      "source_url": "https://huggingface.co/datasets/ai4bharat/IndicCorp",
+      "license": "CC-BY-4.0",
+      "languages": [
+        "hi"
+      ],
+      "status": "planned",
+      "native_audit": "pending",
+      "notes": "IndicCorp hi; re-confirm card SPDX | demoted: Capstone volume is IndicCorpV2"
+    },
+    {
+      "id": "indiccorp-bn-capstone",
+      "domain": "bn",
+      "source_url": "https://huggingface.co/datasets/ai4bharat/IndicCorp",
+      "license": "CC-BY-4.0",
+      "languages": [
+        "bn"
+      ],
+      "status": "planned",
+      "native_audit": "pending",
+      "notes": "IndicCorp bn; re-confirm card SPDX | demoted: Capstone volume is IndicCorpV2"
+    },
+    {
+      "id": "indiccorp-ta-capstone",
+      "domain": "ta",
+      "source_url": "https://huggingface.co/datasets/ai4bharat/IndicCorp",
+      "license": "CC-BY-4.0",
+      "languages": [
+        "ta"
+      ],
+      "status": "planned",
+      "native_audit": "pending",
+      "notes": "IndicCorp ta; re-confirm card SPDX | demoted: Capstone volume is IndicCorpV2"
+    },
+    {
+      "id": "indiccorp-te-capstone",
+      "domain": "te",
+      "source_url": "https://huggingface.co/datasets/ai4bharat/IndicCorp",
+      "license": "CC-BY-4.0",
+      "languages": [
+        "te"
+      ],
+      "status": "planned",
+      "native_audit": "pending",
+      "notes": "IndicCorp te; re-confirm card SPDX | demoted: Capstone volume is IndicCorpV2"
+    },
+    {
+      "id": "indiccorp-mr-capstone",
+      "domain": "mr",
+      "source_url": "https://huggingface.co/datasets/ai4bharat/IndicCorp",
+      "license": "CC-BY-4.0",
+      "languages": [
+        "mr"
+      ],
+      "status": "planned",
+      "native_audit": "pending",
+      "notes": "IndicCorp mr; re-confirm card SPDX | demoted: Capstone volume is IndicCorpV2"
+    },
+    {
+      "id": "indiccorp-gu-capstone",
+      "domain": "gu",
+      "source_url": "https://huggingface.co/datasets/ai4bharat/IndicCorp",
+      "license": "CC-BY-4.0",
+      "languages": [
+        "gu"
+      ],
+      "status": "planned",
+      "native_audit": "pending",
+      "notes": "IndicCorp gu; re-confirm card SPDX | demoted: Capstone volume is IndicCorpV2"
+    },
+    {
+      "id": "indiccorpv2-hi-capstone",
+      "domain": "hi",
+      "source_url": "https://huggingface.co/datasets/ai4bharat/IndicCorpV2",
+      "license": "CC-BY-4.0",
+      "languages": [
+        "hi"
+      ],
+      "status": "available",
+      "native_audit": "passed",
+      "notes": "Check 094: reviewer=Rajh26; samples spot-checked"
+    },
+    {
+      "id": "indiccorpv2-bn-capstone",
+      "domain": "bn",
+      "source_url": "https://huggingface.co/datasets/ai4bharat/IndicCorpV2",
+      "license": "CC-BY-4.0",
+      "languages": [
+        "bn"
+      ],
+      "status": "available",
+      "native_audit": "passed",
+      "notes": "Check 094: reviewer=Rajh26; samples spot-checked"
+    },
+    {
+      "id": "indiccorpv2-ta-capstone",
+      "domain": "ta",
+      "source_url": "https://huggingface.co/datasets/ai4bharat/IndicCorpV2",
+      "license": "CC-BY-4.0",
+      "languages": [
+        "ta"
+      ],
+      "status": "available",
+      "native_audit": "passed",
+      "notes": "Check 094: reviewer=Rajh26; samples spot-checked"
+    },
+    {
+      "id": "indiccorpv2-te-capstone",
+      "domain": "te",
+      "source_url": "https://huggingface.co/datasets/ai4bharat/IndicCorpV2",
+      "license": "CC-BY-4.0",
+      "languages": [
+        "te"
+      ],
+      "status": "available",
+      "native_audit": "passed",
+      "notes": "Check 094: reviewer=Rajh26; samples spot-checked"
+    },
+    {
+      "id": "indiccorpv2-mr-capstone",
+      "domain": "mr",
+      "source_url": "https://huggingface.co/datasets/ai4bharat/IndicCorpV2",
+      "license": "CC-BY-4.0",
+      "languages": [
+        "mr"
+      ],
+      "status": "available",
+      "native_audit": "passed",
+      "notes": "Check 094: reviewer=Rajh26; samples spot-checked"
+    },
+    {
+      "id": "indiccorpv2-gu-capstone",
+      "domain": "gu",
+      "source_url": "https://huggingface.co/datasets/ai4bharat/IndicCorpV2",
+      "license": "CC-BY-4.0",
+      "languages": [
+        "gu"
+      ],
+      "status": "available",
+      "native_audit": "passed",
+      "notes": "Check 094: reviewer=Rajh26; samples spot-checked"
+    },
+    {
+      "id": "stack-code-adjacent-capstone",
+      "domain": "code_adjacent",
+      "source_url": "https://huggingface.co/datasets/bigcode/the-stack",
+      "license": "Apache-2.0",
+      "languages": [
+        "en"
+      ],
+      "status": "available",
+      "native_audit": "n_a",
+      "notes": "license-filtered code-adjacent; not lab-fixture"
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "due": "2025-10-23",
+  "role": "Team 1 Data A",
+  "registry_path": "D:\\A1_School_ai_25\\ERA_V5\\Assign_0015\\data\\data_a\\registry.json",
+  "capstone_ready_ids": [
+    "wikitext-english",
+    "codeparrot-clean-code",
+    "openwebmath",
+    "pes2o-science",
+    "pubmed-summarization-science"
+  ],
+  "shard_summary": {
+    "shard_dir": "D:\\A1_School_ai_25\\ERA_V5\\Assign_0015\\data\\data_a\\shards",
+    "manifest_count": 9143,
+    "token_total": 1058788805,
+    "progress": {
+      "token_total": 1058788805,
+      "capstone_min": 1000000000,
+      "fraction": 1.058788805,
+      "meets_capstone": true,
+      "note": "Synthetic smoke != Capstone 1B acceptance"
+    },
+    "hash_verify": {
+      "checked": 9143,
+      "ok": 9143,
+      "bad": [],
+      "all_ok": true
+    },
+    "mix": {
+      "token_total": 1058788805,
+      "by_domain": {
+        "code": 250000000,
+        "english": 250000000,
+        "math": 250000000,
+        "science": 308788805
+      },
+      "fractions": {
+        "code": 0.2361188546945394,
+        "english": 0.2361188546945394,
+        "math": 0.2361188546945394,
+        "science": 0.2916434359163818
+      },
+      "target_fractions": {
+        "english": 0.25,
+        "code": 0.25,
+        "math": 0.25,
+        "science": 0.25
+      },
+      "within_tolerance": {
+        "english": true,
+        "code": true,
+        "math": true,
+        "science": true
+      },
+      "mix_ok": true,
+      "tolerance_pp": 0.05,
+      "target_total": null,
+      "rung_hit": null,
+      "note": "Provisional mix until Capstone locks ratios; 50M != Capstone 1B"
+    },
+    "ta_full_eligible": true,
+    "note": "TA-FULL-01 un-SKIP only when Capstone registry is locked and shards are real volume"
+  },
+  "items": [
+    {
+      "id": "registry_locked",
+      "ok": true,
+      "detail": "available non-fixture Capstone URL"
+    },
+    {
+      "id": "sha256_ok",
+      "ok": true,
+      "detail": {
+        "checked": 9143,
+        "ok": 9143,
+        "bad": [],
+        "all_ok": true
+      }
+    },
+    {
+      "id": "sum_ge_1e9",
+      "ok": true,
+      "detail": {
+        "token_total": 1058788805,
+        "capstone_min": 1000000000,
+        "fraction": 1.058788805,
+        "meets_capstone": true,
+        "note": "Synthetic smoke != Capstone 1B acceptance"
+      }
+    },
+    {
+      "id": "domain_mix_ok",
+      "ok": true,
+      "detail": {
+        "token_total": 1058788805,
+        "by_domain": {
+          "code": 250000000,
+          "english": 250000000,
+          "math": 250000000,
+          "science": 308788805
+        },
+        "fractions": {
+          "code": 0.2361188546945394,
+          "english": 0.2361188546945394,
+          "math": 0.2361188546945394,
+          "science": 0.2916434359163818
+        },
+        "target_fractions": {
+          "english": 0.25,
+          "code": 0.25,
+          "math": 0.25,
+          "science": 0.25
+        },
+        "within_tolerance": {
+          "english": true,
+          "code": true,
+          "math": true,
+          "science": true
+        },
+        "mix_ok": true,
+        "tolerance_pp": 0.05,
+        "target_total": null,
+        "rung_hit": null,
+        "note": "Provisional mix until Capstone locks ratios; 50M != Capstone 1B"
+      }
+    },
+    {
+      "id": "no_gpu_train_substitute",
+      "ok": true,
+      "detail": "Track A is ETL; Track B train is separate"
+    }
+  ],
+  "submit_when": "all items ok=True with real Capstone shards (not synthetic smoke / not 50M alone)",
+  "generated_at_utc": "2026-10-19T02:52:15.704867+00:00",
+  "pack_ready": true
+}
