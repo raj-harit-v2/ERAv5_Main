@@ -1,9 +1,9 @@
 # Assign_0015 — Coach status
 
-Session 15 lab: Track B stability (QK-norm/MoE-5/detectors) + Capstone Data A/B ETL (shared clean→shard→manifest; 50M ≠ Capstone).
+Session 15: Track B stability lab + Capstone Data A/B ETL (50M ladder ≠ Capstone).
 
-**Data A:** shards ≈1.06e9 tokens (volume gate met); `ASSGN015_CAPSTONE_READY=0` (audit/READY not closed).
+**Data A:** tokens=1,058,788,805 (≥1e9); SHA all_ok; mix_ok; mix en/code/math≈23.6% each, science≈29.2% (target 25%±5pp); `ASSGN015_CAPSTONE_READY=0` (audit/READY open).
 
-**Data B:** shards ≈0.30e9 tokens (ladder/mix OK at mid rungs); Capstone 1e9 + Check 094 incomplete; `ASSGN015_DATA_B_READY=0`.
+**Data B:** tokens=1,000,000,000; SHA all_ok; mix_ok; mix code_adjacent=20%, Indic hi/bn/ta/te/mr/gu≈13.3% each; Check 094 + audit pack_ready; `ASSGN015_DATA_B_READY=1`.
 
-Hard date context: student data task due **23 Oct**; neither READY flag set until full Capstone checklist.
+Due **23 Oct** data task; Data A READY still open.
